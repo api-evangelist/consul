@@ -30,7 +30,8 @@ apis:
   - type: Documentation
     url: https://www.consul.io/api-docs
   - type: OpenAPI
-    url: https://www.consul.io/api-docs/openapi.json
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/consul/refs/heads/main/openapi/consul-http-api.yml
   - type: Authentication
     url: https://www.consul.io/api-docs#authentication
   contact:
