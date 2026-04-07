@@ -3,15 +3,14 @@ name: HashiCorp Consul
 description: >-
   Consul is a service networking solution to automate network configurations, discover
   services, and enable secure connectivity across any cloud or runtime.
-url: 
-  https://raw.githubusercontent.com/api-evangelist/consul/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/consul/refs/heads/main/apis.yml
 type: Index
 tags:
+  - Health Checking
+  - Key/Value Store
+  - Multi-Datacenter
   - Service Discovery
   - Service Mesh
-  - Key/Value Store
-  - Health Checking
-  - Multi-datacenter
 created: '2024-01-01'
 modified: '2026-03-16'
 apis:
@@ -23,10 +22,10 @@ apis:
     humanUrl: https://www.consul.io/api-docs
     baseUrl: http://localhost:8500/v1
     tags:
-      - Service Discovery
+      - Catalog
       - Health Checks
       - Key/Value
-      - Catalog
+      - Service Discovery
     properties:
       - type: Documentation
         url: https://www.consul.io/api-docs
