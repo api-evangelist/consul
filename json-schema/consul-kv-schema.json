@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/consul/refs/heads/main/json-schema/consul-kv-schema.json",
+  "title": "Consul KV Pair",
+  "description": "Schema for a key/value pair returned by the Consul KV API.",
+  "type": "object",
+  "properties": {
+    "Key": { "type": "string" },
+    "Value": {
+      "type": ["string", "null"],
+      "description": "Base64-encoded value of the key (null when not present)."
+    },
+    "Flags": {
+      "type": "integer",
+      "description": "User-defined 64-bit unsigned integer associated with the entry."
+    },
+    "CreateIndex": { "type": "integer" },
+    "ModifyIndex": { "type": "integer" },
+    "LockIndex": { "type": "integer" },
+    "Session": {
+      "type": ["string", "null"],
+      "description": "ID of the session holding the lock on this key, if any."
+    },
+    "Namespace": { "type": "string" },
+    "Partition": { "type": "string" }
+  },
+  "required": ["Key", "CreateIndex", "ModifyIndex"]
+}

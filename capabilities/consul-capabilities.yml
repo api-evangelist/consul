@@ -1,0 +1,241 @@
+# Naftiko capabilities profile for the HashiCorp Consul HTTP API.
+# Capabilities cover the highest-leverage operations across the agent,
+# catalog, health, KV store, ACL, sessions, Connect service mesh, and
+# central configuration entries.
+provider: consul
+name: HashiCorp Consul
+description: >-
+  Consul HTTP API capabilities: service discovery, health checking,
+  key/value storage, ACL management, sessions, service mesh (Connect),
+  and central configuration entries.
+capabilities:
+  - id: consul.agent.self
+    name: Read local agent configuration
+    description: Return configuration and member info for the local Consul agent.
+    api: consul:http-api
+    inputs:
+      - dc
+    outputs:
+      - Config
+      - Member
+
+  - id: consul.agent.services
+    name: List services on agent
+    description: List services registered with the local agent.
+    api: consul:http-api
+    inputs:
+      - filter
+    outputs:
+      - services
+
+  - id: consul.agent.register-service
+    name: Register service with agent
+    description: Register a new service definition with the local Consul agent.
+    api: consul:http-api
+    inputs:
+      - ID
+      - Name
+      - Tags
+      - Address
+      - Port
+      - Meta
+      - Check
+    outputs:
+      - status
+
+  - id: consul.agent.deregister-service
+    name: Deregister service from agent
+    description: Remove a service registration from the local Consul agent.
+    api: consul:http-api
+    inputs:
+      - serviceID
+    outputs:
+      - status
+
+  - id: consul.catalog.list-services
+    name: List catalog services
+    description: List all services known to the catalog across nodes.
+    api: consul:http-api
+    inputs:
+      - dc
+      - node-meta
+      - filter
+    outputs:
+      - services
+
+  - id: consul.catalog.service-instances
+    name: List service instances
+    description: List all instances of a named service registered in the catalog.
+    api: consul:http-api
+    inputs:
+      - serviceName
+      - dc
+      - tag
+      - near
+    outputs:
+      - instances
+
+  - id: consul.catalog.list-nodes
+    name: List catalog nodes
+    description: List nodes registered with the catalog.
+    api: consul:http-api
+    inputs:
+      - dc
+      - node-meta
+      - filter
+    outputs:
+      - nodes
+
+  - id: consul.health.service
+    name: Get service health
+    description: Get health-checked instances for a named service, optionally filtered to passing only.
+    api: consul:http-api
+    inputs:
+      - serviceName
+      - passing
+      - dc
+      - tag
+      - near
+    outputs:
+      - instances
+
+  - id: consul.health.checks
+    name: List service checks
+    description: List the health checks associated with a service.
+    api: consul:http-api
+    inputs:
+      - serviceName
+      - dc
+    outputs:
+      - checks
+
+  - id: consul.kv.get
+    name: Read KV value
+    description: Read a single value from the Consul key/value store.
+    api: consul:http-api
+    inputs:
+      - key
+      - dc
+      - recurse
+      - raw
+    outputs:
+      - kvPair
+
+  - id: consul.kv.put
+    name: Write KV value
+    description: Write a value to the Consul key/value store with optional CAS.
+    api: consul:http-api
+    inputs:
+      - key
+      - value
+      - cas
+      - flags
+      - acquire
+      - release
+    outputs:
+      - success
+
+  - id: consul.kv.delete
+    name: Delete KV value
+    description: Delete a key (or subtree) from the KV store.
+    api: consul:http-api
+    inputs:
+      - key
+      - recurse
+      - cas
+    outputs:
+      - success
+
+  - id: consul.acl.create-token
+    name: Create ACL token
+    description: Create an ACL token bound to one or more policies or roles.
+    api: consul:http-api
+    inputs:
+      - Description
+      - Policies
+      - Roles
+      - ServiceIdentities
+      - Local
+    outputs:
+      - AccessorID
+      - SecretID
+
+  - id: consul.acl.list-tokens
+    name: List ACL tokens
+    description: List ACL tokens visible to the bootstrap or management token.
+    api: consul:http-api
+    inputs:
+      - policy
+      - role
+    outputs:
+      - tokens
+
+  - id: consul.acl.create-policy
+    name: Create ACL policy
+    description: Create a new ACL policy with rules in HCL.
+    api: consul:http-api
+    inputs:
+      - Name
+      - Description
+      - Rules
+      - Datacenters
+    outputs:
+      - ID
+
+  - id: consul.connect.intentions
+    name: List service intentions
+    description: List the source/destination intentions that govern Connect traffic.
+    api: consul:http-api
+    inputs:
+      - dc
+      - filter
+    outputs:
+      - intentions
+
+  - id: consul.config.set
+    name: Apply config entry
+    description: Create or update a central configuration entry (proxy-defaults, service-defaults, service-resolver, etc).
+    api: consul:http-api
+    inputs:
+      - Kind
+      - Name
+      - cas
+      - body
+    outputs:
+      - success
+
+  - id: consul.config.get
+    name: Read config entry
+    description: Read a single configuration entry by kind and name.
+    api: consul:http-api
+    inputs:
+      - kind
+      - name
+      - dc
+    outputs:
+      - entry
+
+  - id: consul.session.create
+    name: Create session
+    description: Create a Consul session for use with KV locks and leadership election.
+    api: consul:http-api
+    inputs:
+      - Name
+      - Node
+      - LockDelay
+      - TTL
+      - Behavior
+    outputs:
+      - ID
+
+  - id: consul.event.fire
+    name: Fire user event
+    description: Fire a Consul user event across the cluster.
+    api: consul:http-api
+    inputs:
+      - name
+      - service
+      - tag
+      - node
+    outputs:
+      - ID

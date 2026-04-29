@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/consul/refs/heads/main/json-schema/consul-service-schema.json",
+  "title": "Consul Service Definition",
+  "description": "Schema for a service definition registered with the Consul agent or catalog.",
+  "type": "object",
+  "properties": {
+    "ID": { "type": "string" },
+    "Name": { "type": "string" },
+    "Tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "Address": { "type": "string" },
+    "TaggedAddresses": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "Address": { "type": "string" },
+          "Port": { "type": "integer" }
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "Port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+    "Kind": {
+      "type": "string",
+      "enum": ["", "connect-proxy", "mesh-gateway", "ingress-gateway", "terminating-gateway"]
+    },
+    "Proxy": { "type": "object" },
+    "Connect": { "type": "object" },
+    "Weights": {
+      "type": "object",
+      "properties": {
+        "Passing": { "type": "integer" },
+        "Warning": { "type": "integer" }
+      }
+    },
+    "Check": { "$ref": "#/definitions/HealthCheck" },
+    "Checks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/HealthCheck" }
+    },
+    "EnableTagOverride": { "type": "boolean" },
+    "Namespace": { "type": "string" },
+    "Partition": { "type": "string" }
+  },
+  "required": ["Name"],
+  "definitions": {
+    "HealthCheck": {
+      "type": "object",
+      "properties": {
+        "CheckID": { "type": "string" },
+        "Name": { "type": "string" },
+        "Notes": { "type": "string" },
+        "Status": {
+          "type": "string",
+          "enum": ["passing", "warning", "critical", "maintenance"]
+        },
+        "HTTP": { "type": "string", "format": "uri" },
+        "TCP": { "type": "string" },
+        "gRPC": { "type": "string" },
+        "Method": { "type": "string" },
+        "Header": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "TLSSkipVerify": { "type": "boolean" },
+        "Interval": { "type": "string" },
+        "Timeout": { "type": "string" },
+        "DeregisterCriticalServiceAfter": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules for HashiCorp Consul HTTP APIs.
+# Tuned to /v1 base path, ConsulToken (X-Consul-Token) auth, datacenter
+# query parameters, and PascalCase JSON payloads.
+rules:
+  consul-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  consul-server-base-path:
+    description: Server URLs must include /v1 base path.
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v1"
+
+  consul-token-security:
+    description: A Consul token security scheme (apiKey via X-Consul-Token) must be defined.
+    severity: error
+    given: "$.components.securitySchemes[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            type:
+              enum: ["apiKey", "http"]
+
+  consul-operation-id:
+    description: Every operation must declare a unique operationId.
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  consul-operation-tags:
+    description: Operations must declare at least one tag.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  consul-dc-parameter:
+    description: Operations that target a specific datacenter should accept a `dc` query parameter.
+    severity: info
+    given: "$.paths[?(@property.match(/(catalog|health|kv|acl|connect|config)/))].get"
+    then:
+      field: parameters
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              name:
+                enum: ["dc"]
+
+  consul-error-responses:
+    description: Mutating operations should declare 4xx/5xx error responses.
+    severity: warn
+    given: "$.paths[*][post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["400"]
+            - required: ["403"]
+            - required: ["404"]
+            - required: ["500"]
+
+  consul-blocking-query-index:
+    description: List endpoints should support blocking queries via an `index` parameter.
+    severity: info
+    given: "$.paths[?(@property.match(/(catalog\\/services|catalog\\/nodes|health\\/service|kv)/))].get"
+    then:
+      field: parameters
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              name:
+                enum: ["index", "wait"]

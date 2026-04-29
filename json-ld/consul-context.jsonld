@@ -1,0 +1,96 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "consul": "https://www.consul.io/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Service": {
+      "@id": "consul:Service",
+      "@context": {
+        "id": "consul:ID",
+        "name": "consul:Service",
+        "tags": "consul:Tags",
+        "address": "consul:Address",
+        "port": "consul:Port",
+        "meta": "consul:Meta",
+        "namespace": "consul:Namespace",
+        "datacenter": "consul:Datacenter"
+      }
+    },
+
+    "Node": {
+      "@id": "consul:Node",
+      "@context": {
+        "id": "consul:ID",
+        "node": "consul:Node",
+        "address": "consul:Address",
+        "datacenter": "consul:Datacenter",
+        "taggedAddresses": "consul:TaggedAddresses",
+        "meta": "consul:Meta"
+      }
+    },
+
+    "HealthCheck": {
+      "@id": "consul:HealthCheck",
+      "@context": {
+        "node": "consul:Node",
+        "checkID": "consul:CheckID",
+        "name": "consul:Name",
+        "status": "consul:Status",
+        "notes": "consul:Notes",
+        "output": "consul:Output",
+        "serviceID": "consul:ServiceID",
+        "serviceName": "consul:ServiceName"
+      }
+    },
+
+    "KVPair": {
+      "@id": "consul:KVPair",
+      "@context": {
+        "key": "consul:Key",
+        "value": "consul:Value",
+        "flags": "consul:Flags",
+        "createIndex": "consul:CreateIndex",
+        "modifyIndex": "consul:ModifyIndex",
+        "lockIndex": "consul:LockIndex",
+        "session": "consul:Session"
+      }
+    },
+
+    "ACLToken": {
+      "@id": "consul:ACLToken",
+      "@context": {
+        "accessorID": "consul:AccessorID",
+        "secretID": "consul:SecretID",
+        "description": "schema:description",
+        "policies": "consul:Policies",
+        "roles": "consul:Roles",
+        "createTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Intention": {
+      "@id": "consul:Intention",
+      "@context": {
+        "id": "consul:ID",
+        "sourceName": "consul:SourceName",
+        "destinationName": "consul:DestinationName",
+        "action": "consul:Action",
+        "description": "schema:description",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}
