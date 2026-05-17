@@ -25,7 +25,7 @@ created: '2024-01-01'
 modified: '2026-04-29'
 position: Provider
 specificationVersion: '0.19'
-x-type: opensource
+kind: opensource
 apis:
   - aid: consul:http-api
     name: Consul HTTP API
@@ -58,22 +58,22 @@ apis:
         url: https://developer.hashicorp.com/consul/api-docs/api-structure
       - type: ACL Documentation
         url: https://developer.hashicorp.com/consul/docs/security/acl
-      - type: GitHub Repository
+      - type: GitHubRepository
         url: https://github.com/hashicorp/consul
 common:
   - type: Website
     url: https://www.consul.io
   - type: Documentation
     url: https://developer.hashicorp.com/consul
-  - type: Getting Started
+  - type: GettingStarted
     url: https://developer.hashicorp.com/consul/tutorials/get-started-vms
   - type: Tutorials
     url: https://developer.hashicorp.com/consul/tutorials
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/hashicorp
-  - type: GitHub Repository
+  - type: GitHubRepository
     url: https://github.com/hashicorp/consul
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/hashicorp/consul/releases
   - type: Blog
     url: https://www.hashicorp.com/blog/products/consul
@@ -81,11 +81,11 @@ common:
     url: https://discuss.hashicorp.com/c/consul
   - type: Twitter
     url: https://twitter.com/HashiCorp
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.hashicorp.com/terms-of-service
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.hashicorp.com/privacy
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/consul-context.jsonld
   - type: JSONSchema
     url: json-schema/consul-service-schema.json
