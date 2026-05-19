@@ -1,0 +1,179 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Connect
+  description: 'HashiCorp Consul HTTP API — Connect. 4 operations. Lead operation: Get CA configuration. Self-contained Naftiko
+    capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Connect
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-connect
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Connect business capability. Self-contained, no shared references.
+    resources:
+    - name: connect-ca-configuration
+      path: /connect/ca/configuration
+      operations:
+      - name: getconnectcaconfig
+        method: GET
+        description: Get CA configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateconnectcaconfig
+        method: PUT
+        description: Update CA configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: connect-ca-roots
+      path: /connect/ca/roots
+      operations:
+      - name: getconnectcaroots
+        method: GET
+        description: List CA root certificates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: connect-intentions
+      path: /connect/intentions
+      operations:
+      - name: listconnectintentions
+        method: GET
+        description: List intentions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-connect-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Connect. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/connect/ca/configuration
+      name: connect-ca-configuration
+      description: REST surface for connect-ca-configuration.
+      operations:
+      - method: GET
+        name: getconnectcaconfig
+        description: Get CA configuration
+        call: http-connect.getconnectcaconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateconnectcaconfig
+        description: Update CA configuration
+        call: http-connect.updateconnectcaconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connect/ca/roots
+      name: connect-ca-roots
+      description: REST surface for connect-ca-roots.
+      operations:
+      - method: GET
+        name: getconnectcaroots
+        description: List CA root certificates
+        call: http-connect.getconnectcaroots
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connect/intentions
+      name: connect-intentions
+      description: REST surface for connect-intentions.
+      operations:
+      - method: GET
+        name: listconnectintentions
+        description: List intentions
+        call: http-connect.listconnectintentions
+        with:
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-connect-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Connect. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-ca-configuration
+      description: Get CA configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-connect.getconnectcaconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-ca-configuration
+      description: Update CA configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-connect.updateconnectcaconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-ca-root-certificates
+      description: List CA root certificates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-connect.getconnectcaroots
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-intentions
+      description: List intentions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-connect.listconnectintentions
+      with:
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

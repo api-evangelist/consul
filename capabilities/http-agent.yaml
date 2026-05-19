@@ -1,0 +1,529 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Agent
+  description: 'HashiCorp Consul HTTP API — Agent. 12 operations. Lead operation: Deregister a check. Self-contained Naftiko
+    capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Agent
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-agent
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Agent business capability. Self-contained, no shared references.
+    resources:
+    - name: agent-check-deregister-checkID
+      path: /agent/check/deregister/{checkID}
+      operations:
+      - name: deregisteragentcheck
+        method: PUT
+        description: Deregister a check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: checkID
+          in: path
+          type: string
+          required: true
+    - name: agent-check-register
+      path: /agent/check/register
+      operations:
+      - name: registeragentcheck
+        method: PUT
+        description: Register a check
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: agent-checks
+      path: /agent/checks
+      operations:
+      - name: listagentchecks
+        method: GET
+        description: List registered checks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: agent-join-address
+      path: /agent/join/{address}
+      operations:
+      - name: agentjoin
+        method: PUT
+        description: Join a cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          required: true
+        - name: wan
+          in: query
+          type: boolean
+    - name: agent-leave
+      path: /agent/leave
+      operations:
+      - name: agentleave
+        method: PUT
+        description: Gracefully leave cluster
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: agent-maintenance
+      path: /agent/maintenance
+      operations:
+      - name: agentmaintenance
+        method: PUT
+        description: Toggle maintenance mode
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: enable
+          in: query
+          type: boolean
+          required: true
+        - name: reason
+          in: query
+          type: string
+    - name: agent-members
+      path: /agent/members
+      operations:
+      - name: listagentmembers
+        method: GET
+        description: List cluster members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: wan
+          in: query
+          type: boolean
+          description: List WAN members instead of LAN
+        - name: segment
+          in: query
+          type: string
+          description: List members in a specific segment
+    - name: agent-self
+      path: /agent/self
+      operations:
+      - name: getagentself
+        method: GET
+        description: Read agent configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: agent-service-deregister-serviceID
+      path: /agent/service/deregister/{serviceID}
+      operations:
+      - name: deregisteragentservice
+        method: PUT
+        description: Deregister a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceID
+          in: path
+          type: string
+          required: true
+    - name: agent-service-register
+      path: /agent/service/register
+      operations:
+      - name: registeragentservice
+        method: PUT
+        description: Register a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: agent-service-serviceID
+      path: /agent/service/{serviceID}
+      operations:
+      - name: getagentservice
+        method: GET
+        description: Get service configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceID
+          in: path
+          type: string
+          required: true
+    - name: agent-services
+      path: /agent/services
+      operations:
+      - name: listagentservices
+        method: GET
+        description: List registered services
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: Filter expression
+        - name: ns
+          in: query
+          type: string
+          description: Namespace (Enterprise only)
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-agent-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Agent. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/agent/check/deregister/{checkid}
+      name: agent-check-deregister-checkid
+      description: REST surface for agent-check-deregister-checkID.
+      operations:
+      - method: PUT
+        name: deregisteragentcheck
+        description: Deregister a check
+        call: http-agent.deregisteragentcheck
+        with:
+          checkID: rest.checkID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/check/register
+      name: agent-check-register
+      description: REST surface for agent-check-register.
+      operations:
+      - method: PUT
+        name: registeragentcheck
+        description: Register a check
+        call: http-agent.registeragentcheck
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/checks
+      name: agent-checks
+      description: REST surface for agent-checks.
+      operations:
+      - method: GET
+        name: listagentchecks
+        description: List registered checks
+        call: http-agent.listagentchecks
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/join/{address}
+      name: agent-join-address
+      description: REST surface for agent-join-address.
+      operations:
+      - method: PUT
+        name: agentjoin
+        description: Join a cluster
+        call: http-agent.agentjoin
+        with:
+          address: rest.address
+          wan: rest.wan
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/leave
+      name: agent-leave
+      description: REST surface for agent-leave.
+      operations:
+      - method: PUT
+        name: agentleave
+        description: Gracefully leave cluster
+        call: http-agent.agentleave
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/maintenance
+      name: agent-maintenance
+      description: REST surface for agent-maintenance.
+      operations:
+      - method: PUT
+        name: agentmaintenance
+        description: Toggle maintenance mode
+        call: http-agent.agentmaintenance
+        with:
+          enable: rest.enable
+          reason: rest.reason
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/members
+      name: agent-members
+      description: REST surface for agent-members.
+      operations:
+      - method: GET
+        name: listagentmembers
+        description: List cluster members
+        call: http-agent.listagentmembers
+        with:
+          wan: rest.wan
+          segment: rest.segment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/self
+      name: agent-self
+      description: REST surface for agent-self.
+      operations:
+      - method: GET
+        name: getagentself
+        description: Read agent configuration
+        call: http-agent.getagentself
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/service/deregister/{serviceid}
+      name: agent-service-deregister-serviceid
+      description: REST surface for agent-service-deregister-serviceID.
+      operations:
+      - method: PUT
+        name: deregisteragentservice
+        description: Deregister a service
+        call: http-agent.deregisteragentservice
+        with:
+          serviceID: rest.serviceID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/service/register
+      name: agent-service-register
+      description: REST surface for agent-service-register.
+      operations:
+      - method: PUT
+        name: registeragentservice
+        description: Register a service
+        call: http-agent.registeragentservice
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/service/{serviceid}
+      name: agent-service-serviceid
+      description: REST surface for agent-service-serviceID.
+      operations:
+      - method: GET
+        name: getagentservice
+        description: Get service configuration
+        call: http-agent.getagentservice
+        with:
+          serviceID: rest.serviceID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/agent/services
+      name: agent-services
+      description: REST surface for agent-services.
+      operations:
+      - method: GET
+        name: listagentservices
+        description: List registered services
+        call: http-agent.listagentservices
+        with:
+          filter: rest.filter
+          ns: rest.ns
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-agent-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Agent. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: deregister-check
+      description: Deregister a check
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.deregisteragentcheck
+      with:
+        checkID: tools.checkID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-check
+      description: Register a check
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.registeragentcheck
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-registered-checks
+      description: List registered checks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-agent.listagentchecks
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: join-cluster
+      description: Join a cluster
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.agentjoin
+      with:
+        address: tools.address
+        wan: tools.wan
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gracefully-leave-cluster
+      description: Gracefully leave cluster
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.agentleave
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: toggle-maintenance-mode
+      description: Toggle maintenance mode
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.agentmaintenance
+      with:
+        enable: tools.enable
+        reason: tools.reason
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-cluster-members
+      description: List cluster members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-agent.listagentmembers
+      with:
+        wan: tools.wan
+        segment: tools.segment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-agent-configuration
+      description: Read agent configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-agent.getagentself
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deregister-service
+      description: Deregister a service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.deregisteragentservice
+      with:
+        serviceID: tools.serviceID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-service
+      description: Register a service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-agent.registeragentservice
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-service-configuration
+      description: Get service configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-agent.getagentservice
+      with:
+        serviceID: tools.serviceID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-registered-services
+      description: List registered services
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-agent.listagentservices
+      with:
+        filter: tools.filter
+        ns: tools.ns
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,438 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — ACL
+  description: 'HashiCorp Consul HTTP API — ACL. 10 operations. Lead operation: List policies. Self-contained Naftiko capability
+    covering one Consul business surface.'
+  tags:
+  - Consul
+  - ACL
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-acl
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — ACL business capability. Self-contained, no shared references.
+    resources:
+    - name: acl-policies
+      path: /acl/policies
+      operations:
+      - name: listaclpolicies
+        method: GET
+        description: List policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: acl-policy
+      path: /acl/policy
+      operations:
+      - name: createaclpolicy
+        method: PUT
+        description: Create a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: acl-policy-policyID
+      path: /acl/policy/{policyID}
+      operations:
+      - name: getaclpolicy
+        method: GET
+        description: Read a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyID
+          in: path
+          type: string
+          required: true
+      - name: updateaclpolicy
+        method: PUT
+        description: Update a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyID
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaclpolicy
+        method: DELETE
+        description: Delete a policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policyID
+          in: path
+          type: string
+          required: true
+    - name: acl-token
+      path: /acl/token
+      operations:
+      - name: createacltoken
+        method: PUT
+        description: Create a token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: acl-token-accessorID
+      path: /acl/token/{accessorID}
+      operations:
+      - name: getacltoken
+        method: GET
+        description: Read a token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accessorID
+          in: path
+          type: string
+          required: true
+      - name: updateacltoken
+        method: PUT
+        description: Update a token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accessorID
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteacltoken
+        method: DELETE
+        description: Delete a token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accessorID
+          in: path
+          type: string
+          required: true
+    - name: acl-tokens
+      path: /acl/tokens
+      operations:
+      - name: listacltokens
+        method: GET
+        description: List tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy
+          in: query
+          type: string
+        - name: role
+          in: query
+          type: string
+        - name: authmethod
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-acl-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — ACL. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/acl/policies
+      name: acl-policies
+      description: REST surface for acl-policies.
+      operations:
+      - method: GET
+        name: listaclpolicies
+        description: List policies
+        call: http-acl.listaclpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/acl/policy
+      name: acl-policy
+      description: REST surface for acl-policy.
+      operations:
+      - method: PUT
+        name: createaclpolicy
+        description: Create a policy
+        call: http-acl.createaclpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/acl/policy/{policyid}
+      name: acl-policy-policyid
+      description: REST surface for acl-policy-policyID.
+      operations:
+      - method: GET
+        name: getaclpolicy
+        description: Read a policy
+        call: http-acl.getaclpolicy
+        with:
+          policyID: rest.policyID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateaclpolicy
+        description: Update a policy
+        call: http-acl.updateaclpolicy
+        with:
+          policyID: rest.policyID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaclpolicy
+        description: Delete a policy
+        call: http-acl.deleteaclpolicy
+        with:
+          policyID: rest.policyID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/acl/token
+      name: acl-token
+      description: REST surface for acl-token.
+      operations:
+      - method: PUT
+        name: createacltoken
+        description: Create a token
+        call: http-acl.createacltoken
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/acl/token/{accessorid}
+      name: acl-token-accessorid
+      description: REST surface for acl-token-accessorID.
+      operations:
+      - method: GET
+        name: getacltoken
+        description: Read a token
+        call: http-acl.getacltoken
+        with:
+          accessorID: rest.accessorID
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateacltoken
+        description: Update a token
+        call: http-acl.updateacltoken
+        with:
+          accessorID: rest.accessorID
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteacltoken
+        description: Delete a token
+        call: http-acl.deleteacltoken
+        with:
+          accessorID: rest.accessorID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/acl/tokens
+      name: acl-tokens
+      description: REST surface for acl-tokens.
+      operations:
+      - method: GET
+        name: listacltokens
+        description: List tokens
+        call: http-acl.listacltokens
+        with:
+          policy: rest.policy
+          role: rest.role
+          authmethod: rest.authmethod
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-acl-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — ACL. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-policies
+      description: List policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-acl.listaclpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-policy
+      description: Create a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-acl.createaclpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-policy
+      description: Read a policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-acl.getaclpolicy
+      with:
+        policyID: tools.policyID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-policy
+      description: Update a policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-acl.updateaclpolicy
+      with:
+        policyID: tools.policyID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-policy
+      description: Delete a policy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: http-acl.deleteaclpolicy
+      with:
+        policyID: tools.policyID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-token
+      description: Create a token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-acl.createacltoken
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-token
+      description: Read a token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-acl.getacltoken
+      with:
+        accessorID: tools.accessorID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-token
+      description: Update a token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-acl.updateacltoken
+      with:
+        accessorID: tools.accessorID
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-token
+      description: Delete a token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: http-acl.deleteacltoken
+      with:
+        accessorID: tools.accessorID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tokens
+      description: List tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-acl.listacltokens
+      with:
+        policy: tools.policy
+        role: tools.role
+        authmethod: tools.authmethod
+      outputParameters:
+      - type: object
+        mapping: $.

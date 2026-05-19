@@ -1,0 +1,196 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Sessions
+  description: 'HashiCorp Consul HTTP API — Sessions. 4 operations. Lead operation: Create a session. Self-contained Naftiko
+    capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Sessions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-sessions
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Sessions business capability. Self-contained, no shared references.
+    resources:
+    - name: session-create
+      path: /session/create
+      operations:
+      - name: createsession
+        method: PUT
+        description: Create a session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: session-destroy-sessionID
+      path: /session/destroy/{sessionID}
+      operations:
+      - name: destroysession
+        method: PUT
+        description: Destroy a session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sessionID
+          in: path
+          type: string
+          required: true
+    - name: session-info-sessionID
+      path: /session/info/{sessionID}
+      operations:
+      - name: getsession
+        method: GET
+        description: Read a session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sessionID
+          in: path
+          type: string
+          required: true
+    - name: session-list
+      path: /session/list
+      operations:
+      - name: listsessions
+        method: GET
+        description: List sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-sessions-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Sessions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/session/create
+      name: session-create
+      description: REST surface for session-create.
+      operations:
+      - method: PUT
+        name: createsession
+        description: Create a session
+        call: http-sessions.createsession
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/session/destroy/{sessionid}
+      name: session-destroy-sessionid
+      description: REST surface for session-destroy-sessionID.
+      operations:
+      - method: PUT
+        name: destroysession
+        description: Destroy a session
+        call: http-sessions.destroysession
+        with:
+          sessionID: rest.sessionID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/session/info/{sessionid}
+      name: session-info-sessionid
+      description: REST surface for session-info-sessionID.
+      operations:
+      - method: GET
+        name: getsession
+        description: Read a session
+        call: http-sessions.getsession
+        with:
+          sessionID: rest.sessionID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/session/list
+      name: session-list
+      description: REST surface for session-list.
+      operations:
+      - method: GET
+        name: listsessions
+        description: List sessions
+        call: http-sessions.listsessions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-sessions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Sessions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: create-session
+      description: Create a session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-sessions.createsession
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: destroy-session
+      description: Destroy a session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-sessions.destroysession
+      with:
+        sessionID: tools.sessionID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-session
+      description: Read a session
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-sessions.getsession
+      with:
+        sessionID: tools.sessionID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-sessions
+      description: List sessions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-sessions.listsessions
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Snapshot
+  description: 'HashiCorp Consul HTTP API — Snapshot. 2 operations. Lead operation: Generate a snapshot. Self-contained Naftiko
+    capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Snapshot
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-snapshot
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Snapshot business capability. Self-contained, no shared references.
+    resources:
+    - name: snapshot
+      path: /snapshot
+      operations:
+      - name: getsnapshot
+        method: GET
+        description: Generate a snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: restoresnapshot
+        method: PUT
+        description: Restore a snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-snapshot-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Snapshot. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/snapshot
+      name: snapshot
+      description: REST surface for snapshot.
+      operations:
+      - method: GET
+        name: getsnapshot
+        description: Generate a snapshot
+        call: http-snapshot.getsnapshot
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: restoresnapshot
+        description: Restore a snapshot
+        call: http-snapshot.restoresnapshot
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-snapshot-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Snapshot. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: generate-snapshot
+      description: Generate a snapshot
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-snapshot.getsnapshot
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restore-snapshot
+      description: Restore a snapshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-snapshot.restoresnapshot
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

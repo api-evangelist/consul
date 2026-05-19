@@ -1,0 +1,245 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Health
+  description: 'HashiCorp Consul HTTP API — Health. 4 operations. Lead operation: List checks for a service. Self-contained
+    Naftiko capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Health
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-health
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Health business capability. Self-contained, no shared references.
+    resources:
+    - name: health-checks-serviceName
+      path: /health/checks/{serviceName}
+      operations:
+      - name: gethealthchecks
+        method: GET
+        description: List checks for a service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceName
+          in: path
+          type: string
+          required: true
+        - name: near
+          in: query
+          type: string
+        - name: filter
+          in: query
+          type: string
+    - name: health-node-node
+      path: /health/node/{node}
+      operations:
+      - name: gethealthnode
+        method: GET
+        description: List checks for a node
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: node
+          in: path
+          type: string
+          required: true
+        - name: filter
+          in: query
+          type: string
+    - name: health-service-serviceName
+      path: /health/service/{serviceName}
+      operations:
+      - name: gethealthservice
+        method: GET
+        description: List service instances with health
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serviceName
+          in: path
+          type: string
+          required: true
+        - name: near
+          in: query
+          type: string
+        - name: tag
+          in: query
+          type: string
+        - name: passing
+          in: query
+          type: boolean
+          description: Filter to only passing instances
+        - name: filter
+          in: query
+          type: string
+    - name: health-state-state
+      path: /health/state/{state}
+      operations:
+      - name: gethealthstate
+        method: GET
+        description: List checks in a state
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: state
+          in: path
+          type: string
+          required: true
+        - name: filter
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-health-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Health. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/health/checks/{servicename}
+      name: health-checks-servicename
+      description: REST surface for health-checks-serviceName.
+      operations:
+      - method: GET
+        name: gethealthchecks
+        description: List checks for a service
+        call: http-health.gethealthchecks
+        with:
+          serviceName: rest.serviceName
+          near: rest.near
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/health/node/{node}
+      name: health-node-node
+      description: REST surface for health-node-node.
+      operations:
+      - method: GET
+        name: gethealthnode
+        description: List checks for a node
+        call: http-health.gethealthnode
+        with:
+          node: rest.node
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/health/service/{servicename}
+      name: health-service-servicename
+      description: REST surface for health-service-serviceName.
+      operations:
+      - method: GET
+        name: gethealthservice
+        description: List service instances with health
+        call: http-health.gethealthservice
+        with:
+          serviceName: rest.serviceName
+          near: rest.near
+          tag: rest.tag
+          passing: rest.passing
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/health/state/{state}
+      name: health-state-state
+      description: REST surface for health-state-state.
+      operations:
+      - method: GET
+        name: gethealthstate
+        description: List checks in a state
+        call: http-health.gethealthstate
+        with:
+          state: rest.state
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-health-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Health. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-checks-service
+      description: List checks for a service
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-health.gethealthchecks
+      with:
+        serviceName: tools.serviceName
+        near: tools.near
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-checks-node
+      description: List checks for a node
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-health.gethealthnode
+      with:
+        node: tools.node
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-service-instances-health
+      description: List service instances with health
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-health.gethealthservice
+      with:
+        serviceName: tools.serviceName
+        near: tools.near
+        tag: tools.tag
+        passing: tools.passing
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-checks-state
+      description: List checks in a state
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-health.gethealthstate
+      with:
+        state: tools.state
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

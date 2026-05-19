@@ -1,0 +1,143 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Events
+  description: 'HashiCorp Consul HTTP API — Events. 2 operations. Lead operation: Fire a new event. Self-contained Naftiko
+    capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-events
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: event-fire-name
+      path: /event/fire/{name}
+      operations:
+      - name: fireevent
+        method: PUT
+        description: Fire a new event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: node
+          in: query
+          type: string
+        - name: service
+          in: query
+          type: string
+        - name: tag
+          in: query
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: event-list
+      path: /event/list
+      operations:
+      - name: listevents
+        method: GET
+        description: List events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-events-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Events. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/event/fire/{name}
+      name: event-fire-name
+      description: REST surface for event-fire-name.
+      operations:
+      - method: PUT
+        name: fireevent
+        description: Fire a new event
+        call: http-events.fireevent
+        with:
+          name: rest.name
+          node: rest.node
+          service: rest.service
+          tag: rest.tag
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/event/list
+      name: event-list
+      description: REST surface for event-list.
+      operations:
+      - method: GET
+        name: listevents
+        description: List events
+        call: http-events.listevents
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Events. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: fire-new-event
+      description: Fire a new event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: http-events.fireevent
+      with:
+        name: tools.name
+        node: tools.node
+        service: tools.service
+        tag: tools.tag
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-events
+      description: List events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-events.listevents
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

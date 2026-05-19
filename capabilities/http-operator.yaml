@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul HTTP API — Operator
+  description: 'HashiCorp Consul HTTP API — Operator. 1 operations. Lead operation: Read Raft configuration. Self-contained
+    Naftiko capability covering one Consul business surface.'
+  tags:
+  - Consul
+  - Operator
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_API_KEY: CONSUL_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: http-operator
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul HTTP API — Operator business capability. Self-contained, no shared references.
+    resources:
+    - name: operator-raft-configuration
+      path: /operator/raft/configuration
+      operations:
+      - name: getraftconfiguration
+        method: GET
+        description: Read Raft configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: http-operator-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul HTTP API — Operator. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/operator/raft/configuration
+      name: operator-raft-configuration
+      description: REST surface for operator-raft-configuration.
+      operations:
+      - method: GET
+        name: getraftconfiguration
+        description: Read Raft configuration
+        call: http-operator.getraftconfiguration
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: http-operator-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul HTTP API — Operator. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: read-raft-configuration
+      description: Read Raft configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: http-operator.getraftconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.
