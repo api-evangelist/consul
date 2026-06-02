@@ -2,13 +2,13 @@
   "repo": "consul",
   "feeds": [
     {
-      "source": "https://www.hashicorp.com/blog/products/consul",
-      "feed_url": "",
+      "source": "https://github.com/hashicorp/consul/releases",
+      "feed_url": "https://github.com/hashicorp/consul/releases.atom",
       "title": "",
       "saved": 0,
-      "error": "no_feed"
+      "method": "discovered"
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-17T20:48:52Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
