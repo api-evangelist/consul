@@ -1,0 +1,1426 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read agent configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/self",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Returns the configuration and member information of the local agent."
+        },
+        {
+          "info": {
+            "name": "List cluster members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/members",
+            "params": [
+              {
+                "name": "wan",
+                "value": "",
+                "type": "query",
+                "description": "List WAN members instead of LAN"
+              },
+              {
+                "name": "segment",
+                "value": "",
+                "type": "query",
+                "description": "List members in a specific segment"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Returns the members the agent sees in the cluster gossip pool."
+        },
+        {
+          "info": {
+            "name": "List registered services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/services",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression"
+              },
+              {
+                "name": "ns",
+                "value": "",
+                "type": "query",
+                "description": "Namespace (Enterprise only)"
+              }
+            ]
+          },
+          "docs": "Returns all the services registered with the local agent."
+        },
+        {
+          "info": {
+            "name": "Get service configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/service/:serviceID",
+            "params": [
+              {
+                "name": "serviceID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns full service definition for a single service on the local agent."
+        },
+        {
+          "info": {
+            "name": "Register a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/service/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new service to the local agent with optional health checks."
+        },
+        {
+          "info": {
+            "name": "Deregister a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/service/deregister/:serviceID",
+            "params": [
+              {
+                "name": "serviceID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a service from the local agent."
+        },
+        {
+          "info": {
+            "name": "List registered checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/checks"
+          },
+          "docs": "Returns all checks registered with the local agent."
+        },
+        {
+          "info": {
+            "name": "Register a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/check/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new check to the local agent."
+        },
+        {
+          "info": {
+            "name": "Deregister a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/check/deregister/:checkID",
+            "params": [
+              {
+                "name": "checkID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deregister a check"
+        },
+        {
+          "info": {
+            "name": "Join a cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/join/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wan",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Triggers the agent to join a given address as part of the gossip pool."
+        },
+        {
+          "info": {
+            "name": "Gracefully leave cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/leave"
+          },
+          "docs": "Triggers a graceful leave and shutdown of the agent."
+        },
+        {
+          "info": {
+            "name": "Toggle maintenance mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/maintenance",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Toggle maintenance mode"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/catalog/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers or updates entries in the catalog (low-level)."
+        },
+        {
+          "info": {
+            "name": "Deregister entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/catalog/deregister",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Directly removes entries from the catalog."
+        },
+        {
+          "info": {
+            "name": "List datacenters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/catalog/datacenters"
+          },
+          "docs": "Returns the list of all known datacenters sorted by estimated round trip time."
+        },
+        {
+          "info": {
+            "name": "List nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/catalog/nodes",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "near",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the nodes registered in a given datacenter."
+        },
+        {
+          "info": {
+            "name": "List services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/catalog/services",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "ns",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the services registered in a given datacenter."
+        },
+        {
+          "info": {
+            "name": "List nodes for a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/catalog/service/:serviceName",
+            "params": [
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "near",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the nodes providing a given service in a datacenter."
+        },
+        {
+          "info": {
+            "name": "List services for a node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/catalog/node/:node",
+            "params": [
+              {
+                "name": "node",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the node's registered services."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List checks for a node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/health/node/:node",
+            "params": [
+              {
+                "name": "node",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the checks specific to the node provided."
+        },
+        {
+          "info": {
+            "name": "List checks for a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/health/checks/:serviceName",
+            "params": [
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "near",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the checks associated with the service provided."
+        },
+        {
+          "info": {
+            "name": "List service instances with health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/health/service/:serviceName",
+            "params": [
+              {
+                "name": "serviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "near",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "passing",
+                "value": "",
+                "type": "query",
+                "description": "Filter to only passing instances"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the service instances providing the service along with health check information."
+        },
+        {
+          "info": {
+            "name": "List checks in a state",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/health/state/:state",
+            "params": [
+              {
+                "name": "state",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the checks in the specified state (any, passing, warning, critical)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "KV Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "recurse",
+                "value": "",
+                "type": "query",
+                "description": "Return all keys with the given prefix"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Return raw value without JSON encoding"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "Return only keys (no values)"
+              },
+              {
+                "name": "separator",
+                "value": "",
+                "type": "query",
+                "description": "List keys up to a given separator"
+              }
+            ]
+          },
+          "docs": "Returns the specified key. If no key exists at the given path, a 404 is returned."
+        },
+        {
+          "info": {
+            "name": "Create or update a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "flags",
+                "value": "",
+                "type": "query",
+                "description": "Unsigned value between 0 and 2^64-1"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query",
+                "description": "Check-And-Set index for optimistic locking"
+              },
+              {
+                "name": "acquire",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to acquire a lock"
+              },
+              {
+                "name": "release",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to release a lock"
+              }
+            ]
+          },
+          "docs": "Creates or updates a key with the given value."
+        },
+        {
+          "info": {
+            "name": "Delete a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recurse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Deletes a single key or all keys sharing a prefix."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ACL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/acl/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new ACL token."
+        },
+        {
+          "info": {
+            "name": "Read a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/acl/token/:accessorID",
+            "params": [
+              {
+                "name": "accessorID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Read a token"
+        },
+        {
+          "info": {
+            "name": "Update a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/acl/token/:accessorID",
+            "params": [
+              {
+                "name": "accessorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a token"
+        },
+        {
+          "info": {
+            "name": "Delete a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/acl/token/:accessorID",
+            "params": [
+              {
+                "name": "accessorID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a token"
+        },
+        {
+          "info": {
+            "name": "List tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/acl/tokens",
+            "params": [
+              {
+                "name": "policy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "authmethod",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List tokens"
+        },
+        {
+          "info": {
+            "name": "Create a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/acl/policy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a policy"
+        },
+        {
+          "info": {
+            "name": "List policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/acl/policies"
+          },
+          "docs": "List policies"
+        },
+        {
+          "info": {
+            "name": "Read a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/acl/policy/:policyID",
+            "params": [
+              {
+                "name": "policyID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Read a policy"
+        },
+        {
+          "info": {
+            "name": "Update a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/acl/policy/:policyID",
+            "params": [
+              {
+                "name": "policyID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a policy"
+        },
+        {
+          "info": {
+            "name": "Delete a policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/acl/policy/:policyID",
+            "params": [
+              {
+                "name": "policyID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a policy"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Connect",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List CA root certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/ca/roots"
+          },
+          "docs": "Returns the current list of trusted CA root certificates in the Connect CA."
+        },
+        {
+          "info": {
+            "name": "Get CA configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/ca/configuration"
+          },
+          "docs": "Get CA configuration"
+        },
+        {
+          "info": {
+            "name": "Update CA configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/connect/ca/configuration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update CA configuration"
+        },
+        {
+          "info": {
+            "name": "List intentions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/intentions",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all Connect intentions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Config Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List config entries by kind",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/config/:kind",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "List config entries by kind"
+        },
+        {
+          "info": {
+            "name": "Apply a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/config",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a config entry"
+        },
+        {
+          "info": {
+            "name": "Get a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/config/:kind/:name",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Get a config entry"
+        },
+        {
+          "info": {
+            "name": "Delete a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/config/:kind/:name",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a config entry"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fire a new event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/event/fire/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "node",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "service",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fire a new event"
+        },
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/event/list",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "List events"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/session/create",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a session"
+        },
+        {
+          "info": {
+            "name": "Destroy a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/session/destroy/:sessionID",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Destroy a session"
+        },
+        {
+          "info": {
+            "name": "Read a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/session/info/:sessionID",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Read a session"
+        },
+        {
+          "info": {
+            "name": "List sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/session/list",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "List sessions"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Coordinates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read WAN coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/coordinate/datacenters"
+          },
+          "docs": "Read WAN coordinates"
+        },
+        {
+          "info": {
+            "name": "Read LAN coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/coordinate/nodes",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Read LAN coordinates"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Raft leader",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/status/leader"
+          },
+          "docs": "Returns the Raft leader for the datacenter."
+        },
+        {
+          "info": {
+            "name": "List Raft peers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/status/peers"
+          },
+          "docs": "Returns the Raft peers for the datacenter."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Operator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Raft configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/operator/raft/configuration",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Read Raft configuration"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/txn",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manages updates or fetches of multiple keys inside a single, atomic transaction."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Snapshot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/snapshot",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Generates and returns an atomic, point-in-time snapshot of the Consul state."
+        },
+        {
+          "info": {
+            "name": "Restore a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/snapshot",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Restores a point-in-time snapshot of the Consul state."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
