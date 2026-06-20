@@ -8,7 +8,7 @@ description: >-
   by the X-Consul-Token header (apiKey) and ACL policies, supporting blocking queries via X-Consul-Index for
   streaming-style change detection.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 tags:
   - ACL
