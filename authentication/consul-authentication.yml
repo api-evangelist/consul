@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/consul-http-api.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ConsulToken
+  type: apiKey
+  in: header
+  parameter: X-Consul-Token
+  description: ACL token for authentication
+  sources:
+  - openapi/consul-http-api.yml
