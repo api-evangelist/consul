@@ -56,6 +56,8 @@ apis:
       - type: GitHubRepository
         url: https://github.com/hashicorp/consul
 common:
+  - type: AgenticAccess
+    url: agentic-access/consul-agentic-access.yml
   - type: DomainSecurity
     url: security/consul-domain-security.yml
   - type: Authentication
