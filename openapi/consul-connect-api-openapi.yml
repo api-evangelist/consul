@@ -1,0 +1,155 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL Connect API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: Connect
+  description: Service mesh / Connect CA and intentions
+paths:
+  /connect/ca/roots:
+    get:
+      operationId: getConnectCARoots
+      summary: List CA root certificates
+      description: Returns the current list of trusted CA root certificates in the Connect CA.
+      tags:
+      - Connect
+      responses:
+        '200':
+          description: CA root certificates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ActiveRootID:
+                    type: string
+                  Roots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                        Name:
+                          type: string
+                        RootCert:
+                          type: string
+                        Active:
+                          type: boolean
+  /connect/ca/configuration:
+    get:
+      operationId: getConnectCAConfig
+      summary: Get CA configuration
+      tags:
+      - Connect
+      responses:
+        '200':
+          description: CA configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Provider:
+                    type: string
+                  Config:
+                    type: object
+    put:
+      operationId: updateConnectCAConfig
+      summary: Update CA configuration
+      tags:
+      - Connect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Provider:
+                  type: string
+                Config:
+                  type: object
+      responses:
+        '200':
+          description: CA configuration updated
+  /connect/intentions:
+    get:
+      operationId: listConnectIntentions
+      summary: List intentions
+      description: Returns all Connect intentions.
+      tags:
+      - Connect
+      parameters:
+      - name: filter
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of intentions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intention'
+components:
+  schemas:
+    Intention:
+      type: object
+      properties:
+        ID:
+          type: string
+        SourceName:
+          type: string
+        DestinationName:
+          type: string
+        SourceNS:
+          type: string
+        DestinationNS:
+          type: string
+        Action:
+          type: string
+          enum:
+          - allow
+          - deny
+        Precedence:
+          type: integer
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreatedAt:
+          type: string
+          format: date-time
+        UpdatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

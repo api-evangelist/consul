@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL KV Store API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: KV Store
+  description: Key/Value store operations
+paths:
+  /kv/{key}:
+    get:
+      operationId: getKVKey
+      summary: Read a key
+      description: Returns the specified key. If no key exists at the given path, a 404 is returned.
+      tags:
+      - KV Store
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/dc'
+      - name: recurse
+        in: query
+        schema:
+          type: boolean
+        description: Return all keys with the given prefix
+      - name: raw
+        in: query
+        schema:
+          type: boolean
+        description: Return raw value without JSON encoding
+      - name: keys
+        in: query
+        schema:
+          type: boolean
+        description: Return only keys (no values)
+      - name: separator
+        in: query
+        schema:
+          type: string
+        description: List keys up to a given separator
+      responses:
+        '200':
+          description: Key-value pair(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KVPair'
+        '404':
+          description: Key not found
+    put:
+      operationId: putKVKey
+      summary: Create or update a key
+      description: Creates or updates a key with the given value.
+      tags:
+      - KV Store
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/dc'
+      - name: flags
+        in: query
+        schema:
+          type: integer
+        description: Unsigned value between 0 and 2^64-1
+      - name: cas
+        in: query
+        schema:
+          type: integer
+        description: Check-And-Set index for optimistic locking
+      - name: acquire
+        in: query
+        schema:
+          type: string
+        description: Session ID to acquire a lock
+      - name: release
+        in: query
+        schema:
+          type: string
+        description: Session ID to release a lock
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Success (true) or failure (false)
+          content:
+            application/json:
+              schema:
+                type: boolean
+    delete:
+      operationId: deleteKVKey
+      summary: Delete a key
+      description: Deletes a single key or all keys sharing a prefix.
+      tags:
+      - KV Store
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: recurse
+        in: query
+        schema:
+          type: boolean
+      - name: cas
+        in: query
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Deletion result
+          content:
+            application/json:
+              schema:
+                type: boolean
+components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  schemas:
+    KVPair:
+      type: object
+      properties:
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+        LockIndex:
+          type: integer
+        Key:
+          type: string
+        Flags:
+          type: integer
+        Value:
+          type: string
+          description: Base64 encoded value
+        Session:
+          type: string
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

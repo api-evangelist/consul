@@ -1,0 +1,347 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: ACL
+  description: Access Control List management
+paths:
+  /acl/token:
+    put:
+      operationId: createACLToken
+      summary: Create a token
+      description: Creates a new ACL token.
+      tags:
+      - ACL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLTokenRequest'
+      responses:
+        '200':
+          description: Created token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+  /acl/token/{accessorID}:
+    get:
+      operationId: getACLToken
+      summary: Read a token
+      tags:
+      - ACL
+      parameters:
+      - name: accessorID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+    put:
+      operationId: updateACLToken
+      summary: Update a token
+      tags:
+      - ACL
+      parameters:
+      - name: accessorID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLTokenRequest'
+      responses:
+        '200':
+          description: Updated token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+    delete:
+      operationId: deleteACLToken
+      summary: Delete a token
+      tags:
+      - ACL
+      parameters:
+      - name: accessorID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Token deleted
+  /acl/tokens:
+    get:
+      operationId: listACLTokens
+      summary: List tokens
+      tags:
+      - ACL
+      parameters:
+      - name: policy
+        in: query
+        schema:
+          type: string
+      - name: role
+        in: query
+        schema:
+          type: string
+      - name: authmethod
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ACLToken'
+  /acl/policy:
+    put:
+      operationId: createACLPolicy
+      summary: Create a policy
+      tags:
+      - ACL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLPolicyRequest'
+      responses:
+        '200':
+          description: Created policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+  /acl/policies:
+    get:
+      operationId: listACLPolicies
+      summary: List policies
+      tags:
+      - ACL
+      responses:
+        '200':
+          description: List of policies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ACLPolicy'
+  /acl/policy/{policyID}:
+    get:
+      operationId: getACLPolicy
+      summary: Read a policy
+      tags:
+      - ACL
+      parameters:
+      - name: policyID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+    put:
+      operationId: updateACLPolicy
+      summary: Update a policy
+      tags:
+      - ACL
+      parameters:
+      - name: policyID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLPolicyRequest'
+      responses:
+        '200':
+          description: Updated policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+    delete:
+      operationId: deleteACLPolicy
+      summary: Delete a policy
+      tags:
+      - ACL
+      parameters:
+      - name: policyID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Policy deleted
+components:
+  schemas:
+    ACLPolicy:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string
+        Rules:
+          type: string
+        Datacenters:
+          type: array
+          items:
+            type: string
+        Hash:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    ACLPolicyRequest:
+      type: object
+      required:
+      - Name
+      properties:
+        Name:
+          type: string
+        Description:
+          type: string
+        Rules:
+          type: string
+          description: HCL or JSON formatted policy rules
+        Datacenters:
+          type: array
+          items:
+            type: string
+    ACLToken:
+      type: object
+      properties:
+        AccessorID:
+          type: string
+        SecretID:
+          type: string
+        Description:
+          type: string
+        Policies:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Roles:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Local:
+          type: boolean
+        CreateTime:
+          type: string
+          format: date-time
+        Hash:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    ACLTokenRequest:
+      type: object
+      properties:
+        Description:
+          type: string
+        Policies:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Roles:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        ServiceIdentities:
+          type: array
+          items:
+            type: object
+            properties:
+              ServiceName:
+                type: string
+              Datacenters:
+                type: array
+                items:
+                  type: string
+        Local:
+          type: boolean
+        ExpirationTime:
+          type: string
+          format: date-time
+        ExpirationTTL:
+          type: string
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

@@ -1,0 +1,447 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL Agent API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: Agent
+  description: Interact with the local Consul agent
+paths:
+  /agent/self:
+    get:
+      operationId: getAgentSelf
+      summary: Read agent configuration
+      description: Returns the configuration and member information of the local agent.
+      tags:
+      - Agent
+      parameters:
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Agent configuration and member info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Config:
+                    type: object
+                  Member:
+                    $ref: '#/components/schemas/AgentMember'
+  /agent/members:
+    get:
+      operationId: listAgentMembers
+      summary: List cluster members
+      description: Returns the members the agent sees in the cluster gossip pool.
+      tags:
+      - Agent
+      parameters:
+      - name: wan
+        in: query
+        schema:
+          type: boolean
+        description: List WAN members instead of LAN
+      - name: segment
+        in: query
+        schema:
+          type: string
+        description: List members in a specific segment
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of cluster members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentMember'
+  /agent/services:
+    get:
+      operationId: listAgentServices
+      summary: List registered services
+      description: Returns all the services registered with the local agent.
+      tags:
+      - Agent
+      parameters:
+      - name: filter
+        in: query
+        schema:
+          type: string
+        description: Filter expression
+      - name: ns
+        in: query
+        schema:
+          type: string
+        description: Namespace (Enterprise only)
+      responses:
+        '200':
+          description: Map of service ID to service definition
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AgentService'
+  /agent/service/{serviceID}:
+    get:
+      operationId: getAgentService
+      summary: Get service configuration
+      description: Returns full service definition for a single service on the local agent.
+      tags:
+      - Agent
+      parameters:
+      - name: serviceID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Service definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentService'
+        '404':
+          description: Service not found
+  /agent/service/register:
+    put:
+      operationId: registerAgentService
+      summary: Register a service
+      description: Adds a new service to the local agent with optional health checks.
+      tags:
+      - Agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceRegistration'
+      responses:
+        '200':
+          description: Service registered successfully
+  /agent/service/deregister/{serviceID}:
+    put:
+      operationId: deregisterAgentService
+      summary: Deregister a service
+      description: Removes a service from the local agent.
+      tags:
+      - Agent
+      parameters:
+      - name: serviceID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Service deregistered
+  /agent/checks:
+    get:
+      operationId: listAgentChecks
+      summary: List registered checks
+      description: Returns all checks registered with the local agent.
+      tags:
+      - Agent
+      responses:
+        '200':
+          description: Map of check ID to check definition
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AgentCheck'
+  /agent/check/register:
+    put:
+      operationId: registerAgentCheck
+      summary: Register a check
+      description: Adds a new check to the local agent.
+      tags:
+      - Agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRegistration'
+      responses:
+        '200':
+          description: Check registered
+  /agent/check/deregister/{checkID}:
+    put:
+      operationId: deregisterAgentCheck
+      summary: Deregister a check
+      tags:
+      - Agent
+      parameters:
+      - name: checkID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Check deregistered
+  /agent/join/{address}:
+    put:
+      operationId: agentJoin
+      summary: Join a cluster
+      description: Triggers the agent to join a given address as part of the gossip pool.
+      tags:
+      - Agent
+      parameters:
+      - name: address
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: wan
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Successfully joined
+  /agent/leave:
+    put:
+      operationId: agentLeave
+      summary: Gracefully leave cluster
+      description: Triggers a graceful leave and shutdown of the agent.
+      tags:
+      - Agent
+      responses:
+        '200':
+          description: Agent leaving
+  /agent/maintenance:
+    put:
+      operationId: agentMaintenance
+      summary: Toggle maintenance mode
+      tags:
+      - Agent
+      parameters:
+      - name: enable
+        in: query
+        required: true
+        schema:
+          type: boolean
+      - name: reason
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Maintenance mode toggled
+components:
+  schemas:
+    AgentMember:
+      type: object
+      properties:
+        Name:
+          type: string
+        Addr:
+          type: string
+        Port:
+          type: integer
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        Status:
+          type: integer
+        ProtocolMin:
+          type: integer
+        ProtocolMax:
+          type: integer
+        ProtocolCur:
+          type: integer
+        DelegateMin:
+          type: integer
+        DelegateMax:
+          type: integer
+        DelegateCur:
+          type: integer
+    AgentService:
+      type: object
+      properties:
+        ID:
+          type: string
+        Service:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
+          type: string
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
+          type: string
+    AgentCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        Type:
+          type: string
+    CheckRegistration:
+      type: object
+      properties:
+        Name:
+          type: string
+        CheckID:
+          type: string
+        Interval:
+          type: string
+        Notes:
+          type: string
+        DeregisterCriticalServiceAfter:
+          type: string
+        HTTP:
+          type: string
+        TCP:
+          type: string
+        GRPC:
+          type: string
+        GRPCUseTLS:
+          type: boolean
+        TTL:
+          type: string
+        ServiceID:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+    ServiceRegistration:
+      type: object
+      required:
+      - Name
+      properties:
+        Name:
+          type: string
+        ID:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Address:
+          type: string
+        Port:
+          type: integer
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        EnableTagOverride:
+          type: boolean
+        Check:
+          $ref: '#/components/schemas/CheckRegistration'
+        Checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckRegistration'
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Kind:
+          type: string
+          enum:
+          - ''
+          - connect-proxy
+          - mesh-gateway
+          - terminating-gateway
+          - ingress-gateway
+        Proxy:
+          type: object
+          properties:
+            DestinationServiceName:
+              type: string
+            DestinationServiceID:
+              type: string
+            LocalServiceAddress:
+              type: string
+            LocalServicePort:
+              type: integer
+            Upstreams:
+              type: array
+              items:
+                type: object
+                properties:
+                  DestinationType:
+                    type: string
+                  DestinationName:
+                    type: string
+                  LocalBindPort:
+                    type: integer
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

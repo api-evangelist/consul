@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL Sessions API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: Sessions
+  description: Session management for distributed locking
+paths:
+  /session/create:
+    put:
+      operationId: createSession
+      summary: Create a session
+      tags:
+      - Sessions
+      parameters:
+      - $ref: '#/components/parameters/dc'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LockDelay:
+                  type: string
+                Name:
+                  type: string
+                Node:
+                  type: string
+                Checks:
+                  type: array
+                  items:
+                    type: string
+                Behavior:
+                  type: string
+                  enum:
+                  - release
+                  - delete
+                TTL:
+                  type: string
+      responses:
+        '200':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: string
+  /session/destroy/{sessionID}:
+    put:
+      operationId: destroySession
+      summary: Destroy a session
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionID
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Session destroyed
+  /session/info/{sessionID}:
+    get:
+      operationId: getSession
+      summary: Read a session
+      tags:
+      - Sessions
+      parameters:
+      - name: sessionID
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Session info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
+  /session/list:
+    get:
+      operationId: listSessions
+      summary: List sessions
+      tags:
+      - Sessions
+      parameters:
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
+components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  schemas:
+    Session:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Node:
+          type: string
+        LockDelay:
+          type: number
+        Behavior:
+          type: string
+        TTL:
+          type: string
+        Checks:
+          type: array
+          items:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

@@ -1,0 +1,105 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL Transaction API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: Transaction
+  description: Atomic key/value transactions
+paths:
+  /txn:
+    put:
+      operationId: executeTxn
+      summary: Execute a transaction
+      description: Manages updates or fetches of multiple keys inside a single, atomic transaction.
+      tags:
+      - Transaction
+      parameters:
+      - $ref: '#/components/parameters/dc'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  KV:
+                    type: object
+                    properties:
+                      Verb:
+                        type: string
+                        enum:
+                        - set
+                        - get
+                        - delete
+                        - cas
+                        - lock
+                        - unlock
+                        - check-session
+                        - check-index
+                        - check-not-exists
+                      Key:
+                        type: string
+                      Value:
+                        type: string
+                      Flags:
+                        type: integer
+                      Index:
+                        type: integer
+                      Session:
+                        type: string
+      responses:
+        '200':
+          description: Transaction results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Results:
+                    type: array
+                    items:
+                      type: object
+                  Errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        OpIndex:
+                          type: integer
+                        What:
+                          type: string
+components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication

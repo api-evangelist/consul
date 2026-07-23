@@ -1,0 +1,85 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP ACL Coordinates API
+  description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://{consul_host}:{port}/v1
+  description: Custom Consul server
+  variables:
+    consul_host:
+      default: localhost
+    port:
+      default: '8500'
+security:
+- ConsulToken: []
+tags:
+- name: Coordinates
+  description: Network coordinate information
+paths:
+  /coordinate/datacenters:
+    get:
+      operationId: getCoordinateDatacenters
+      summary: Read WAN coordinates
+      tags:
+      - Coordinates
+      responses:
+        '200':
+          description: WAN coordinates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Datacenter:
+                      type: string
+                    Coordinates:
+                      type: array
+                      items:
+                        type: object
+  /coordinate/nodes:
+    get:
+      operationId: getCoordinateNodes
+      summary: Read LAN coordinates
+      tags:
+      - Coordinates
+      parameters:
+      - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: LAN coordinates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Node:
+                      type: string
+                    Coord:
+                      type: object
+components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication
