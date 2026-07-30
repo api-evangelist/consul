@@ -8,7 +8,20 @@ description: >-
   by the X-Consul-Token header (apiKey) and ACL policies, supporting blocking queries via X-Consul-Index for
   streaming-style change detection.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/consul.png
 access: 3rd-Party
 tags:
   - ACL
@@ -25,36 +38,258 @@ position: Provider
 specificationVersion: '0.19'
 kind: opensource
 apis:
-  - aid: consul:http-api
-    name: Consul HTTP API
-    description: >-
-      The main HTTP API for interacting with Consul agents and servers. Endpoints are grouped under /agent (local agent
-      state and registration), /catalog (cluster-wide service and node catalog), /health (health-checked service
-      queries), /kv (key/value store), /acl (token, policy, and role management), /connect (service mesh CA,
-      intentions), /config (central configuration entries), /event (user events), /session (locks and leadership), and
-      /operator (Raft, autopilot, license).
-    image: https://www.consul.io/img/logo-hashicorp.svg
-    humanURL: https://developer.hashicorp.com/consul/api-docs
-    baseURL: http://localhost:8500/v1
-    tags:
-      - ACL
-      - Catalog
-      - Connect
-      - Health
-      - Key/Value
-      - Service Discovery
-      - Service Mesh
-    properties:
-      - type: Documentation
-        url: https://developer.hashicorp.com/consul/api-docs
-      - type: OpenAPI
-        url: openapi/consul-http-api.yml
-      - type: Authentication
-        url: https://developer.hashicorp.com/consul/api-docs/api-structure
-      - type: ACL Documentation
-        url: https://developer.hashicorp.com/consul/docs/security/acl
-      - type: GitHubRepository
-        url: https://github.com/hashicorp/consul
+- aid: consul:consul-acl-api
+  name: HashiCorp Consul ACL API
+  description: Access Control List management
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - ACL
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-acl-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-agent-api
+  name: HashiCorp Consul Agent API
+  description: Interact with the local Consul agent
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Agent
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-agent-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-catalog-api
+  name: HashiCorp Consul Catalog API
+  description: Register and query services and nodes
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-catalog-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-config-entries-api
+  name: HashiCorp Consul Config Entries API
+  description: Centralized configuration entries
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Config Entries
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-config-entries-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-connect-api
+  name: HashiCorp Consul Connect API
+  description: Service mesh / Connect CA and intentions
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Connect
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-connect-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-coordinates-api
+  name: HashiCorp Consul Coordinates API
+  description: Network coordinate information
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Coordinates
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-coordinates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-events-api
+  name: HashiCorp Consul Events API
+  description: Fire and list custom user events
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-events-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-health-api
+  name: HashiCorp Consul Health API
+  description: Query health check information
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-health-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-kv-store-api
+  name: HashiCorp Consul KV Store API
+  description: Key/Value store operations
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - KV Store
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-kv-store-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-operator-api
+  name: HashiCorp Consul Operator API
+  description: Cluster operator endpoints
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Operator
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-operator-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-sessions-api
+  name: HashiCorp Consul Sessions API
+  description: Session management for distributed locking
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-snapshot-api
+  name: HashiCorp Consul Snapshot API
+  description: Snapshot and restore operations
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Snapshot
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-snapshot-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-status-api
+  name: HashiCorp Consul Status API
+  description: Cluster status information
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-status-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
+- aid: consul:consul-transaction-api
+  name: HashiCorp Consul Transaction API
+  description: Atomic key/value transactions
+  humanURL: https://developer.hashicorp.com/consul/api-docs
+  baseURL: http://localhost:8500/v1
+  tags:
+  - Transaction
+  properties:
+  - type: OpenAPI
+    url: openapi/consul-transaction-api-openapi.yml
+  - type: Documentation
+    url: https://developer.hashicorp.com/consul/api-docs
+  - type: Authentication
+    url: https://developer.hashicorp.com/consul/api-docs/api-structure
+  - type: ACL Documentation
+    url: https://developer.hashicorp.com/consul/docs/security/acl
+  - type: GitHubRepository
+    url: https://github.com/hashicorp/consul
 common:
   - type: AgenticAccess
     url: agentic-access/consul-agentic-access.yml
