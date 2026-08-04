@@ -1,0 +1,1989 @@
+openapi: 3.1.0
+info:
+  title: HashiCorp Consul HTTP API
+  description: >-
+    The Consul HTTP API provides full access to Consul functionality including
+    service discovery, health checking, key/value storage, ACL management,
+    Connect service mesh, configuration entries, and multi-datacenter operations.
+  version: 1.18.0
+  contact:
+    name: HashiCorp
+    url: https://www.consul.io/
+  license:
+    name: Business Source License 1.1
+    url: https://github.com/hashicorp/consul/blob/main/LICENSE
+servers:
+  - url: http://localhost:8500/v1
+    description: Local Consul agent
+  - url: https://{consul_host}:{port}/v1
+    description: Custom Consul server
+    variables:
+      consul_host:
+        default: localhost
+      port:
+        default: '8500'
+security:
+  - ConsulToken: []
+paths:
+  /agent/self:
+    get:
+      operationId: getAgentSelf
+      summary: Read agent configuration
+      description: Returns the configuration and member information of the local agent.
+      tags:
+        - Agent
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Agent configuration and member info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Config:
+                    type: object
+                  Member:
+                    $ref: '#/components/schemas/AgentMember'
+  /agent/members:
+    get:
+      operationId: listAgentMembers
+      summary: List cluster members
+      description: Returns the members the agent sees in the cluster gossip pool.
+      tags:
+        - Agent
+      parameters:
+        - name: wan
+          in: query
+          schema:
+            type: boolean
+          description: List WAN members instead of LAN
+        - name: segment
+          in: query
+          schema:
+            type: string
+          description: List members in a specific segment
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of cluster members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentMember'
+  /agent/services:
+    get:
+      operationId: listAgentServices
+      summary: List registered services
+      description: Returns all the services registered with the local agent.
+      tags:
+        - Agent
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: string
+          description: Filter expression
+        - name: ns
+          in: query
+          schema:
+            type: string
+          description: Namespace (Enterprise only)
+      responses:
+        '200':
+          description: Map of service ID to service definition
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AgentService'
+  /agent/service/{serviceID}:
+    get:
+      operationId: getAgentService
+      summary: Get service configuration
+      description: Returns full service definition for a single service on the local agent.
+      tags:
+        - Agent
+      parameters:
+        - name: serviceID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentService'
+        '404':
+          description: Service not found
+  /agent/service/register:
+    put:
+      operationId: registerAgentService
+      summary: Register a service
+      description: Adds a new service to the local agent with optional health checks.
+      tags:
+        - Agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceRegistration'
+      responses:
+        '200':
+          description: Service registered successfully
+  /agent/service/deregister/{serviceID}:
+    put:
+      operationId: deregisterAgentService
+      summary: Deregister a service
+      description: Removes a service from the local agent.
+      tags:
+        - Agent
+      parameters:
+        - name: serviceID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service deregistered
+  /agent/checks:
+    get:
+      operationId: listAgentChecks
+      summary: List registered checks
+      description: Returns all checks registered with the local agent.
+      tags:
+        - Agent
+      responses:
+        '200':
+          description: Map of check ID to check definition
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/AgentCheck'
+  /agent/check/register:
+    put:
+      operationId: registerAgentCheck
+      summary: Register a check
+      description: Adds a new check to the local agent.
+      tags:
+        - Agent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRegistration'
+      responses:
+        '200':
+          description: Check registered
+  /agent/check/deregister/{checkID}:
+    put:
+      operationId: deregisterAgentCheck
+      summary: Deregister a check
+      tags:
+        - Agent
+      parameters:
+        - name: checkID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Check deregistered
+  /agent/join/{address}:
+    put:
+      operationId: agentJoin
+      summary: Join a cluster
+      description: Triggers the agent to join a given address as part of the gossip pool.
+      tags:
+        - Agent
+      parameters:
+        - name: address
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: wan
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successfully joined
+  /agent/leave:
+    put:
+      operationId: agentLeave
+      summary: Gracefully leave cluster
+      description: Triggers a graceful leave and shutdown of the agent.
+      tags:
+        - Agent
+      responses:
+        '200':
+          description: Agent leaving
+  /agent/maintenance:
+    put:
+      operationId: agentMaintenance
+      summary: Toggle maintenance mode
+      tags:
+        - Agent
+      parameters:
+        - name: enable
+          in: query
+          required: true
+          schema:
+            type: boolean
+        - name: reason
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Maintenance mode toggled
+  /catalog/register:
+    put:
+      operationId: catalogRegister
+      summary: Register entity
+      description: Registers or updates entries in the catalog (low-level).
+      tags:
+        - Catalog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogRegistration'
+      responses:
+        '200':
+          description: Entity registered
+  /catalog/deregister:
+    put:
+      operationId: catalogDeregister
+      summary: Deregister entity
+      description: Directly removes entries from the catalog.
+      tags:
+        - Catalog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Node:
+                  type: string
+                Datacenter:
+                  type: string
+                ServiceID:
+                  type: string
+                CheckID:
+                  type: string
+      responses:
+        '200':
+          description: Entity deregistered
+  /catalog/datacenters:
+    get:
+      operationId: listDatacenters
+      summary: List datacenters
+      description: Returns the list of all known datacenters sorted by estimated round trip time.
+      tags:
+        - Catalog
+      responses:
+        '200':
+          description: List of datacenter names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /catalog/nodes:
+    get:
+      operationId: listCatalogNodes
+      summary: List nodes
+      description: Returns the nodes registered in a given datacenter.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/dc'
+        - name: near
+          in: query
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of catalog nodes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogNode'
+  /catalog/services:
+    get:
+      operationId: listCatalogServices
+      summary: List services
+      description: Returns the services registered in a given datacenter.
+      tags:
+        - Catalog
+      parameters:
+        - $ref: '#/components/parameters/dc'
+        - name: ns
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Map of service names to tags
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+  /catalog/service/{serviceName}:
+    get:
+      operationId: getCatalogService
+      summary: List nodes for a service
+      description: Returns the nodes providing a given service in a datacenter.
+      tags:
+        - Catalog
+      parameters:
+        - name: serviceName
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: tag
+          in: query
+          schema:
+            type: string
+        - name: near
+          in: query
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of service instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogServiceInstance'
+  /catalog/node/{node}:
+    get:
+      operationId: getCatalogNode
+      summary: List services for a node
+      description: Returns the node's registered services.
+      tags:
+        - Catalog
+      parameters:
+        - name: node
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Node info with services
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Node:
+                    $ref: '#/components/schemas/CatalogNode'
+                  Services:
+                    type: object
+                    additionalProperties:
+                      $ref: '#/components/schemas/AgentService'
+  /health/node/{node}:
+    get:
+      operationId: getHealthNode
+      summary: List checks for a node
+      description: Returns the checks specific to the node provided.
+      tags:
+        - Health
+      parameters:
+        - name: node
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of health checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthCheck'
+  /health/checks/{serviceName}:
+    get:
+      operationId: getHealthChecks
+      summary: List checks for a service
+      description: Returns the checks associated with the service provided.
+      tags:
+        - Health
+      parameters:
+        - name: serviceName
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: near
+          in: query
+          schema:
+            type: string
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of health checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthCheck'
+  /health/service/{serviceName}:
+    get:
+      operationId: getHealthService
+      summary: List service instances with health
+      description: Returns the service instances providing the service along with health check information.
+      tags:
+        - Health
+      parameters:
+        - name: serviceName
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: near
+          in: query
+          schema:
+            type: string
+        - name: tag
+          in: query
+          schema:
+            type: string
+        - name: passing
+          in: query
+          schema:
+            type: boolean
+          description: Filter to only passing instances
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Service instances with health info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Node:
+                      $ref: '#/components/schemas/CatalogNode'
+                    Service:
+                      $ref: '#/components/schemas/AgentService'
+                    Checks:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/HealthCheck'
+  /health/state/{state}:
+    get:
+      operationId: getHealthState
+      summary: List checks in a state
+      description: Returns the checks in the specified state (any, passing, warning, critical).
+      tags:
+        - Health
+      parameters:
+        - name: state
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - any
+              - passing
+              - warning
+              - critical
+        - $ref: '#/components/parameters/dc'
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of health checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthCheck'
+  /kv/{key}:
+    get:
+      operationId: getKVKey
+      summary: Read a key
+      description: Returns the specified key. If no key exists at the given path, a 404 is returned.
+      tags:
+        - KV Store
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: recurse
+          in: query
+          schema:
+            type: boolean
+          description: Return all keys with the given prefix
+        - name: raw
+          in: query
+          schema:
+            type: boolean
+          description: Return raw value without JSON encoding
+        - name: keys
+          in: query
+          schema:
+            type: boolean
+          description: Return only keys (no values)
+        - name: separator
+          in: query
+          schema:
+            type: string
+          description: List keys up to a given separator
+      responses:
+        '200':
+          description: Key-value pair(s)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KVPair'
+        '404':
+          description: Key not found
+    put:
+      operationId: putKVKey
+      summary: Create or update a key
+      description: Creates or updates a key with the given value.
+      tags:
+        - KV Store
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: flags
+          in: query
+          schema:
+            type: integer
+          description: Unsigned value between 0 and 2^64-1
+        - name: cas
+          in: query
+          schema:
+            type: integer
+          description: Check-And-Set index for optimistic locking
+        - name: acquire
+          in: query
+          schema:
+            type: string
+          description: Session ID to acquire a lock
+        - name: release
+          in: query
+          schema:
+            type: string
+          description: Session ID to release a lock
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Success (true) or failure (false)
+          content:
+            application/json:
+              schema:
+                type: boolean
+    delete:
+      operationId: deleteKVKey
+      summary: Delete a key
+      description: Deletes a single key or all keys sharing a prefix.
+      tags:
+        - KV Store
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: recurse
+          in: query
+          schema:
+            type: boolean
+        - name: cas
+          in: query
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Deletion result
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /acl/token:
+    put:
+      operationId: createACLToken
+      summary: Create a token
+      description: Creates a new ACL token.
+      tags:
+        - ACL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLTokenRequest'
+      responses:
+        '200':
+          description: Created token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+  /acl/token/{accessorID}:
+    get:
+      operationId: getACLToken
+      summary: Read a token
+      tags:
+        - ACL
+      parameters:
+        - name: accessorID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+    put:
+      operationId: updateACLToken
+      summary: Update a token
+      tags:
+        - ACL
+      parameters:
+        - name: accessorID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLTokenRequest'
+      responses:
+        '200':
+          description: Updated token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLToken'
+    delete:
+      operationId: deleteACLToken
+      summary: Delete a token
+      tags:
+        - ACL
+      parameters:
+        - name: accessorID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token deleted
+  /acl/tokens:
+    get:
+      operationId: listACLTokens
+      summary: List tokens
+      tags:
+        - ACL
+      parameters:
+        - name: policy
+          in: query
+          schema:
+            type: string
+        - name: role
+          in: query
+          schema:
+            type: string
+        - name: authmethod
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ACLToken'
+  /acl/policy:
+    put:
+      operationId: createACLPolicy
+      summary: Create a policy
+      tags:
+        - ACL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLPolicyRequest'
+      responses:
+        '200':
+          description: Created policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+  /acl/policies:
+    get:
+      operationId: listACLPolicies
+      summary: List policies
+      tags:
+        - ACL
+      responses:
+        '200':
+          description: List of policies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ACLPolicy'
+  /acl/policy/{policyID}:
+    get:
+      operationId: getACLPolicy
+      summary: Read a policy
+      tags:
+        - ACL
+      parameters:
+        - name: policyID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+    put:
+      operationId: updateACLPolicy
+      summary: Update a policy
+      tags:
+        - ACL
+      parameters:
+        - name: policyID
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ACLPolicyRequest'
+      responses:
+        '200':
+          description: Updated policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ACLPolicy'
+    delete:
+      operationId: deleteACLPolicy
+      summary: Delete a policy
+      tags:
+        - ACL
+      parameters:
+        - name: policyID
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Policy deleted
+  /connect/ca/roots:
+    get:
+      operationId: getConnectCARoots
+      summary: List CA root certificates
+      description: Returns the current list of trusted CA root certificates in the Connect CA.
+      tags:
+        - Connect
+      responses:
+        '200':
+          description: CA root certificates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ActiveRootID:
+                    type: string
+                  Roots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                        Name:
+                          type: string
+                        RootCert:
+                          type: string
+                        Active:
+                          type: boolean
+  /connect/ca/configuration:
+    get:
+      operationId: getConnectCAConfig
+      summary: Get CA configuration
+      tags:
+        - Connect
+      responses:
+        '200':
+          description: CA configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Provider:
+                    type: string
+                  Config:
+                    type: object
+    put:
+      operationId: updateConnectCAConfig
+      summary: Update CA configuration
+      tags:
+        - Connect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Provider:
+                  type: string
+                Config:
+                  type: object
+      responses:
+        '200':
+          description: CA configuration updated
+  /connect/intentions:
+    get:
+      operationId: listConnectIntentions
+      summary: List intentions
+      description: Returns all Connect intentions.
+      tags:
+        - Connect
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of intentions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intention'
+  /config/{kind}:
+    get:
+      operationId: listConfigEntries
+      summary: List config entries by kind
+      tags:
+        - Config Entries
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - service-defaults
+              - proxy-defaults
+              - service-router
+              - service-splitter
+              - service-resolver
+              - ingress-gateway
+              - terminating-gateway
+              - service-intentions
+              - mesh
+              - exported-services
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of config entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /config:
+    put:
+      operationId: applyConfigEntry
+      summary: Apply a config entry
+      tags:
+        - Config Entries
+      parameters:
+        - $ref: '#/components/parameters/dc'
+        - name: cas
+          in: query
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - Kind
+                - Name
+              properties:
+                Kind:
+                  type: string
+                Name:
+                  type: string
+      responses:
+        '200':
+          description: Config entry applied
+  /config/{kind}/{name}:
+    get:
+      operationId: getConfigEntry
+      summary: Get a config entry
+      tags:
+        - Config Entries
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Config entry
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      operationId: deleteConfigEntry
+      summary: Delete a config entry
+      tags:
+        - Config Entries
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: cas
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Config entry deleted
+  /event/fire/{name}:
+    put:
+      operationId: fireEvent
+      summary: Fire a new event
+      tags:
+        - Events
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+        - name: node
+          in: query
+          schema:
+            type: string
+        - name: service
+          in: query
+          schema:
+            type: string
+        - name: tag
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Event fired
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /event/list:
+    get:
+      operationId: listEvents
+      summary: List events
+      tags:
+        - Events
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+  /session/create:
+    put:
+      operationId: createSession
+      summary: Create a session
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LockDelay:
+                  type: string
+                Name:
+                  type: string
+                Node:
+                  type: string
+                Checks:
+                  type: array
+                  items:
+                    type: string
+                Behavior:
+                  type: string
+                  enum:
+                    - release
+                    - delete
+                TTL:
+                  type: string
+      responses:
+        '200':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ID:
+                    type: string
+  /session/destroy/{sessionID}:
+    put:
+      operationId: destroySession
+      summary: Destroy a session
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionID
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Session destroyed
+  /session/info/{sessionID}:
+    get:
+      operationId: getSession
+      summary: Read a session
+      tags:
+        - Sessions
+      parameters:
+        - name: sessionID
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Session info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
+  /session/list:
+    get:
+      operationId: listSessions
+      summary: List sessions
+      tags:
+        - Sessions
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: List of sessions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Session'
+  /coordinate/datacenters:
+    get:
+      operationId: getCoordinateDatacenters
+      summary: Read WAN coordinates
+      tags:
+        - Coordinates
+      responses:
+        '200':
+          description: WAN coordinates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Datacenter:
+                      type: string
+                    Coordinates:
+                      type: array
+                      items:
+                        type: object
+  /coordinate/nodes:
+    get:
+      operationId: getCoordinateNodes
+      summary: Read LAN coordinates
+      tags:
+        - Coordinates
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: LAN coordinates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Node:
+                      type: string
+                    Coord:
+                      type: object
+  /status/leader:
+    get:
+      operationId: getStatusLeader
+      summary: Get Raft leader
+      description: Returns the Raft leader for the datacenter.
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Leader address
+          content:
+            application/json:
+              schema:
+                type: string
+  /status/peers:
+    get:
+      operationId: getStatusPeers
+      summary: List Raft peers
+      description: Returns the Raft peers for the datacenter.
+      tags:
+        - Status
+      responses:
+        '200':
+          description: Peer addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /operator/raft/configuration:
+    get:
+      operationId: getRaftConfiguration
+      summary: Read Raft configuration
+      tags:
+        - Operator
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Raft configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Servers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ID:
+                          type: string
+                        Node:
+                          type: string
+                        Address:
+                          type: string
+                        Leader:
+                          type: boolean
+                        Voter:
+                          type: boolean
+                  Index:
+                    type: integer
+  /txn:
+    put:
+      operationId: executeTxn
+      summary: Execute a transaction
+      description: Manages updates or fetches of multiple keys inside a single, atomic transaction.
+      tags:
+        - Transaction
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  KV:
+                    type: object
+                    properties:
+                      Verb:
+                        type: string
+                        enum:
+                          - set
+                          - get
+                          - delete
+                          - cas
+                          - lock
+                          - unlock
+                          - check-session
+                          - check-index
+                          - check-not-exists
+                      Key:
+                        type: string
+                      Value:
+                        type: string
+                      Flags:
+                        type: integer
+                      Index:
+                        type: integer
+                      Session:
+                        type: string
+      responses:
+        '200':
+          description: Transaction results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Results:
+                    type: array
+                    items:
+                      type: object
+                  Errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        OpIndex:
+                          type: integer
+                        What:
+                          type: string
+  /snapshot:
+    get:
+      operationId: getSnapshot
+      summary: Generate a snapshot
+      description: Generates and returns an atomic, point-in-time snapshot of the Consul state.
+      tags:
+        - Snapshot
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      responses:
+        '200':
+          description: Snapshot data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+    put:
+      operationId: restoreSnapshot
+      summary: Restore a snapshot
+      description: Restores a point-in-time snapshot of the Consul state.
+      tags:
+        - Snapshot
+      parameters:
+        - $ref: '#/components/parameters/dc'
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Snapshot restored
+components:
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      name: X-Consul-Token
+      in: header
+      description: ACL token for authentication
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
+  schemas:
+    AgentMember:
+      type: object
+      properties:
+        Name:
+          type: string
+        Addr:
+          type: string
+        Port:
+          type: integer
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        Status:
+          type: integer
+        ProtocolMin:
+          type: integer
+        ProtocolMax:
+          type: integer
+        ProtocolCur:
+          type: integer
+        DelegateMin:
+          type: integer
+        DelegateMax:
+          type: integer
+        DelegateCur:
+          type: integer
+    AgentService:
+      type: object
+      properties:
+        ID:
+          type: string
+        Service:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
+          type: string
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
+          type: string
+    ServiceRegistration:
+      type: object
+      required:
+        - Name
+      properties:
+        Name:
+          type: string
+        ID:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Address:
+          type: string
+        Port:
+          type: integer
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        EnableTagOverride:
+          type: boolean
+        Check:
+          $ref: '#/components/schemas/CheckRegistration'
+        Checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckRegistration'
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Kind:
+          type: string
+          enum:
+            - ''
+            - connect-proxy
+            - mesh-gateway
+            - terminating-gateway
+            - ingress-gateway
+        Proxy:
+          type: object
+          properties:
+            DestinationServiceName:
+              type: string
+            DestinationServiceID:
+              type: string
+            LocalServiceAddress:
+              type: string
+            LocalServicePort:
+              type: integer
+            Upstreams:
+              type: array
+              items:
+                type: object
+                properties:
+                  DestinationType:
+                    type: string
+                  DestinationName:
+                    type: string
+                  LocalBindPort:
+                    type: integer
+    AgentCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+            - passing
+            - warning
+            - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        Type:
+          type: string
+    CheckRegistration:
+      type: object
+      properties:
+        Name:
+          type: string
+        CheckID:
+          type: string
+        Interval:
+          type: string
+        Notes:
+          type: string
+        DeregisterCriticalServiceAfter:
+          type: string
+        HTTP:
+          type: string
+        TCP:
+          type: string
+        GRPC:
+          type: string
+        GRPCUseTLS:
+          type: boolean
+        TTL:
+          type: string
+        ServiceID:
+          type: string
+        Status:
+          type: string
+          enum:
+            - passing
+            - warning
+            - critical
+    CatalogRegistration:
+      type: object
+      required:
+        - Node
+        - Address
+      properties:
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        NodeMeta:
+          type: object
+          additionalProperties:
+            type: string
+        Service:
+          $ref: '#/components/schemas/AgentService'
+        Check:
+          $ref: '#/components/schemas/HealthCheck'
+    CatalogNode:
+      type: object
+      properties:
+        ID:
+          type: string
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    CatalogServiceInstance:
+      type: object
+      properties:
+        ID:
+          type: string
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        ServiceAddress:
+          type: string
+        ServicePort:
+          type: integer
+        ServiceMeta:
+          type: object
+          additionalProperties:
+            type: string
+        ServiceWeights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    HealthCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+            - passing
+            - warning
+            - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        Type:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    KVPair:
+      type: object
+      properties:
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+        LockIndex:
+          type: integer
+        Key:
+          type: string
+        Flags:
+          type: integer
+        Value:
+          type: string
+          description: Base64 encoded value
+        Session:
+          type: string
+    ACLTokenRequest:
+      type: object
+      properties:
+        Description:
+          type: string
+        Policies:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Roles:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        ServiceIdentities:
+          type: array
+          items:
+            type: object
+            properties:
+              ServiceName:
+                type: string
+              Datacenters:
+                type: array
+                items:
+                  type: string
+        Local:
+          type: boolean
+        ExpirationTime:
+          type: string
+          format: date-time
+        ExpirationTTL:
+          type: string
+    ACLToken:
+      type: object
+      properties:
+        AccessorID:
+          type: string
+        SecretID:
+          type: string
+        Description:
+          type: string
+        Policies:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Roles:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Local:
+          type: boolean
+        CreateTime:
+          type: string
+          format: date-time
+        Hash:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    ACLPolicyRequest:
+      type: object
+      required:
+        - Name
+      properties:
+        Name:
+          type: string
+        Description:
+          type: string
+        Rules:
+          type: string
+          description: HCL or JSON formatted policy rules
+        Datacenters:
+          type: array
+          items:
+            type: string
+    ACLPolicy:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string
+        Rules:
+          type: string
+        Datacenters:
+          type: array
+          items:
+            type: string
+        Hash:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    Intention:
+      type: object
+      properties:
+        ID:
+          type: string
+        SourceName:
+          type: string
+        DestinationName:
+          type: string
+        SourceNS:
+          type: string
+        DestinationNS:
+          type: string
+        Action:
+          type: string
+          enum:
+            - allow
+            - deny
+        Precedence:
+          type: integer
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreatedAt:
+          type: string
+          format: date-time
+        UpdatedAt:
+          type: string
+          format: date-time
+    Event:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Payload:
+          type: string
+        NodeFilter:
+          type: string
+        ServiceFilter:
+          type: string
+        TagFilter:
+          type: string
+        Version:
+          type: integer
+        LTime:
+          type: integer
+    Session:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Node:
+          type: string
+        LockDelay:
+          type: number
+        Behavior:
+          type: string
+        TTL:
+          type: string
+        Checks:
+          type: array
+          items:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+tags:
+  - name: Agent
+    description: Interact with the local Consul agent
+  - name: Catalog
+    description: Register and query services and nodes
+  - name: Health
+    description: Query health check information
+  - name: KV Store
+    description: Key/Value store operations
+  - name: ACL
+    description: Access Control List management
+  - name: Connect
+    description: Service mesh / Connect CA and intentions
+  - name: Config Entries
+    description: Centralized configuration entries
+  - name: Events
+    description: Fire and list custom user events
+  - name: Sessions
+    description: Session management for distributed locking
+  - name: Coordinates
+    description: Network coordinate information
+  - name: Status
+    description: Cluster status information
+  - name: Operator
+    description: Cluster operator endpoints
+  - name: Transaction
+    description: Atomic key/value transactions
+  - name: Snapshot
+    description: Snapshot and restore operations

@@ -1,0 +1,40 @@
+{
+  "provider": "consul",
+  "sources": [
+    "consul-acl-api-openapi.yml",
+    "consul-agent-api-openapi.yml",
+    "consul-catalog-api-openapi.yml",
+    "consul-config-entries-api-openapi.yml",
+    "consul-connect-api-openapi.yml",
+    "consul-coordinates-api-openapi.yml",
+    "consul-events-api-openapi.yml",
+    "consul-health-api-openapi.yml",
+    "consul-kv-store-api-openapi.yml",
+    "consul-operator-api-openapi.yml",
+    "consul-sessions-api-openapi.yml",
+    "consul-snapshot-api-openapi.yml",
+    "consul-status-api-openapi.yml",
+    "consul-transaction-api-openapi.yml"
+  ],
+  "outputs": [
+    "consul-acl-api-openapi.yml",
+    "consul-agent-api-openapi.yml",
+    "consul-catalog-api-openapi.yml",
+    "consul-config-entries-api-openapi.yml",
+    "consul-connect-api-openapi.yml",
+    "consul-coordinates-api-openapi.yml",
+    "consul-events-api-openapi.yml",
+    "consul-health-api-openapi.yml",
+    "consul-kv-store-api-openapi.yml",
+    "consul-operator-api-openapi.yml",
+    "consul-sessions-api-openapi.yml",
+    "consul-snapshot-api-openapi.yml",
+    "consul-status-api-openapi.yml",
+    "consul-transaction-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
