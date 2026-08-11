@@ -291,6 +291,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/hashicorp/consul
 common:
+  - type: IssueTracker
+    url: https://github.com/hashicorp/consul/issues
+  - type: CodeOfConduct
+    url: https://github.com/hashicorp/.github/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/hashicorp/consul/blob/main/.github/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/consul-agentic-access.yml
   - type: DomainSecurity
