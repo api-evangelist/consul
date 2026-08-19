@@ -35,7 +35,7 @@ tags:
 created: '2024-01-01'
 modified: '2026-05-19'
 position: Provider
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 kind: opensource
 apis:
 - aid: consul:consul-acl-api
