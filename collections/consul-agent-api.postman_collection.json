@@ -1,0 +1,1206 @@
+{
+  "item": [
+    {
+      "id": "4142f733-00ea-4d62-b384-c080fa60d484",
+      "name": "Agent",
+      "description": {
+        "content": "Interact with the local Consul agent",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9548abda-55ae-40b4-b4cf-332b329701a8",
+          "name": "Read agent configuration",
+          "request": {
+            "name": "Read agent configuration",
+            "description": {
+              "content": "Returns the configuration and member information of the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "self"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a869b7e-37e3-4f98-a6df-b799d23e8035",
+              "name": "Agent configuration and member info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Config\": {},\n  \"Member\": {\n    \"Name\": \"string\",\n    \"Addr\": \"string\",\n    \"Port\": 7545,\n    \"Tags\": {\n      \"key_0\": \"string\"\n    },\n    \"Status\": 7743,\n    \"ProtocolMin\": 7071,\n    \"ProtocolMax\": 5812,\n    \"ProtocolCur\": 4897,\n    \"DelegateMin\": 43,\n    \"DelegateMax\": 1063,\n    \"DelegateCur\": 5101\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4999430c-091b-4538-a659-11e836c451a7",
+          "name": "List cluster members",
+          "request": {
+            "name": "List cluster members",
+            "description": {
+              "content": "Returns the members the agent sees in the cluster gossip pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "wan",
+                  "value": "<boolean>",
+                  "description": "List WAN members instead of LAN"
+                },
+                {
+                  "disabled": false,
+                  "key": "segment",
+                  "value": "<string>",
+                  "description": "List members in a specific segment"
+                },
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0347443-3afc-4a66-87b6-08abdd27c737",
+              "name": "List of cluster members",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wan",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "segment",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Name\": \"string\",\n    \"Addr\": \"string\",\n    \"Port\": 188,\n    \"Tags\": {\n      \"key_0\": \"string\"\n    },\n    \"Status\": 6074,\n    \"ProtocolMin\": 2413,\n    \"ProtocolMax\": 2156,\n    \"ProtocolCur\": 290,\n    \"DelegateMin\": 8210,\n    \"DelegateMax\": 9743,\n    \"DelegateCur\": 3803\n  },\n  {\n    \"Name\": \"string\",\n    \"Addr\": \"string\",\n    \"Port\": 6697,\n    \"Tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"Status\": 4810,\n    \"ProtocolMin\": 7950,\n    \"ProtocolMax\": 7561,\n    \"ProtocolCur\": 7234,\n    \"DelegateMin\": 6436,\n    \"DelegateMax\": 8267,\n    \"DelegateCur\": 2472\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af80092f-1f57-47f6-b99a-6da5fb3ce3c8",
+          "name": "List registered services",
+          "request": {
+            "name": "List registered services",
+            "description": {
+              "content": "Returns all the services registered with the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression"
+                },
+                {
+                  "disabled": false,
+                  "key": "ns",
+                  "value": "<string>",
+                  "description": "Namespace (Enterprise only)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "008c9ca7-1802-4de3-a204-feca67cec2a1",
+              "name": "Map of service ID to service definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ns",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"ID\": \"string\",\n    \"Service\": \"string\",\n    \"Tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Meta\": {\n      \"key_0\": \"string\"\n    },\n    \"Port\": 1121,\n    \"Address\": \"string\",\n    \"EnableTagOverride\": false,\n    \"Weights\": {\n      \"Passing\": 2418,\n      \"Warning\": 1225\n    },\n    \"Namespace\": \"string\"\n  },\n  \"key_1\": {\n    \"ID\": \"string\",\n    \"Service\": \"string\",\n    \"Tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Meta\": {\n      \"key_0\": \"string\"\n    },\n    \"Port\": 4325,\n    \"Address\": \"string\",\n    \"EnableTagOverride\": true,\n    \"Weights\": {\n      \"Passing\": 7708,\n      \"Warning\": 2295\n    },\n    \"Namespace\": \"string\"\n  },\n  \"key_2\": {\n    \"ID\": \"string\",\n    \"Service\": \"string\",\n    \"Tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"Port\": 395,\n    \"Address\": \"string\",\n    \"EnableTagOverride\": false,\n    \"Weights\": {\n      \"Passing\": 6957,\n      \"Warning\": 7282\n    },\n    \"Namespace\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bb29932-5bfc-4675-987a-cb2083e24ac0",
+          "name": "Get service configuration",
+          "request": {
+            "name": "Get service configuration",
+            "description": {
+              "content": "Returns full service definition for a single service on the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "service",
+                ":serviceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "807c2c2e-c1c1-45ba-81c4-a728b6f97433",
+              "name": "Service definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "service",
+                    ":serviceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ID\": \"string\",\n  \"Service\": \"string\",\n  \"Tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Meta\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"Port\": 6253,\n  \"Address\": \"string\",\n  \"EnableTagOverride\": true,\n  \"Weights\": {\n    \"Passing\": 1147,\n    \"Warning\": 4772\n  },\n  \"Namespace\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f603f170-0616-4ad2-9d40-3c2b0fe47db2",
+              "name": "Service not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "service",
+                    ":serviceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8959e630-0242-4b25-85df-1dd91d3876e3",
+          "name": "Register a service",
+          "request": {
+            "name": "Register a service",
+            "description": {
+              "content": "Adds a new service to the local agent with optional health checks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "service",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Name\": \"<string>\",\n  \"ID\": \"<string>\",\n  \"Tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Address\": \"<string>\",\n  \"Port\": \"<integer>\",\n  \"Meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"EnableTagOverride\": \"<boolean>\",\n  \"Check\": {\n    \"Name\": \"<string>\",\n    \"CheckID\": \"<string>\",\n    \"Interval\": \"<string>\",\n    \"Notes\": \"<string>\",\n    \"DeregisterCriticalServiceAfter\": \"<string>\",\n    \"HTTP\": \"<string>\",\n    \"TCP\": \"<string>\",\n    \"GRPC\": \"<string>\",\n    \"GRPCUseTLS\": \"<boolean>\",\n    \"TTL\": \"<string>\",\n    \"ServiceID\": \"<string>\",\n    \"Status\": \"<string>\"\n  },\n  \"Checks\": [\n    {\n      \"Name\": \"<string>\",\n      \"CheckID\": \"<string>\",\n      \"Interval\": \"<string>\",\n      \"Notes\": \"<string>\",\n      \"DeregisterCriticalServiceAfter\": \"<string>\",\n      \"HTTP\": \"<string>\",\n      \"TCP\": \"<string>\",\n      \"GRPC\": \"<string>\",\n      \"GRPCUseTLS\": \"<boolean>\",\n      \"TTL\": \"<string>\",\n      \"ServiceID\": \"<string>\",\n      \"Status\": \"<string>\"\n    },\n    {\n      \"Name\": \"<string>\",\n      \"CheckID\": \"<string>\",\n      \"Interval\": \"<string>\",\n      \"Notes\": \"<string>\",\n      \"DeregisterCriticalServiceAfter\": \"<string>\",\n      \"HTTP\": \"<string>\",\n      \"TCP\": \"<string>\",\n      \"GRPC\": \"<string>\",\n      \"GRPCUseTLS\": \"<boolean>\",\n      \"TTL\": \"<string>\",\n      \"ServiceID\": \"<string>\",\n      \"Status\": \"<string>\"\n    }\n  ],\n  \"Weights\": {\n    \"Passing\": \"<integer>\",\n    \"Warning\": \"<integer>\"\n  },\n  \"Kind\": \"<string>\",\n  \"Proxy\": {\n    \"DestinationServiceName\": \"<string>\",\n    \"DestinationServiceID\": \"<string>\",\n    \"LocalServiceAddress\": \"<string>\",\n    \"LocalServicePort\": \"<integer>\",\n    \"Upstreams\": [\n      {\n        \"DestinationType\": \"<string>\",\n        \"DestinationName\": \"<string>\",\n        \"LocalBindPort\": \"<integer>\"\n      },\n      {\n        \"DestinationType\": \"<string>\",\n        \"DestinationName\": \"<string>\",\n        \"LocalBindPort\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "940b25ed-5199-416f-892b-9893111cfbff",
+              "name": "Service registered successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "service",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"ID\": \"<string>\",\n  \"Tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Address\": \"<string>\",\n  \"Port\": \"<integer>\",\n  \"Meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"EnableTagOverride\": \"<boolean>\",\n  \"Check\": {\n    \"Name\": \"string\",\n    \"CheckID\": \"string\",\n    \"Interval\": \"string\",\n    \"Notes\": \"string\",\n    \"DeregisterCriticalServiceAfter\": \"string\",\n    \"HTTP\": \"string\",\n    \"TCP\": \"string\",\n    \"GRPC\": \"string\",\n    \"GRPCUseTLS\": true,\n    \"TTL\": \"string\",\n    \"ServiceID\": \"string\",\n    \"Status\": \"critical\"\n  },\n  \"Checks\": [\n    {\n      \"Name\": \"string\",\n      \"CheckID\": \"string\",\n      \"Interval\": \"string\",\n      \"Notes\": \"string\",\n      \"DeregisterCriticalServiceAfter\": \"string\",\n      \"HTTP\": \"string\",\n      \"TCP\": \"string\",\n      \"GRPC\": \"string\",\n      \"GRPCUseTLS\": false,\n      \"TTL\": \"string\",\n      \"ServiceID\": \"string\",\n      \"Status\": \"passing\"\n    },\n    {\n      \"Name\": \"string\",\n      \"CheckID\": \"string\",\n      \"Interval\": \"string\",\n      \"Notes\": \"string\",\n      \"DeregisterCriticalServiceAfter\": \"string\",\n      \"HTTP\": \"string\",\n      \"TCP\": \"string\",\n      \"GRPC\": \"string\",\n      \"GRPCUseTLS\": false,\n      \"TTL\": \"string\",\n      \"ServiceID\": \"string\",\n      \"Status\": \"passing\"\n    }\n  ],\n  \"Weights\": {\n    \"Passing\": \"<integer>\",\n    \"Warning\": \"<integer>\"\n  },\n  \"Kind\": \"<string>\",\n  \"Proxy\": {\n    \"DestinationServiceName\": \"<string>\",\n    \"DestinationServiceID\": \"<string>\",\n    \"LocalServiceAddress\": \"<string>\",\n    \"LocalServicePort\": \"<integer>\",\n    \"Upstreams\": [\n      {\n        \"DestinationType\": \"<string>\",\n        \"DestinationName\": \"<string>\",\n        \"LocalBindPort\": \"<integer>\"\n      },\n      {\n        \"DestinationType\": \"<string>\",\n        \"DestinationName\": \"<string>\",\n        \"LocalBindPort\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5bcb08a-9821-4a14-952e-149a59926715",
+          "name": "Deregister a service",
+          "request": {
+            "name": "Deregister a service",
+            "description": {
+              "content": "Removes a service from the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "service",
+                "deregister",
+                ":serviceID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05ef3330-b2c0-4b9a-8d04-6115d5bc00d3",
+              "name": "Service deregistered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "service",
+                    "deregister",
+                    ":serviceID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f74e439-c5f7-4e4c-9089-bd0a6c5723b0",
+          "name": "List registered checks",
+          "request": {
+            "name": "List registered checks",
+            "description": {
+              "content": "Returns all checks registered with the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a00c3dc0-43e9-459e-9754-a95723e62759",
+              "name": "Map of check ID to check definition",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"passing\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"Type\": \"string\"\n  },\n  \"key_1\": {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"passing\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"Type\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0165679-e531-4782-9add-8992a44f5123",
+          "name": "Register a check",
+          "request": {
+            "name": "Register a check",
+            "description": {
+              "content": "Adds a new check to the local agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "check",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Name\": \"<string>\",\n  \"CheckID\": \"<string>\",\n  \"Interval\": \"<string>\",\n  \"Notes\": \"<string>\",\n  \"DeregisterCriticalServiceAfter\": \"<string>\",\n  \"HTTP\": \"<string>\",\n  \"TCP\": \"<string>\",\n  \"GRPC\": \"<string>\",\n  \"GRPCUseTLS\": \"<boolean>\",\n  \"TTL\": \"<string>\",\n  \"ServiceID\": \"<string>\",\n  \"Status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7eb74ae-ece0-4efb-8930-7e9a7b3f4341",
+              "name": "Check registered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "check",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"CheckID\": \"<string>\",\n  \"Interval\": \"<string>\",\n  \"Notes\": \"<string>\",\n  \"DeregisterCriticalServiceAfter\": \"<string>\",\n  \"HTTP\": \"<string>\",\n  \"TCP\": \"<string>\",\n  \"GRPC\": \"<string>\",\n  \"GRPCUseTLS\": \"<boolean>\",\n  \"TTL\": \"<string>\",\n  \"ServiceID\": \"<string>\",\n  \"Status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5aa2d02-50d5-4557-a125-cba203c72c6f",
+          "name": "Deregister a check",
+          "request": {
+            "name": "Deregister a check",
+            "description": {},
+            "url": {
+              "path": [
+                "agent",
+                "check",
+                "deregister",
+                ":checkID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "checkID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67405f20-98dc-40eb-915a-5ecfbe56573a",
+              "name": "Check deregistered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "check",
+                    "deregister",
+                    ":checkID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "checkID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "220aa268-ce44-473a-9ce3-f0322bf4f413",
+          "name": "Join a cluster",
+          "request": {
+            "name": "Join a cluster",
+            "description": {
+              "content": "Triggers the agent to join a given address as part of the gossip pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "join",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "wan",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4bba51c-a71a-478c-8139-1fa558c87184",
+              "name": "Successfully joined",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "join",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "wan",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "275831be-0677-4c59-9cd3-5f101d3f580a",
+          "name": "Gracefully leave cluster",
+          "request": {
+            "name": "Gracefully leave cluster",
+            "description": {
+              "content": "Triggers a graceful leave and shutdown of the agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agent",
+                "leave"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9b0794c-5b1e-456a-8346-48fba314f02d",
+              "name": "Agent leaving",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "leave"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32b3062e-4aa4-4c41-a21a-1c5111ea549f",
+          "name": "Toggle maintenance mode",
+          "request": {
+            "name": "Toggle maintenance mode",
+            "description": {},
+            "url": {
+              "path": [
+                "agent",
+                "maintenance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "enable",
+                  "value": "<boolean>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "reason",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a8e7fac-0496-40e1-80b8-88041cd8d094",
+              "name": "Maintenance mode toggled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agent",
+                    "maintenance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "enable",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "reason",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0fe71f44-bb6b-41e4-b885-ac2c1c0d104f",
+    "name": "HashiCorp Consul HTTP ACL Agent API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}

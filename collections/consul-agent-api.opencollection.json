@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP ACL Agent API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Agent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read agent configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/self",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Returns the configuration and member information of the local agent."
+        },
+        {
+          "info": {
+            "name": "List cluster members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/members",
+            "params": [
+              {
+                "name": "wan",
+                "value": "",
+                "type": "query",
+                "description": "List WAN members instead of LAN"
+              },
+              {
+                "name": "segment",
+                "value": "",
+                "type": "query",
+                "description": "List members in a specific segment"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Returns the members the agent sees in the cluster gossip pool."
+        },
+        {
+          "info": {
+            "name": "List registered services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/services",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression"
+              },
+              {
+                "name": "ns",
+                "value": "",
+                "type": "query",
+                "description": "Namespace (Enterprise only)"
+              }
+            ]
+          },
+          "docs": "Returns all the services registered with the local agent."
+        },
+        {
+          "info": {
+            "name": "Get service configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/service/:serviceID",
+            "params": [
+              {
+                "name": "serviceID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns full service definition for a single service on the local agent."
+        },
+        {
+          "info": {
+            "name": "Register a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/service/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new service to the local agent with optional health checks."
+        },
+        {
+          "info": {
+            "name": "Deregister a service",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/service/deregister/:serviceID",
+            "params": [
+              {
+                "name": "serviceID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a service from the local agent."
+        },
+        {
+          "info": {
+            "name": "List registered checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/agent/checks"
+          },
+          "docs": "Returns all checks registered with the local agent."
+        },
+        {
+          "info": {
+            "name": "Register a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/check/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a new check to the local agent."
+        },
+        {
+          "info": {
+            "name": "Deregister a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/check/deregister/:checkID",
+            "params": [
+              {
+                "name": "checkID",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deregister a check"
+        },
+        {
+          "info": {
+            "name": "Join a cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/join/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wan",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Triggers the agent to join a given address as part of the gossip pool."
+        },
+        {
+          "info": {
+            "name": "Gracefully leave cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/leave"
+          },
+          "docs": "Triggers a graceful leave and shutdown of the agent."
+        },
+        {
+          "info": {
+            "name": "Toggle maintenance mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/agent/maintenance",
+            "params": [
+              {
+                "name": "enable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Toggle maintenance mode"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

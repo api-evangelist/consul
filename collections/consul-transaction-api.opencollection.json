@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP ACL Transaction API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/txn",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manages updates or fetches of multiple keys inside a single, atomic transaction."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

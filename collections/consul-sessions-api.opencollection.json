@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP ACL Sessions API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/session/create",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a session"
+        },
+        {
+          "info": {
+            "name": "Destroy a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/session/destroy/:sessionID",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Destroy a session"
+        },
+        {
+          "info": {
+            "name": "Read a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/session/info/:sessionID",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Read a session"
+        },
+        {
+          "info": {
+            "name": "List sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/session/list",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "List sessions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

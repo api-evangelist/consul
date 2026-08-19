@@ -1,0 +1,393 @@
+{
+  "item": [
+    {
+      "id": "a64657c4-0a7f-4b52-908a-b22f2ddbba37",
+      "name": "Connect",
+      "description": {
+        "content": "Service mesh / Connect CA and intentions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "34469dc7-af6c-41ea-9eeb-cb3bff1a1067",
+          "name": "List CA root certificates",
+          "request": {
+            "name": "List CA root certificates",
+            "description": {
+              "content": "Returns the current list of trusted CA root certificates in the Connect CA.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connect",
+                "ca",
+                "roots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97dd9037-5957-498d-aa04-658d3bfaed4c",
+              "name": "CA root certificates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "ca",
+                    "roots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ActiveRootID\": \"string\",\n  \"Roots\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\",\n      \"RootCert\": \"string\",\n      \"Active\": false\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\",\n      \"RootCert\": \"string\",\n      \"Active\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db0acd42-87ce-4fe3-81f9-e5fd36a3fb72",
+          "name": "Get CA configuration",
+          "request": {
+            "name": "Get CA configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "ca",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec16c0dc-8448-4dab-a563-1c2730ae3252",
+              "name": "CA configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "ca",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Provider\": \"string\",\n  \"Config\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8399f2ac-57e5-4f7f-979b-a85a5c61e4f6",
+          "name": "Update CA configuration",
+          "request": {
+            "name": "Update CA configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "ca",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e62d3abf-771e-4fe0-947a-54a3c16e2730",
+              "name": "CA configuration updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "ca",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16a206e8-6518-478b-a693-30938efd9314",
+          "name": "List intentions",
+          "request": {
+            "name": "List intentions",
+            "description": {
+              "content": "Returns all Connect intentions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connect",
+                "intentions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0d4fcda-f2bb-4838-a86f-0ceb58957f0e",
+              "name": "List of intentions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"allow\",\n    \"Precedence\": 431,\n    \"Description\": \"string\",\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreatedAt\": \"1990-03-07T20:59:33.332Z\",\n    \"UpdatedAt\": \"1980-01-30T13:14:23.882Z\"\n  },\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"deny\",\n    \"Precedence\": 8482,\n    \"Description\": \"string\",\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreatedAt\": \"1985-01-31T15:22:56.102Z\",\n    \"UpdatedAt\": \"1976-04-27T03:33:21.009Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c00992a3-a7a3-40d4-a786-0d104ba3d662",
+    "name": "HashiCorp Consul HTTP ACL Connect API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}

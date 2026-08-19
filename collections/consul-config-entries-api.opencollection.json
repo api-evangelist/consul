@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP ACL Config Entries API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Config Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List config entries by kind",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/config/:kind",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "List config entries by kind"
+        },
+        {
+          "info": {
+            "name": "Apply a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/config",
+            "params": [
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a config entry"
+        },
+        {
+          "info": {
+            "name": "Get a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/config/:kind/:name",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Get a config entry"
+        },
+        {
+          "info": {
+            "name": "Delete a config entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/config/:kind/:name",
+            "params": [
+              {
+                "name": "kind",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a config entry"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

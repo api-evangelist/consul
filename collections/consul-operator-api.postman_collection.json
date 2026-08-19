@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "dacf52bb-6751-434c-af65-7cb77067d637",
+      "name": "Operator",
+      "description": {
+        "content": "Cluster operator endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b7921ed3-d6a8-4c5e-b44f-0224dea60053",
+          "name": "Read Raft configuration",
+          "request": {
+            "name": "Read Raft configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "operator",
+                "raft",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6a47bdb-c221-4d2a-8cb1-dbd9cc0839ac",
+              "name": "Raft configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operator",
+                    "raft",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Servers\": [\n    {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Leader\": true,\n      \"Voter\": false\n    },\n    {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Leader\": true,\n      \"Voter\": false\n    }\n  ],\n  \"Index\": 8111\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "946bfe40-cfc9-4f49-b1d5-da75d6b6e42d",
+    "name": "HashiCorp Consul HTTP ACL Operator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}

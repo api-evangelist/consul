@@ -1,0 +1,782 @@
+{
+  "item": [
+    {
+      "id": "cff80c39-a707-4bfd-bc03-afb6a3db70ea",
+      "name": "Catalog",
+      "description": {
+        "content": "Register and query services and nodes",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4e8895e-5987-4fe8-b966-a9c3552740c2",
+          "name": "Register entity",
+          "request": {
+            "name": "Register entity",
+            "description": {
+              "content": "Registers or updates entries in the catalog (low-level).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Node\": \"<string>\",\n  \"Address\": \"<string>\",\n  \"Datacenter\": \"<string>\",\n  \"TaggedAddresses\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"NodeMeta\": {\n    \"key_0\": \"<string>\"\n  },\n  \"Service\": {\n    \"ID\": \"<string>\",\n    \"Service\": \"<string>\",\n    \"Tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Meta\": {\n      \"key_0\": \"<string>\"\n    },\n    \"Port\": \"<integer>\",\n    \"Address\": \"<string>\",\n    \"EnableTagOverride\": \"<boolean>\",\n    \"Weights\": {\n      \"Passing\": \"<integer>\",\n      \"Warning\": \"<integer>\"\n    },\n    \"Namespace\": \"<string>\"\n  },\n  \"Check\": {\n    \"Node\": \"<string>\",\n    \"CheckID\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Status\": \"<string>\",\n    \"Notes\": \"<string>\",\n    \"Output\": \"<string>\",\n    \"ServiceID\": \"<string>\",\n    \"ServiceName\": \"<string>\",\n    \"ServiceTags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Type\": \"<string>\",\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b38b53ad-c06e-4032-9d36-b95f370f5551",
+              "name": "Entity registered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Node\": \"<string>\",\n  \"Address\": \"<string>\",\n  \"Datacenter\": \"<string>\",\n  \"TaggedAddresses\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"NodeMeta\": {\n    \"key_0\": \"<string>\"\n  },\n  \"Service\": {\n    \"ID\": \"string\",\n    \"Service\": \"string\",\n    \"Tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"Port\": 4102,\n    \"Address\": \"string\",\n    \"EnableTagOverride\": false,\n    \"Weights\": {\n      \"Passing\": 6502,\n      \"Warning\": 3788\n    },\n    \"Namespace\": \"string\"\n  },\n  \"Check\": {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 3809,\n    \"ModifyIndex\": 8693\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3d947f6-d06b-4837-ace0-7d6caaf9ad1d",
+          "name": "Deregister entity",
+          "request": {
+            "name": "Deregister entity",
+            "description": {
+              "content": "Directly removes entries from the catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "deregister"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Node\": \"<string>\",\n  \"Datacenter\": \"<string>\",\n  \"ServiceID\": \"<string>\",\n  \"CheckID\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ce45e395-4fe7-438e-b009-6a33475369ee",
+              "name": "Entity deregistered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "deregister"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Node\": \"<string>\",\n  \"Datacenter\": \"<string>\",\n  \"ServiceID\": \"<string>\",\n  \"CheckID\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac61c7f6-e0db-4a42-a7e3-09223bed53c7",
+          "name": "List datacenters",
+          "request": {
+            "name": "List datacenters",
+            "description": {
+              "content": "Returns the list of all known datacenters sorted by estimated round trip time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "datacenters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7a20869-ad69-46d9-890b-93cc962eb98f",
+              "name": "List of datacenter names",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "datacenters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ec2879a-69e1-4e71-8252-27f8f4197e1f",
+          "name": "List nodes",
+          "request": {
+            "name": "List nodes",
+            "description": {
+              "content": "Returns the nodes registered in a given datacenter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "near",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bf6c4bd-bdb5-4748-b35a-1e0dcf0bfa59",
+              "name": "List of catalog nodes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "near",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": \"string\",\n    \"Node\": \"string\",\n    \"Address\": \"string\",\n    \"Datacenter\": \"string\",\n    \"TaggedAddresses\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"Meta\": {\n      \"key_0\": \"string\"\n    },\n    \"CreateIndex\": 7103,\n    \"ModifyIndex\": 5838\n  },\n  {\n    \"ID\": \"string\",\n    \"Node\": \"string\",\n    \"Address\": \"string\",\n    \"Datacenter\": \"string\",\n    \"TaggedAddresses\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"Meta\": {\n      \"key_0\": \"string\"\n    },\n    \"CreateIndex\": 5591,\n    \"ModifyIndex\": 4971\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3645e8c2-6921-41ad-8c3a-fb00556eb23a",
+          "name": "List services",
+          "request": {
+            "name": "List services",
+            "description": {
+              "content": "Returns the services registered in a given datacenter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "ns",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b6a8896-28c7-4636-aa4b-d5017c0a47ca",
+              "name": "Map of service names to tags",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ns",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key_1\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aac019b5-f832-4914-a546-9f164d8d3130",
+          "name": "List nodes for a service",
+          "request": {
+            "name": "List nodes for a service",
+            "description": {
+              "content": "Returns the nodes providing a given service in a datacenter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "service",
+                ":serviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "near",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4b37038e-ebca-45d5-a557-6840b823254d",
+              "name": "List of service instances",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "service",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "near",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": \"string\",\n    \"Node\": \"string\",\n    \"Address\": \"string\",\n    \"Datacenter\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ServiceAddress\": \"string\",\n    \"ServicePort\": 3106,\n    \"ServiceMeta\": {\n      \"key_0\": \"string\"\n    },\n    \"ServiceWeights\": {\n      \"Passing\": 8668,\n      \"Warning\": 2998\n    },\n    \"CreateIndex\": 6453,\n    \"ModifyIndex\": 8956\n  },\n  {\n    \"ID\": \"string\",\n    \"Node\": \"string\",\n    \"Address\": \"string\",\n    \"Datacenter\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ServiceAddress\": \"string\",\n    \"ServicePort\": 5647,\n    \"ServiceMeta\": {\n      \"key_0\": \"string\"\n    },\n    \"ServiceWeights\": {\n      \"Passing\": 9132,\n      \"Warning\": 491\n    },\n    \"CreateIndex\": 4752,\n    \"ModifyIndex\": 3207\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aac90d14-8e5d-4053-94fd-850581be07b2",
+          "name": "List services for a node",
+          "request": {
+            "name": "List services for a node",
+            "description": {
+              "content": "Returns the node's registered services.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalog",
+                "node",
+                ":node"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "node",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bca3688a-c5fd-4a17-92ba-2610e47ce057",
+              "name": "Node info with services",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "node",
+                    ":node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "node",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Node\": {\n    \"ID\": \"string\",\n    \"Node\": \"string\",\n    \"Address\": \"string\",\n    \"Datacenter\": \"string\",\n    \"TaggedAddresses\": {\n      \"key_0\": \"string\"\n    },\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreateIndex\": 7477,\n    \"ModifyIndex\": 5970\n  },\n  \"Services\": {\n    \"key_0\": {\n      \"ID\": \"string\",\n      \"Service\": \"string\",\n      \"Tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"Port\": 7185,\n      \"Address\": \"string\",\n      \"EnableTagOverride\": false,\n      \"Weights\": {\n        \"Passing\": 7572,\n        \"Warning\": 3925\n      },\n      \"Namespace\": \"string\"\n    },\n    \"key_1\": {\n      \"ID\": \"string\",\n      \"Service\": \"string\",\n      \"Tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Meta\": {\n        \"key_0\": \"string\"\n      },\n      \"Port\": 7135,\n      \"Address\": \"string\",\n      \"EnableTagOverride\": false,\n      \"Weights\": {\n        \"Passing\": 4973,\n        \"Warning\": 1389\n      },\n      \"Namespace\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "32d7deff-0b76-4c96-a391-ca37d356d6eb",
+    "name": "HashiCorp Consul HTTP ACL Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}

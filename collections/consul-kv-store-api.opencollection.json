@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul HTTP ACL KV Store API",
+    "version": "1.18.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "KV Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "recurse",
+                "value": "",
+                "type": "query",
+                "description": "Return all keys with the given prefix"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Return raw value without JSON encoding"
+              },
+              {
+                "name": "keys",
+                "value": "",
+                "type": "query",
+                "description": "Return only keys (no values)"
+              },
+              {
+                "name": "separator",
+                "value": "",
+                "type": "query",
+                "description": "List keys up to a given separator"
+              }
+            ]
+          },
+          "docs": "Returns the specified key. If no key exists at the given path, a 404 is returned."
+        },
+        {
+          "info": {
+            "name": "Create or update a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              },
+              {
+                "name": "flags",
+                "value": "",
+                "type": "query",
+                "description": "Unsigned value between 0 and 2^64-1"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query",
+                "description": "Check-And-Set index for optimistic locking"
+              },
+              {
+                "name": "acquire",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to acquire a lock"
+              },
+              {
+                "name": "release",
+                "value": "",
+                "type": "query",
+                "description": "Session ID to release a lock"
+              }
+            ]
+          },
+          "docs": "Creates or updates a key with the given value."
+        },
+        {
+          "info": {
+            "name": "Delete a key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/kv/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recurse",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cas",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dc",
+                "value": "",
+                "type": "query",
+                "description": "Datacenter to query (defaults to agent's datacenter)"
+              }
+            ]
+          },
+          "docs": "Deletes a single key or all keys sharing a prefix."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

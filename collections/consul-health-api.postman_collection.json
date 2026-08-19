@@ -1,0 +1,562 @@
+{
+  "item": [
+    {
+      "id": "dc3eb24e-aa10-43e0-9f7a-8c54b93f2a75",
+      "name": "Health",
+      "description": {
+        "content": "Query health check information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4a846ce1-88ea-4933-a30b-e7d1f2da5e81",
+          "name": "List checks for a node",
+          "request": {
+            "name": "List checks for a node",
+            "description": {
+              "content": "Returns the checks specific to the node provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health",
+                "node",
+                ":node"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "node",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86c63ecd-8e8d-48c4-8730-fc668195e235",
+              "name": "List of health checks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "node",
+                    ":node"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "node",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7242,\n    \"ModifyIndex\": 1160\n  },\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7499,\n    \"ModifyIndex\": 4323\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd9e4061-ada6-4ca0-acc6-7ea7ed98bb24",
+          "name": "List checks for a service",
+          "request": {
+            "name": "List checks for a service",
+            "description": {
+              "content": "Returns the checks associated with the service provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health",
+                "checks",
+                ":serviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "near",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a5a395d-ac51-4dda-b7be-363d1604dc27",
+              "name": "List of health checks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "checks",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "near",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7242,\n    \"ModifyIndex\": 1160\n  },\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7499,\n    \"ModifyIndex\": 4323\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8acbbf78-491a-4440-84b5-3d87263477b9",
+          "name": "List service instances with health",
+          "request": {
+            "name": "List service instances with health",
+            "description": {
+              "content": "Returns the service instances providing the service along with health check information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health",
+                "service",
+                ":serviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "near",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "passing",
+                  "value": "<boolean>",
+                  "description": "Filter to only passing instances"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ff86c84b-387d-4780-bcc9-27286b22c3b5",
+              "name": "Service instances with health info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "service",
+                    ":serviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "near",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "passing",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Node\": {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Datacenter\": \"string\",\n      \"TaggedAddresses\": {\n        \"key_0\": \"string\"\n      },\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"CreateIndex\": 3399,\n      \"ModifyIndex\": 8609\n    },\n    \"Service\": {\n      \"ID\": \"string\",\n      \"Service\": \"string\",\n      \"Tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Meta\": {\n        \"key_0\": \"string\"\n      },\n      \"Port\": 2307,\n      \"Address\": \"string\",\n      \"EnableTagOverride\": false,\n      \"Weights\": {\n        \"Passing\": 6974,\n        \"Warning\": 5124\n      },\n      \"Namespace\": \"string\"\n    },\n    \"Checks\": [\n      {\n        \"Node\": \"string\",\n        \"CheckID\": \"string\",\n        \"Name\": \"string\",\n        \"Status\": \"critical\",\n        \"Notes\": \"string\",\n        \"Output\": \"string\",\n        \"ServiceID\": \"string\",\n        \"ServiceName\": \"string\",\n        \"ServiceTags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"Type\": \"string\",\n        \"CreateIndex\": 7728,\n        \"ModifyIndex\": 9846\n      },\n      {\n        \"Node\": \"string\",\n        \"CheckID\": \"string\",\n        \"Name\": \"string\",\n        \"Status\": \"passing\",\n        \"Notes\": \"string\",\n        \"Output\": \"string\",\n        \"ServiceID\": \"string\",\n        \"ServiceName\": \"string\",\n        \"ServiceTags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"Type\": \"string\",\n        \"CreateIndex\": 7036,\n        \"ModifyIndex\": 2604\n      }\n    ]\n  },\n  {\n    \"Node\": {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Datacenter\": \"string\",\n      \"TaggedAddresses\": {\n        \"key_0\": \"string\"\n      },\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\",\n        \"key_3\": \"string\"\n      },\n      \"CreateIndex\": 5780,\n      \"ModifyIndex\": 4080\n    },\n    \"Service\": {\n      \"ID\": \"string\",\n      \"Service\": \"string\",\n      \"Tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"Port\": 9226,\n      \"Address\": \"string\",\n      \"EnableTagOverride\": true,\n      \"Weights\": {\n        \"Passing\": 1520,\n        \"Warning\": 4497\n      },\n      \"Namespace\": \"string\"\n    },\n    \"Checks\": [\n      {\n        \"Node\": \"string\",\n        \"CheckID\": \"string\",\n        \"Name\": \"string\",\n        \"Status\": \"critical\",\n        \"Notes\": \"string\",\n        \"Output\": \"string\",\n        \"ServiceID\": \"string\",\n        \"ServiceName\": \"string\",\n        \"ServiceTags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"Type\": \"string\",\n        \"CreateIndex\": 2086,\n        \"ModifyIndex\": 4569\n      },\n      {\n        \"Node\": \"string\",\n        \"CheckID\": \"string\",\n        \"Name\": \"string\",\n        \"Status\": \"critical\",\n        \"Notes\": \"string\",\n        \"Output\": \"string\",\n        \"ServiceID\": \"string\",\n        \"ServiceName\": \"string\",\n        \"ServiceTags\": [\n          \"string\",\n          \"string\"\n        ],\n        \"Type\": \"string\",\n        \"CreateIndex\": 5650,\n        \"ModifyIndex\": 5927\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a9bea41-4988-4bb1-a223-1539d7017f18",
+          "name": "List checks in a state",
+          "request": {
+            "name": "List checks in a state",
+            "description": {
+              "content": "Returns the checks in the specified state (any, passing, warning, critical).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health",
+                "state",
+                ":state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "state",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c800e8c-2715-4fe3-9251-6a0267ae83e7",
+              "name": "List of health checks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health",
+                    "state",
+                    ":state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "state",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7242,\n    \"ModifyIndex\": 1160\n  },\n  {\n    \"Node\": \"string\",\n    \"CheckID\": \"string\",\n    \"Name\": \"string\",\n    \"Status\": \"critical\",\n    \"Notes\": \"string\",\n    \"Output\": \"string\",\n    \"ServiceID\": \"string\",\n    \"ServiceName\": \"string\",\n    \"ServiceTags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Type\": \"string\",\n    \"CreateIndex\": 7499,\n    \"ModifyIndex\": 4323\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e7f5c6eb-517e-406d-8877-31f94c3d6b38",
+    "name": "HashiCorp Consul HTTP ACL Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}

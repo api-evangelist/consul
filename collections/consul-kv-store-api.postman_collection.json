@@ -1,0 +1,551 @@
+{
+  "item": [
+    {
+      "id": "c57fcb15-de82-4559-ac97-2fbf622dc7d4",
+      "name": "KV Store",
+      "description": {
+        "content": "Key/Value store operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0b2261b-2bf7-4747-9153-4ba0cfe1b00e",
+          "name": "Read a key",
+          "request": {
+            "name": "Read a key",
+            "description": {
+              "content": "Returns the specified key. If no key exists at the given path, a 404 is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kv",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "recurse",
+                  "value": "<boolean>",
+                  "description": "Return all keys with the given prefix"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<boolean>",
+                  "description": "Return raw value without JSON encoding"
+                },
+                {
+                  "disabled": false,
+                  "key": "keys",
+                  "value": "<boolean>",
+                  "description": "Return only keys (no values)"
+                },
+                {
+                  "disabled": false,
+                  "key": "separator",
+                  "value": "<string>",
+                  "description": "List keys up to a given separator"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "403d0206-b50e-4350-b835-3ed78f6827d6",
+              "name": "Key-value pair(s)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kv",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recurse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "keys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "separator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"CreateIndex\": 1307,\n    \"ModifyIndex\": 8815,\n    \"LockIndex\": 9437,\n    \"Key\": \"string\",\n    \"Flags\": 7624,\n    \"Value\": \"string\",\n    \"Session\": \"string\"\n  },\n  {\n    \"CreateIndex\": 327,\n    \"ModifyIndex\": 7994,\n    \"LockIndex\": 1220,\n    \"Key\": \"string\",\n    \"Flags\": 6993,\n    \"Value\": \"string\",\n    \"Session\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d620ffb-f5bd-46fd-8803-aca085432419",
+              "name": "Key not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kv",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "recurse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "keys",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "separator",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cd198df-68ab-4e4f-804a-955135f1eff9",
+          "name": "Create or update a key",
+          "request": {
+            "name": "Create or update a key",
+            "description": {
+              "content": "Creates or updates a key with the given value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kv",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                },
+                {
+                  "disabled": false,
+                  "key": "flags",
+                  "value": "<integer>",
+                  "description": "Unsigned value between 0 and 2^64-1"
+                },
+                {
+                  "disabled": false,
+                  "key": "cas",
+                  "value": "<integer>",
+                  "description": "Check-And-Set index for optimistic locking"
+                },
+                {
+                  "disabled": false,
+                  "key": "acquire",
+                  "value": "<string>",
+                  "description": "Session ID to acquire a lock"
+                },
+                {
+                  "disabled": false,
+                  "key": "release",
+                  "value": "<string>",
+                  "description": "Session ID to release a lock"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "1f3f7109-ac3a-446d-92ce-b48294f04a2c",
+              "name": "Success (true) or failure (false)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kv",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "flags",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cas",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "acquire",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "release",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "false",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "474de6fc-e268-402f-a436-706088103f9e",
+          "name": "Delete a key",
+          "request": {
+            "name": "Delete a key",
+            "description": {
+              "content": "Deletes a single key or all keys sharing a prefix.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kv",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "recurse",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cas",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dc",
+                  "value": "<string>",
+                  "description": "Datacenter to query (defaults to agent's datacenter)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1698352a-6525-433d-9222-ffbfca20ee87",
+              "name": "Deletion result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kv",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "recurse",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "cas",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "true",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ae309953-f0fa-46af-8f6e-c4f4c0b6be3b",
+    "name": "HashiCorp Consul HTTP ACL KV Store API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+      "type": "text/plain"
+    }
+  }
+}
