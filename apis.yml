@@ -27,6 +27,15 @@ tags:
   - ACL
   - Configuration
   - Health Checking
+  - Key-Value Store
+  - Multi-Datacenter
+  - Open-Source
+  - Service Discovery
+  - Service Mesh
+tags_raw:
+  - ACL
+  - Configuration
+  - Health Checking
   - Key/Value Store
   - Multi-Datacenter
   - Open Source
@@ -62,6 +71,8 @@ apis:
   humanURL: https://developer.hashicorp.com/consul/api-docs
   baseURL: http://localhost:8500/v1
   tags:
+  - Agents
+  tags_raw:
   - Agent
   properties:
   - type: OpenAPI
@@ -152,6 +163,8 @@ apis:
   humanURL: https://developer.hashicorp.com/consul/api-docs
   baseURL: http://localhost:8500/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
