@@ -8,6 +8,19 @@ description: >-
   by the X-Consul-Token header (apiKey) and ACL policies, supporting blocking queries via X-Consul-Index for
   streaming-style change detection.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
