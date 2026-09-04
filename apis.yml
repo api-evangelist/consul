@@ -34,7 +34,8 @@ accessModel:
   - plans
   - authentication
   - security
-  generated: '2026-08-26'
+  - {url: 'https://www.consul.io', status: 308, note: 'declared website redirects to https://developer.hashicorp.com/consul — a different registrable domain (consul.io -> hashicorp.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/consul.png
 access: 3rd-Party
@@ -58,7 +59,7 @@ tags_raw:
   - Service Mesh
 created: '2024-01-01'
 modified: '2026-05-19'
-position: Provider
+position: Producing
 specificationVersion: '0.23'
 kind: opensource
 apis:
