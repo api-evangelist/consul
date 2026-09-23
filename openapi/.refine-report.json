@@ -1,20 +1,7 @@
 {
   "provider": "consul",
   "sources": [
-    "consul-acl-api-openapi.yml",
-    "consul-agent-api-openapi.yml",
-    "consul-catalog-api-openapi.yml",
-    "consul-config-entries-api-openapi.yml",
-    "consul-connect-api-openapi.yml",
-    "consul-coordinates-api-openapi.yml",
-    "consul-events-api-openapi.yml",
-    "consul-health-api-openapi.yml",
-    "consul-kv-store-api-openapi.yml",
-    "consul-operator-api-openapi.yml",
-    "consul-sessions-api-openapi.yml",
-    "consul-snapshot-api-openapi.yml",
-    "consul-status-api-openapi.yml",
-    "consul-transaction-api-openapi.yml"
+    "_original/consul-http-api.yml"
   ],
   "outputs": [
     "consul-acl-api-openapi.yml",
@@ -35,6 +22,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "consul-http-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "consul-acl-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-agent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-config-entries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-connect-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-coordinates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-kv-store-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-operator-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-snapshot-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-transaction-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

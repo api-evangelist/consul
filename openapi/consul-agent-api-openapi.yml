@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Consul HTTP ACL Agent API
+  title: HashiCorp Consul HTTP Agent API
   description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
   version: 1.18.0
   contact:
@@ -253,88 +253,6 @@ paths:
           description: Maintenance mode toggled
 components:
   schemas:
-    AgentMember:
-      type: object
-      properties:
-        Name:
-          type: string
-        Addr:
-          type: string
-        Port:
-          type: integer
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-        Status:
-          type: integer
-        ProtocolMin:
-          type: integer
-        ProtocolMax:
-          type: integer
-        ProtocolCur:
-          type: integer
-        DelegateMin:
-          type: integer
-        DelegateMax:
-          type: integer
-        DelegateCur:
-          type: integer
-    AgentService:
-      type: object
-      properties:
-        ID:
-          type: string
-        Service:
-          type: string
-        Tags:
-          type: array
-          items:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        Port:
-          type: integer
-        Address:
-          type: string
-        EnableTagOverride:
-          type: boolean
-        Weights:
-          type: object
-          properties:
-            Passing:
-              type: integer
-            Warning:
-              type: integer
-        Namespace:
-          type: string
-    AgentCheck:
-      type: object
-      properties:
-        Node:
-          type: string
-        CheckID:
-          type: string
-        Name:
-          type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
-        Notes:
-          type: string
-        Output:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        Type:
-          type: string
     CheckRegistration:
       type: object
       properties:
@@ -366,6 +284,36 @@ components:
           - passing
           - warning
           - critical
+    AgentService:
+      type: object
+      properties:
+        ID:
+          type: string
+        Service:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
+          type: string
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
+          type: string
     ServiceRegistration:
       type: object
       required:
@@ -432,6 +380,58 @@ components:
                     type: string
                   LocalBindPort:
                     type: integer
+    AgentMember:
+      type: object
+      properties:
+        Name:
+          type: string
+        Addr:
+          type: string
+        Port:
+          type: integer
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        Status:
+          type: integer
+        ProtocolMin:
+          type: integer
+        ProtocolMax:
+          type: integer
+        ProtocolCur:
+          type: integer
+        DelegateMin:
+          type: integer
+        DelegateMax:
+          type: integer
+        DelegateCur:
+          type: integer
+    AgentCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        Type:
+          type: string
   parameters:
     dc:
       name: dc

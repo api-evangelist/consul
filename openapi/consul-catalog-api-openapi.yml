@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HashiCorp Consul HTTP ACL Catalog API
+  title: HashiCorp Consul HTTP Catalog API
   description: The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.
   version: 1.18.0
   contact:
@@ -201,6 +201,39 @@ paths:
                       $ref: '#/components/schemas/AgentService'
 components:
   schemas:
+    HealthCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        Type:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
     AgentService:
       type: object
       properties:
@@ -312,39 +345,6 @@ components:
               type: integer
             Warning:
               type: integer
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
-    HealthCheck:
-      type: object
-      properties:
-        Node:
-          type: string
-        CheckID:
-          type: string
-        Name:
-          type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
-        Notes:
-          type: string
-        Output:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        ServiceTags:
-          type: array
-          items:
-            type: string
-        Type:
-          type: string
         CreateIndex:
           type: integer
         ModifyIndex:
