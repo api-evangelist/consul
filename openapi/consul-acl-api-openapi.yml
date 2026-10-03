@@ -223,6 +223,27 @@ paths:
           description: Policy deleted
 components:
   schemas:
+    ACLPolicy:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        Description:
+          type: string
+        Rules:
+          type: string
+        Datacenters:
+          type: array
+          items:
+            type: string
+        Hash:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
     ACLPolicyRequest:
       type: object
       required:
@@ -239,44 +260,6 @@ components:
           type: array
           items:
             type: string
-    ACLToken:
-      type: object
-      properties:
-        AccessorID:
-          type: string
-        SecretID:
-          type: string
-        Description:
-          type: string
-        Policies:
-          type: array
-          items:
-            type: object
-            properties:
-              ID:
-                type: string
-              Name:
-                type: string
-        Roles:
-          type: array
-          items:
-            type: object
-            properties:
-              ID:
-                type: string
-              Name:
-                type: string
-        Local:
-          type: boolean
-        CreateTime:
-          type: string
-          format: date-time
-        Hash:
-          type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
     ACLTokenRequest:
       type: object
       properties:
@@ -318,21 +301,38 @@ components:
           format: date-time
         ExpirationTTL:
           type: string
-    ACLPolicy:
+    ACLToken:
       type: object
       properties:
-        ID:
+        AccessorID:
           type: string
-        Name:
+        SecretID:
           type: string
         Description:
           type: string
-        Rules:
-          type: string
-        Datacenters:
+        Policies:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Roles:
+          type: array
+          items:
+            type: object
+            properties:
+              ID:
+                type: string
+              Name:
+                type: string
+        Local:
+          type: boolean
+        CreateTime:
+          type: string
+          format: date-time
         Hash:
           type: string
         CreateIndex:

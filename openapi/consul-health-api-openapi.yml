@@ -166,39 +166,6 @@ paths:
                   $ref: '#/components/schemas/HealthCheck'
 components:
   schemas:
-    HealthCheck:
-      type: object
-      properties:
-        Node:
-          type: string
-        CheckID:
-          type: string
-        Name:
-          type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
-        Notes:
-          type: string
-        Output:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        ServiceTags:
-          type: array
-          items:
-            type: string
-        Type:
-          type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
     CatalogNode:
       type: object
       properties:
@@ -252,6 +219,39 @@ components:
               type: integer
         Namespace:
           type: string
+    HealthCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        Type:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
   parameters:
     dc:
       name: dc

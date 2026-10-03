@@ -200,6 +200,13 @@ paths:
                     additionalProperties:
                       $ref: '#/components/schemas/AgentService'
 components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   schemas:
     CatalogNode:
       type: object
@@ -220,6 +227,68 @@ components:
           type: object
           additionalProperties:
             type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    CatalogRegistration:
+      type: object
+      required:
+      - Node
+      - Address
+      properties:
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        NodeMeta:
+          type: object
+          additionalProperties:
+            type: string
+        Service:
+          $ref: '#/components/schemas/AgentService'
+        Check:
+          $ref: '#/components/schemas/HealthCheck'
+    CatalogServiceInstance:
+      type: object
+      properties:
+        ID:
+          type: string
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        ServiceAddress:
+          type: string
+        ServicePort:
+          type: integer
+        ServiceMeta:
+          type: object
+          additionalProperties:
+            type: string
+        ServiceWeights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
         CreateIndex:
           type: integer
         ModifyIndex:
@@ -287,75 +356,6 @@ components:
           type: integer
         ModifyIndex:
           type: integer
-    CatalogServiceInstance:
-      type: object
-      properties:
-        ID:
-          type: string
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        ServiceTags:
-          type: array
-          items:
-            type: string
-        ServiceAddress:
-          type: string
-        ServicePort:
-          type: integer
-        ServiceMeta:
-          type: object
-          additionalProperties:
-            type: string
-        ServiceWeights:
-          type: object
-          properties:
-            Passing:
-              type: integer
-            Warning:
-              type: integer
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
-    CatalogRegistration:
-      type: object
-      required:
-      - Node
-      - Address
-      properties:
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        TaggedAddresses:
-          type: object
-          additionalProperties:
-            type: string
-        NodeMeta:
-          type: object
-          additionalProperties:
-            type: string
-        Service:
-          $ref: '#/components/schemas/AgentService'
-        Check:
-          $ref: '#/components/schemas/HealthCheck'
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey
