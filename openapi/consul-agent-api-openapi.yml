@@ -252,14 +252,95 @@ paths:
         '200':
           description: Maintenance mode toggled
 components:
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   schemas:
+    AgentService:
+      type: object
+      properties:
+        ID:
+          type: string
+        Service:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
+          type: string
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
+          type: string
+    AgentMember:
+      type: object
+      properties:
+        Name:
+          type: string
+        Addr:
+          type: string
+        Port:
+          type: integer
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        Status:
+          type: integer
+        ProtocolMin:
+          type: integer
+        ProtocolMax:
+          type: integer
+        ProtocolCur:
+          type: integer
+        DelegateMin:
+          type: integer
+        DelegateMax:
+          type: integer
+        DelegateCur:
+          type: integer
+    CheckRegistration:
+      type: object
+      properties:
+        Name:
+          type: string
+        CheckID:
+          type: string
+        Interval:
+          type: string
+        Notes:
+          type: string
+        DeregisterCriticalServiceAfter:
+          type: string
+        HTTP:
+          type: string
+        TCP:
+          type: string
+        GRPC:
+          type: string
+        GRPCUseTLS:
+          type: boolean
+        TTL:
+          type: string
+        ServiceID:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
     ServiceRegistration:
       type: object
       required:
@@ -326,37 +407,6 @@ components:
                     type: string
                   LocalBindPort:
                     type: integer
-    CheckRegistration:
-      type: object
-      properties:
-        Name:
-          type: string
-        CheckID:
-          type: string
-        Interval:
-          type: string
-        Notes:
-          type: string
-        DeregisterCriticalServiceAfter:
-          type: string
-        HTTP:
-          type: string
-        TCP:
-          type: string
-        GRPC:
-          type: string
-        GRPCUseTLS:
-          type: boolean
-        TTL:
-          type: string
-        ServiceID:
-          type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
     AgentCheck:
       type: object
       properties:
@@ -382,63 +432,13 @@ components:
           type: string
         Type:
           type: string
-    AgentMember:
-      type: object
-      properties:
-        Name:
-          type: string
-        Addr:
-          type: string
-        Port:
-          type: integer
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-        Status:
-          type: integer
-        ProtocolMin:
-          type: integer
-        ProtocolMax:
-          type: integer
-        ProtocolCur:
-          type: integer
-        DelegateMin:
-          type: integer
-        DelegateMax:
-          type: integer
-        DelegateCur:
-          type: integer
-    AgentService:
-      type: object
-      properties:
-        ID:
-          type: string
-        Service:
-          type: string
-        Tags:
-          type: array
-          items:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        Port:
-          type: integer
-        Address:
-          type: string
-        EnableTagOverride:
-          type: boolean
-        Weights:
-          type: object
-          properties:
-            Passing:
-              type: integer
-            Warning:
-              type: integer
-        Namespace:
-          type: string
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey

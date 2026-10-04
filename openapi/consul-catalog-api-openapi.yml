@@ -200,61 +200,7 @@ paths:
                     additionalProperties:
                       $ref: '#/components/schemas/AgentService'
 components:
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   schemas:
-    CatalogNode:
-      type: object
-      properties:
-        ID:
-          type: string
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        TaggedAddresses:
-          type: object
-          additionalProperties:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
-    CatalogRegistration:
-      type: object
-      required:
-      - Node
-      - Address
-      properties:
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        TaggedAddresses:
-          type: object
-          additionalProperties:
-            type: string
-        NodeMeta:
-          type: object
-          additionalProperties:
-            type: string
-        Service:
-          $ref: '#/components/schemas/AgentService'
-        Check:
-          $ref: '#/components/schemas/HealthCheck'
     CatalogServiceInstance:
       type: object
       properties:
@@ -293,36 +239,29 @@ components:
           type: integer
         ModifyIndex:
           type: integer
-    AgentService:
+    CatalogNode:
       type: object
       properties:
         ID:
           type: string
-        Service:
+        Node:
           type: string
-        Tags:
-          type: array
-          items:
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
             type: string
         Meta:
           type: object
           additionalProperties:
             type: string
-        Port:
+        CreateIndex:
           type: integer
-        Address:
-          type: string
-        EnableTagOverride:
-          type: boolean
-        Weights:
-          type: object
-          properties:
-            Passing:
-              type: integer
-            Warning:
-              type: integer
-        Namespace:
-          type: string
+        ModifyIndex:
+          type: integer
     HealthCheck:
       type: object
       properties:
@@ -356,6 +295,67 @@ components:
           type: integer
         ModifyIndex:
           type: integer
+    CatalogRegistration:
+      type: object
+      required:
+      - Node
+      - Address
+      properties:
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        NodeMeta:
+          type: object
+          additionalProperties:
+            type: string
+        Service:
+          $ref: '#/components/schemas/AgentService'
+        Check:
+          $ref: '#/components/schemas/HealthCheck'
+    AgentService:
+      type: object
+      properties:
+        ID:
+          type: string
+        Service:
+          type: string
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
+          type: string
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
+          type: string
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey

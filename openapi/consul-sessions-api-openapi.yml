@@ -122,6 +122,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/Session'
 components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   schemas:
     Session:
       type: object
@@ -146,13 +153,6 @@ components:
           type: integer
         ModifyIndex:
           type: integer
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey

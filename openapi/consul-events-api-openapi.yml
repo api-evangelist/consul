@@ -85,6 +85,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/Event'
 components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   schemas:
     Event:
       type: object
@@ -105,13 +112,6 @@ components:
           type: integer
         LTime:
           type: integer
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey
