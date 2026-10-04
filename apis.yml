@@ -325,6 +325,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/hashicorp/consul
 common:
+  - type: CapabilityMap
+    url: capabilities/consul-capability-edges.yml
+    name: HashiCorp Consul Business Capability Map
   - type: IssueTracker
     url: https://github.com/hashicorp/consul/issues
   - type: CodeOfConduct
