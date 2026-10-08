@@ -325,6 +325,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/hashicorp/consul
 common:
+  - type: Plans
+    url: plans/consul-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/consul-rate-limits.yml
+  - type: FinOps
+    url: finops/consul-finops.yml
   - type: CapabilityMap
     url: capabilities/consul-capability-edges.yml
     name: HashiCorp Consul Business Capability Map
