@@ -253,63 +253,6 @@ paths:
           description: Maintenance mode toggled
 components:
   schemas:
-    AgentService:
-      type: object
-      properties:
-        ID:
-          type: string
-        Service:
-          type: string
-        Tags:
-          type: array
-          items:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        Port:
-          type: integer
-        Address:
-          type: string
-        EnableTagOverride:
-          type: boolean
-        Weights:
-          type: object
-          properties:
-            Passing:
-              type: integer
-            Warning:
-              type: integer
-        Namespace:
-          type: string
-    AgentMember:
-      type: object
-      properties:
-        Name:
-          type: string
-        Addr:
-          type: string
-        Port:
-          type: integer
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-        Status:
-          type: integer
-        ProtocolMin:
-          type: integer
-        ProtocolMax:
-          type: integer
-        ProtocolCur:
-          type: integer
-        DelegateMin:
-          type: integer
-        DelegateMax:
-          type: integer
-        DelegateCur:
-          type: integer
     CheckRegistration:
       type: object
       properties:
@@ -341,6 +284,58 @@ components:
           - passing
           - warning
           - critical
+    AgentMember:
+      type: object
+      properties:
+        Name:
+          type: string
+        Addr:
+          type: string
+        Port:
+          type: integer
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+        Status:
+          type: integer
+        ProtocolMin:
+          type: integer
+        ProtocolMax:
+          type: integer
+        ProtocolCur:
+          type: integer
+        DelegateMin:
+          type: integer
+        DelegateMax:
+          type: integer
+        DelegateCur:
+          type: integer
+    AgentCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        Type:
+          type: string
     ServiceRegistration:
       type: object
       required:
@@ -407,30 +402,35 @@ components:
                     type: string
                   LocalBindPort:
                     type: integer
-    AgentCheck:
+    AgentService:
       type: object
       properties:
-        Node:
+        ID:
           type: string
-        CheckID:
+        Service:
           type: string
-        Name:
+        Tags:
+          type: array
+          items:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        Port:
+          type: integer
+        Address:
           type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
-        Notes:
-          type: string
-        Output:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        Type:
+        EnableTagOverride:
+          type: boolean
+        Weights:
+          type: object
+          properties:
+            Passing:
+              type: integer
+            Warning:
+              type: integer
+        Namespace:
           type: string
   parameters:
     dc:

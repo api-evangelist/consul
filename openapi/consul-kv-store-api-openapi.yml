@@ -144,6 +144,13 @@ paths:
               schema:
                 type: boolean
 components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   schemas:
     KVPair:
       type: object
@@ -163,13 +170,6 @@ components:
           description: Base64 encoded value
         Session:
           type: string
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey

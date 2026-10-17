@@ -201,6 +201,39 @@ paths:
                       $ref: '#/components/schemas/AgentService'
 components:
   schemas:
+    HealthCheck:
+      type: object
+      properties:
+        Node:
+          type: string
+        CheckID:
+          type: string
+        Name:
+          type: string
+        Status:
+          type: string
+          enum:
+          - passing
+          - warning
+          - critical
+        Notes:
+          type: string
+        Output:
+          type: string
+        ServiceID:
+          type: string
+        ServiceName:
+          type: string
+        ServiceTags:
+          type: array
+          items:
+            type: string
+        Type:
+          type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
     CatalogServiceInstance:
       type: object
       properties:
@@ -239,62 +272,6 @@ components:
           type: integer
         ModifyIndex:
           type: integer
-    CatalogNode:
-      type: object
-      properties:
-        ID:
-          type: string
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        TaggedAddresses:
-          type: object
-          additionalProperties:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
-    HealthCheck:
-      type: object
-      properties:
-        Node:
-          type: string
-        CheckID:
-          type: string
-        Name:
-          type: string
-        Status:
-          type: string
-          enum:
-          - passing
-          - warning
-          - critical
-        Notes:
-          type: string
-        Output:
-          type: string
-        ServiceID:
-          type: string
-        ServiceName:
-          type: string
-        ServiceTags:
-          type: array
-          items:
-            type: string
-        Type:
-          type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
     CatalogRegistration:
       type: object
       required:
@@ -319,6 +296,29 @@ components:
           $ref: '#/components/schemas/AgentService'
         Check:
           $ref: '#/components/schemas/HealthCheck'
+    CatalogNode:
+      type: object
+      properties:
+        ID:
+          type: string
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
     AgentService:
       type: object
       properties:

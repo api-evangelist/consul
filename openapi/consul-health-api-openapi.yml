@@ -165,6 +165,13 @@ paths:
                 items:
                   $ref: '#/components/schemas/HealthCheck'
 components:
+  parameters:
+    dc:
+      name: dc
+      in: query
+      description: Datacenter to query (defaults to agent's datacenter)
+      schema:
+        type: string
   schemas:
     HealthCheck:
       type: object
@@ -199,6 +206,29 @@ components:
           type: integer
         ModifyIndex:
           type: integer
+    CatalogNode:
+      type: object
+      properties:
+        ID:
+          type: string
+        Node:
+          type: string
+        Address:
+          type: string
+        Datacenter:
+          type: string
+        TaggedAddresses:
+          type: object
+          additionalProperties:
+            type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
     AgentService:
       type: object
       properties:
@@ -229,36 +259,6 @@ components:
               type: integer
         Namespace:
           type: string
-    CatalogNode:
-      type: object
-      properties:
-        ID:
-          type: string
-        Node:
-          type: string
-        Address:
-          type: string
-        Datacenter:
-          type: string
-        TaggedAddresses:
-          type: object
-          additionalProperties:
-            type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
-        CreateIndex:
-          type: integer
-        ModifyIndex:
-          type: integer
-  parameters:
-    dc:
-      name: dc
-      in: query
-      description: Datacenter to query (defaults to agent's datacenter)
-      schema:
-        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey
