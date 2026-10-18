@@ -46,7 +46,7 @@ access: 3rd-Party
 tags:
   - ACL
   - Configuration
-  - Health Checking
+  - Health Checks
   - Key-Value Store
   - Multi-Datacenter
   - Open Source
