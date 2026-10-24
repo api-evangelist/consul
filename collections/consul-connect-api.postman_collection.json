@@ -1,367 +1,390 @@
 {
+  "info": {
+    "_postman_id": "737a87ff-9114-4ab8-a3ec-52be933ea1cb",
+    "name": "HashiCorp Consul HTTP Connect API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:06.000Z",
+    "updatedAt": "2026-10-22T01:42:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-737a87ff-9114-4ab8-a3ec-52be933ea1cb"
+  },
   "item": [
     {
-      "id": "a64657c4-0a7f-4b52-908a-b22f2ddbba37",
-      "name": "Connect",
-      "description": {
-        "content": "Service mesh / Connect CA and intentions",
-        "type": "text/plain"
-      },
+      "name": "connect",
       "item": [
         {
-          "id": "34469dc7-af6c-41ea-9eeb-cb3bff1a1067",
-          "name": "List CA root certificates",
-          "request": {
-            "name": "List CA root certificates",
-            "description": {
-              "content": "Returns the current list of trusted CA root certificates in the Connect CA.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "connect",
-                "ca",
-                "roots"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "ca",
+          "item": [
             {
-              "id": "97dd9037-5957-498d-aa04-658d3bfaed4c",
-              "name": "CA root certificates",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connect",
-                    "ca",
-                    "roots"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "roots",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ActiveRootID\": \"string\",\n  \"Roots\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\",\n      \"RootCert\": \"string\",\n      \"Active\": false\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\",\n      \"RootCert\": \"string\",\n      \"Active\": false\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "db0acd42-87ce-4fe3-81f9-e5fd36a3fb72",
-          "name": "Get CA configuration",
-          "request": {
-            "name": "Get CA configuration",
-            "description": {},
-            "url": {
-              "path": [
-                "connect",
-                "ca",
-                "configuration"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "ec16c0dc-8448-4dab-a563-1c2730ae3252",
-              "name": "CA configuration",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connect",
-                    "ca",
-                    "configuration"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                  "name": "List CA root certificates",
+                  "id": "630fa436-5f70-4009-aec3-66849fd7712e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"Provider\": \"string\",\n  \"Config\": {}\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8399f2ac-57e5-4f7f-979b-a85a5c61e4f6",
-          "name": "Update CA configuration",
-          "request": {
-            "name": "Update CA configuration",
-            "description": {},
-            "url": {
-              "path": [
-                "connect",
-                "ca",
-                "configuration"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": \"<object>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "e62d3abf-771e-4fe0-947a-54a3c16e2730",
-              "name": "CA configuration updated",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "connect",
-                    "ca",
-                    "configuration"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connect/ca/roots",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connect",
+                        "ca",
+                        "roots"
+                      ]
                     },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": \"<object>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
+                    "description": "Returns the current list of trusted CA root certificates in the Connect CA."
+                  },
+                  "response": [
+                    {
+                      "id": "b7700547-2ada-4317-8c2a-106e0bb8ca5c",
+                      "name": "CA root certificates",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/connect/ca/roots",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "connect",
+                            "ca",
+                            "roots"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ActiveRootID\": \"<string>\",\n  \"Roots\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"RootCert\": \"<string>\",\n      \"Active\": \"<boolean>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"RootCert\": \"<string>\",\n      \"Active\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:42:07.000Z",
+                      "updatedAt": "2026-10-22T01:42:07.000Z",
+                      "uid": "35240-b7700547-2ada-4317-8c2a-106e0bb8ca5c"
                     }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  ],
+                  "createdAt": "2026-10-22T01:42:07.000Z",
+                  "updatedAt": "2026-10-22T01:42:07.000Z",
+                  "uid": "35240-630fa436-5f70-4009-aec3-66849fd7712e"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "e929f0ab-7402-4e49-bc99-f658bd94838b",
+              "createdAt": "2026-10-22T01:42:07.000Z",
+              "updatedAt": "2026-10-22T01:42:07.000Z",
+              "uid": "35240-e929f0ab-7402-4e49-bc99-f658bd94838b"
+            },
+            {
+              "name": "configuration",
+              "item": [
+                {
+                  "name": "Get CA configuration",
+                  "id": "11747377-a308-4510-90c8-62b03c06a819",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connect/ca/configuration",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connect",
+                        "ca",
+                        "configuration"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "b82a8b54-b146-4d22-ad1a-152c2bd16243",
+                      "name": "CA configuration",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/connect/ca/configuration",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "connect",
+                            "ca",
+                            "configuration"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Provider\": \"<string>\",\n  \"Config\": {}\n}",
+                      "createdAt": "2026-10-22T01:42:07.000Z",
+                      "updatedAt": "2026-10-22T01:42:07.000Z",
+                      "uid": "35240-b82a8b54-b146-4d22-ad1a-152c2bd16243"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:42:07.000Z",
+                  "updatedAt": "2026-10-22T01:42:07.000Z",
+                  "uid": "35240-11747377-a308-4510-90c8-62b03c06a819"
+                },
+                {
+                  "name": "Update CA configuration",
+                  "id": "3df11f34-d614-45d8-b9bb-548e76e42127",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/connect/ca/configuration",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connect",
+                        "ca",
+                        "configuration"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "1db875ce-58a6-424a-9f3c-1135b69ca4bb",
+                      "name": "CA configuration updated",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Provider\": \"<string>\",\n  \"Config\": {}\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/connect/ca/configuration",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "connect",
+                            "ca",
+                            "configuration"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:42:07.000Z",
+                      "updatedAt": "2026-10-22T01:42:07.000Z",
+                      "uid": "35240-1db875ce-58a6-424a-9f3c-1135b69ca4bb"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:42:07.000Z",
+                  "updatedAt": "2026-10-22T01:42:07.000Z",
+                  "uid": "35240-3df11f34-d614-45d8-b9bb-548e76e42127"
+                }
+              ],
+              "id": "a09fd5ed-ca6e-471c-b8ea-438f08f84a77",
+              "createdAt": "2026-10-22T01:42:07.000Z",
+              "updatedAt": "2026-10-22T01:42:07.000Z",
+              "uid": "35240-a09fd5ed-ca6e-471c-b8ea-438f08f84a77"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "1a503a57-adde-43ca-88d2-80c5d459bfe5",
+          "createdAt": "2026-10-22T01:42:07.000Z",
+          "updatedAt": "2026-10-22T01:42:07.000Z",
+          "uid": "35240-1a503a57-adde-43ca-88d2-80c5d459bfe5"
         },
         {
-          "id": "16a206e8-6518-478b-a693-30938efd9314",
-          "name": "List intentions",
-          "request": {
-            "name": "List intentions",
-            "description": {
-              "content": "Returns all Connect intentions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "connect",
-                "intentions"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "filter",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "intentions",
+          "item": [
             {
-              "id": "f0d4fcda-f2bb-4838-a86f-0ceb58957f0e",
-              "name": "List of intentions",
-              "originalRequest": {
+              "name": "List intentions",
+              "id": "f97aef78-6fb1-4ada-b242-0c735b7f396b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/connect/intentions?filter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "connect",
                     "intentions"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
                       "key": "filter",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Returns all Connect intentions."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "6252df98-a80e-4ffd-bc81-39c7fe1e970f",
+                  "name": "List of intentions",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/connect/intentions?filter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "connect",
+                        "intentions"
+                      ],
+                      "query": [
+                        {
+                          "key": "filter",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"ID\": \"<string>\",\n    \"SourceName\": \"<string>\",\n    \"DestinationName\": \"<string>\",\n    \"SourceNS\": \"<string>\",\n    \"DestinationNS\": \"<string>\",\n    \"Action\": \"deny\",\n    \"Precedence\": \"<integer>\",\n    \"Description\": \"<string>\",\n    \"Meta\": {\n      \"incididuntf\": \"<string>\"\n    },\n    \"CreatedAt\": \"<dateTime>\",\n    \"UpdatedAt\": \"<dateTime>\"\n  },\n  {\n    \"ID\": \"<string>\",\n    \"SourceName\": \"<string>\",\n    \"DestinationName\": \"<string>\",\n    \"SourceNS\": \"<string>\",\n    \"DestinationNS\": \"<string>\",\n    \"Action\": \"deny\",\n    \"Precedence\": \"<integer>\",\n    \"Description\": \"<string>\",\n    \"Meta\": {\n      \"esse_3\": \"<string>\"\n    },\n    \"CreatedAt\": \"<dateTime>\",\n    \"UpdatedAt\": \"<dateTime>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:42:07.000Z",
+                  "updatedAt": "2026-10-22T01:42:07.000Z",
+                  "uid": "35240-6252df98-a80e-4ffd-bc81-39c7fe1e970f"
                 }
               ],
-              "body": "[\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"allow\",\n    \"Precedence\": 431,\n    \"Description\": \"string\",\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreatedAt\": \"1990-03-07T20:59:33.332Z\",\n    \"UpdatedAt\": \"1980-01-30T13:14:23.882Z\"\n  },\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"deny\",\n    \"Precedence\": 8482,\n    \"Description\": \"string\",\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreatedAt\": \"1985-01-31T15:22:56.102Z\",\n    \"UpdatedAt\": \"1976-04-27T03:33:21.009Z\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:42:07.000Z",
+              "updatedAt": "2026-10-22T01:42:07.000Z",
+              "uid": "35240-f97aef78-6fb1-4ada-b242-0c735b7f396b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0d0312f1-2f2b-4e07-a7fe-aad3e006bf77",
+          "createdAt": "2026-10-22T01:42:07.000Z",
+          "updatedAt": "2026-10-22T01:42:07.000Z",
+          "uid": "35240-0d0312f1-2f2b-4e07-a7fe-aad3e006bf77"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "add6113e-1140-4ca9-ac95-fed92334d412",
+      "createdAt": "2026-10-22T01:42:07.000Z",
+      "updatedAt": "2026-10-22T01:42:07.000Z",
+      "uid": "35240-add6113e-1140-4ca9-ac95-fed92334d412"
     }
   ],
   "auth": {
@@ -369,25 +392,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "c00992a3-a7a3-40d4-a786-0d104ba3d662",
-    "name": "HashiCorp Consul HTTP ACL Connect API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

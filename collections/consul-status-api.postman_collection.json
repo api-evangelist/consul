@@ -1,183 +1,191 @@
 {
+  "info": {
+    "_postman_id": "46498b28-c18f-4fed-aae5-42ff25bcc962",
+    "name": "HashiCorp Consul HTTP Status API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:50.000Z",
+    "updatedAt": "2026-10-22T01:42:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-46498b28-c18f-4fed-aae5-42ff25bcc962"
+  },
   "item": [
     {
-      "id": "8e4589dd-a974-45b5-9f6f-d0aaf4620387",
-      "name": "Status",
-      "description": {
-        "content": "Cluster status information",
-        "type": "text/plain"
-      },
+      "name": "status",
       "item": [
         {
-          "id": "baac8287-fbed-483d-b778-1bc657e5c57c",
-          "name": "Get Raft leader",
-          "request": {
-            "name": "Get Raft leader",
-            "description": {
-              "content": "Returns the Raft leader for the datacenter.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "status",
-                "leader"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "leader",
+          "item": [
             {
-              "id": "22c9f4e3-dcc2-409d-b1be-0887ac6d55dd",
-              "name": "Leader address",
-              "originalRequest": {
+              "name": "Get Raft leader",
+              "id": "4c34fe94-11f9-4522-b27c-5e4dc0f37aa0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/status/leader",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "status",
                     "leader"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                "description": "Returns the Raft leader for the datacenter."
+              },
+              "response": [
+                {
+                  "id": "fc69d8fe-0e21-473e-b385-3134c9f8f59d",
+                  "name": "Leader address",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/leader",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "leader"
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-10-22T01:42:50.000Z",
+                  "updatedAt": "2026-10-22T01:42:50.000Z",
+                  "uid": "35240-fc69d8fe-0e21-473e-b385-3134c9f8f59d"
+                }
+              ],
+              "createdAt": "2026-10-22T01:42:50.000Z",
+              "updatedAt": "2026-10-22T01:42:50.000Z",
+              "uid": "35240-4c34fe94-11f9-4522-b27c-5e4dc0f37aa0"
+            }
+          ],
+          "id": "9ab2393f-e0f1-433b-9d4d-b38e22ea1cfd",
+          "createdAt": "2026-10-22T01:42:50.000Z",
+          "updatedAt": "2026-10-22T01:42:50.000Z",
+          "uid": "35240-9ab2393f-e0f1-433b-9d4d-b38e22ea1cfd"
+        },
+        {
+          "name": "peers",
+          "item": [
+            {
+              "name": "List Raft peers",
+              "id": "b8ae279d-d949-4c3a-8012-473864a4cf14",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "\"string\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "83933648-9089-4130-9743-600f80073c56",
-          "name": "List Raft peers",
-          "request": {
-            "name": "List Raft peers",
-            "description": {
-              "content": "Returns the Raft peers for the datacenter.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "status",
-                "peers"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "0a1e181c-5a50-4593-9717-2d2721d81786",
-              "name": "Peer addresses",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/status/peers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "status",
                     "peers"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Returns the Raft peers for the datacenter."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "4da0c81a-3364-48a3-acc8-7d14068381db",
+                  "name": "Peer addresses",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/peers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        "peers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "createdAt": "2026-10-22T01:42:50.000Z",
+                  "updatedAt": "2026-10-22T01:42:50.000Z",
+                  "uid": "35240-4da0c81a-3364-48a3-acc8-7d14068381db"
                 }
               ],
-              "body": "[\n  \"string\",\n  \"string\"\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:42:50.000Z",
+              "updatedAt": "2026-10-22T01:42:50.000Z",
+              "uid": "35240-b8ae279d-d949-4c3a-8012-473864a4cf14"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "51c462cc-f932-4f07-addd-beb407af3b3d",
+          "createdAt": "2026-10-22T01:42:50.000Z",
+          "updatedAt": "2026-10-22T01:42:50.000Z",
+          "uid": "35240-51c462cc-f932-4f07-addd-beb407af3b3d"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "a6ade8b7-503c-46f3-b06f-86a8543740d2",
+      "createdAt": "2026-10-22T01:42:50.000Z",
+      "updatedAt": "2026-10-22T01:42:50.000Z",
+      "uid": "35240-a6ade8b7-503c-46f3-b06f-86a8543740d2"
     }
   ],
   "auth": {
@@ -185,25 +193,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2bebb6e4-56d2-4195-a7ad-7d41a44ad32f",
-    "name": "HashiCorp Consul HTTP ACL Status API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

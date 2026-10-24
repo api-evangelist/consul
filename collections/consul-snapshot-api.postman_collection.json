@@ -1,206 +1,200 @@
 {
+  "info": {
+    "_postman_id": "b1678e76-d123-486e-912b-e1bd70a5d8e6",
+    "name": "HashiCorp Consul HTTP Snapshot API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:44.000Z",
+    "updatedAt": "2026-10-22T01:42:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b1678e76-d123-486e-912b-e1bd70a5d8e6"
+  },
   "item": [
     {
-      "id": "929110a1-5891-4aa2-b9bb-e92163d46a01",
-      "name": "Snapshot",
-      "description": {
-        "content": "Snapshot and restore operations",
-        "type": "text/plain"
-      },
+      "name": "snapshot",
       "item": [
         {
-          "id": "41086f19-da90-440f-a0be-7210f147c8c9",
           "name": "Generate a snapshot",
+          "id": "1f4d89f7-4d84-4174-8d55-2f1ab0a491eb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Generate a snapshot",
-            "description": {
-              "content": "Generates and returns an atomic, point-in-time snapshot of the Consul state.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "snapshot"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/octet-stream"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/snapshot?dc=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "snapshot"
+              ],
+              "query": [
+                {
+                  "description": "Datacenter to query (defaults to agent's datacenter)",
+                  "key": "dc",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Generates and returns an atomic, point-in-time snapshot of the Consul state."
           },
           "response": [
             {
-              "id": "6e1805f0-6951-4614-b2dc-ef6f6fdcf70b",
+              "id": "5c4bd64b-4998-4994-bf6c-2a612e313fb3",
               "name": "Snapshot data",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "snapshot"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/octet-stream"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/snapshot?dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "snapshot"
+                  ],
+                  "query": [
+                    {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/octet-stream"
                 }
               ],
-              "body": "string",
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": "<binary>",
+              "createdAt": "2026-10-22T01:42:45.000Z",
+              "updatedAt": "2026-10-22T01:42:45.000Z",
+              "uid": "35240-5c4bd64b-4998-4994-bf6c-2a612e313fb3"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:42:45.000Z",
+          "updatedAt": "2026-10-22T01:42:45.000Z",
+          "uid": "35240-1f4d89f7-4d84-4174-8d55-2f1ab0a491eb"
         },
         {
-          "id": "574bf5db-6b48-41aa-9d6a-b36a5bdf8711",
           "name": "Restore a snapshot",
+          "id": "4adf90c2-8267-429b-9e17-e0f5665b0b6a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Restore a snapshot",
-            "description": {
-              "content": "Restores a point-in-time snapshot of the Consul state.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "snapshot"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": []
-            },
+            "method": "PUT",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/octet-stream"
               }
             ],
-            "method": "PUT",
-            "auth": null,
             "body": {
-              "mode": "raw",
-              "raw": "<binary>"
-            }
+              "mode": "file",
+              "file": {}
+            },
+            "url": {
+              "raw": "{{baseUrl}}/snapshot?dc=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "snapshot"
+              ],
+              "query": [
+                {
+                  "description": "Datacenter to query (defaults to agent's datacenter)",
+                  "key": "dc",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Restores a point-in-time snapshot of the Consul state."
           },
           "response": [
             {
-              "id": "121affb7-fbc1-48b1-b9dd-e95533378e8f",
+              "id": "c3acdbba-fa2d-4dec-bd83-c546bb697418",
               "name": "Snapshot restored",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "snapshot"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/octet-stream"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "X-Consul-Token",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
-                  "mode": "raw",
-                  "raw": "<binary>"
+                  "mode": "file",
+                  "file": {}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/snapshot?dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "snapshot"
+                  ],
+                  "query": [
+                    {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:42:45.000Z",
+              "updatedAt": "2026-10-22T01:42:45.000Z",
+              "uid": "35240-c3acdbba-fa2d-4dec-bd83-c546bb697418"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:42:45.000Z",
+          "updatedAt": "2026-10-22T01:42:45.000Z",
+          "uid": "35240-4adf90c2-8267-429b-9e17-e0f5665b0b6a"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "7284beac-3ed1-4baa-8a90-4570682ead0d",
+      "createdAt": "2026-10-22T01:42:45.000Z",
+      "updatedAt": "2026-10-22T01:42:45.000Z",
+      "uid": "35240-7284beac-3ed1-4baa-8a90-4570682ead0d"
     }
   ],
   "auth": {
@@ -208,25 +202,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "f6ef8800-03b2-45ad-8f6e-4442e0b5a9c0",
-    "name": "HashiCorp Consul HTTP ACL Snapshot API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

@@ -1,39 +1,26 @@
 {
+  "info": {
+    "_postman_id": "c64785e7-6c00-4739-bae8-1dce9374d1c6",
+    "name": "HashiCorp Consul HTTP Transaction API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:55.000Z",
+    "updatedAt": "2026-10-22T01:42:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c64785e7-6c00-4739-bae8-1dce9374d1c6"
+  },
   "item": [
     {
-      "id": "84cc0762-b449-4a3c-88dc-743478f2200e",
-      "name": "Transaction",
-      "description": {
-        "content": "Atomic key/value transactions",
-        "type": "text/plain"
-      },
+      "name": "txn",
       "item": [
         {
-          "id": "fe389265-5986-46e9-88be-47cc648b43e3",
           "name": "Execute a transaction",
+          "id": "17736f84-cbfd-4f75-a21a-652821ae1250",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Execute a transaction",
-            "description": {
-              "content": "Manages updates or fetches of multiple keys inside a single, atomic transaction.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "txn"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": []
-            },
+            "method": "PUT",
             "header": [
               {
                 "key": "Content-Type",
@@ -44,91 +31,108 @@
                 "value": "application/json"
               }
             ],
-            "method": "PUT",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "[\n  {\n    \"KV\": {\n      \"Verb\": \"<string>\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  },\n  {\n    \"KV\": {\n      \"Verb\": \"<string>\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  }\n]",
+              "raw": "[\n  {\n    \"KV\": {\n      \"Verb\": \"check-not-exists\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  },\n  {\n    \"KV\": {\n      \"Verb\": \"get\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  }\n]",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/txn?dc=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "txn"
+              ],
+              "query": [
+                {
+                  "description": "Datacenter to query (defaults to agent's datacenter)",
+                  "key": "dc",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Manages updates or fetches of multiple keys inside a single, atomic transaction."
           },
           "response": [
             {
-              "id": "f5ec7f67-6a4b-4723-9d7e-288b27852170",
+              "id": "c19fd024-9488-4e6a-9b8e-0caf4cc6ccc1",
               "name": "Transaction results",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "txn"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "[\n  {\n    \"KV\": {\n      \"Verb\": \"<string>\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  },\n  {\n    \"KV\": {\n      \"Verb\": \"<string>\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  }\n]",
+                  "raw": "[\n  {\n    \"KV\": {\n      \"Verb\": \"check-not-exists\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  },\n  {\n    \"KV\": {\n      \"Verb\": \"get\",\n      \"Key\": \"<string>\",\n      \"Value\": \"<string>\",\n      \"Flags\": \"<integer>\",\n      \"Index\": \"<integer>\",\n      \"Session\": \"<string>\"\n    }\n  }\n]",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/txn?dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "txn"
+                  ],
+                  "query": [
+                    {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
+                      "key": "dc",
+                      "value": "<string>"
+                    }
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"Errors\": [\n    {\n      \"OpIndex\": 9831,\n      \"What\": \"string\"\n    },\n    {\n      \"OpIndex\": 3895,\n      \"What\": \"string\"\n    }\n  ]\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"Errors\": [\n    {\n      \"OpIndex\": \"<integer>\",\n      \"What\": \"<string>\"\n    },\n    {\n      \"OpIndex\": \"<integer>\",\n      \"What\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-10-22T01:42:55.000Z",
+              "updatedAt": "2026-10-22T01:42:55.000Z",
+              "uid": "35240-c19fd024-9488-4e6a-9b8e-0caf4cc6ccc1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:42:55.000Z",
+          "updatedAt": "2026-10-22T01:42:55.000Z",
+          "uid": "35240-17736f84-cbfd-4f75-a21a-652821ae1250"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "848dee22-e69b-4db9-b44c-9983dca3d658",
+      "createdAt": "2026-10-22T01:42:55.000Z",
+      "updatedAt": "2026-10-22T01:42:55.000Z",
+      "uid": "35240-848dee22-e69b-4db9-b44c-9983dca3d658"
     }
   ],
   "auth": {
@@ -136,25 +140,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "1f3db2d8-692d-4f25-bf60-ab3e23dc6216",
-    "name": "HashiCorp Consul HTTP ACL Transaction API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

@@ -1,412 +1,438 @@
 {
+  "info": {
+    "_postman_id": "eb1eaff1-b767-4371-8ec7-865c84c638e8",
+    "name": "HashiCorp Consul HTTP Config Entries API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:41:59.000Z",
+    "updatedAt": "2026-10-22T01:42:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eb1eaff1-b767-4371-8ec7-865c84c638e8"
+  },
   "item": [
     {
-      "id": "046b6fd0-1154-4043-a5c1-f31ce8a9ecdb",
-      "name": "Config Entries",
-      "description": {
-        "content": "Centralized configuration entries",
-        "type": "text/plain"
-      },
+      "name": "config",
       "item": [
         {
-          "id": "3ddb471f-2669-406f-b320-35fe2cfea39e",
-          "name": "List config entries by kind",
-          "request": {
-            "name": "List config entries by kind",
-            "description": {},
-            "url": {
-              "path": [
-                "config",
-                ":kind"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "kind",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{kind}",
+          "item": [
             {
-              "id": "543ed558-2641-4c37-a1cb-4fb82a317650",
-              "name": "List of config entries",
-              "originalRequest": {
+              "name": "{name}",
+              "item": [
+                {
+                  "name": "Get a config entry",
+                  "id": "bb995e4c-f83a-4df1-8fcc-81dc624e286d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/:kind/:name?dc=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        ":kind",
+                        ":name"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8acbae74-0d9b-4c8b-8805-6442641687ec",
+                          "key": "kind",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        },
+                        {
+                          "id": "8e4cf85c-2a9c-4cd8-9707-18be666db255",
+                          "key": "name",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "cb238047-14fa-48d4-81ad-66416da3531c",
+                      "name": "Config entry",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/:kind/:name?dc=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            ":kind",
+                            ":name"
+                          ],
+                          "query": [
+                            {
+                              "description": "Datacenter to query (defaults to agent's datacenter)",
+                              "key": "dc",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "kind"
+                            },
+                            {
+                              "key": "name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-22T01:42:00.000Z",
+                      "updatedAt": "2026-10-22T01:42:00.000Z",
+                      "uid": "35240-cb238047-14fa-48d4-81ad-66416da3531c"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:42:00.000Z",
+                  "updatedAt": "2026-10-22T01:42:00.000Z",
+                  "uid": "35240-bb995e4c-f83a-4df1-8fcc-81dc624e286d"
+                },
+                {
+                  "name": "Delete a config entry",
+                  "id": "e886450e-d759-409b-b683-f3ccbdac8871",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/:kind/:name?dc=<string>&cas=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        ":kind",
+                        ":name"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "cas",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "1ac62693-1402-4177-867d-3ebe93b7d5ec",
+                          "key": "kind",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        },
+                        {
+                          "id": "2cc25024-576a-4d8e-89db-3d9fd4e72f34",
+                          "key": "name",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "99cce586-7b0a-4fae-8fba-f4c2800e5523",
+                      "name": "Config entry deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/config/:kind/:name?dc=<string>&cas=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "config",
+                            ":kind",
+                            ":name"
+                          ],
+                          "query": [
+                            {
+                              "description": "Datacenter to query (defaults to agent's datacenter)",
+                              "key": "dc",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "cas",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "kind"
+                            },
+                            {
+                              "key": "name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:42:00.000Z",
+                      "updatedAt": "2026-10-22T01:42:00.000Z",
+                      "uid": "35240-99cce586-7b0a-4fae-8fba-f4c2800e5523"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:42:00.000Z",
+                  "updatedAt": "2026-10-22T01:42:00.000Z",
+                  "uid": "35240-e886450e-d759-409b-b683-f3ccbdac8871"
+                }
+              ],
+              "id": "3083272a-3373-4977-a52d-10fa437f092a",
+              "createdAt": "2026-10-22T01:42:00.000Z",
+              "updatedAt": "2026-10-22T01:42:00.000Z",
+              "uid": "35240-3083272a-3373-4977-a52d-10fa437f092a"
+            },
+            {
+              "name": "List config entries by kind",
+              "id": "af4e0f0d-a53e-4e7f-96cd-484fe33fc607",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/config/:kind?dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "config",
                     ":kind"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "09b29660-fbf6-401f-b17c-d39b9c9eda3e",
                       "key": "kind",
+                      "value": "ingress-gateway",
                       "description": "(Required) "
                     }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                }
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "ec90d122-6b11-4beb-8204-bb05e3e1d7a2",
+                  "name": "List of config entries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/config/:kind?dc=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "config",
+                        ":kind"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "kind"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[]",
+                  "createdAt": "2026-10-22T01:42:00.000Z",
+                  "updatedAt": "2026-10-22T01:42:00.000Z",
+                  "uid": "35240-ec90d122-6b11-4beb-8204-bb05e3e1d7a2"
                 }
               ],
-              "body": "[]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:42:00.000Z",
+              "updatedAt": "2026-10-22T01:42:00.000Z",
+              "uid": "35240-af4e0f0d-a53e-4e7f-96cd-484fe33fc607"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f52f46a9-1379-4431-9b31-36c13dcb9949",
+          "createdAt": "2026-10-22T01:42:00.000Z",
+          "updatedAt": "2026-10-22T01:42:00.000Z",
+          "uid": "35240-f52f46a9-1379-4431-9b31-36c13dcb9949"
         },
         {
-          "id": "a5256a05-1800-4ae1-b860-2ccc50fcca58",
           "name": "Apply a config entry",
+          "id": "3acc2418-0b1d-4049-91f0-dcf22287a818",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Apply a config entry",
-            "description": {},
-            "url": {
-              "path": [
-                "config"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                },
-                {
-                  "disabled": false,
-                  "key": "cas",
-                  "value": "<integer>"
-                }
-              ],
-              "variable": []
-            },
+            "method": "PUT",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/json"
               }
             ],
-            "method": "PUT",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"Kind\": \"<string>\",\n  \"Name\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/config?dc=<string>&cas=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "config"
+              ],
+              "query": [
+                {
+                  "description": "Datacenter to query (defaults to agent's datacenter)",
+                  "key": "dc",
+                  "value": "<string>"
+                },
+                {
+                  "key": "cas",
+                  "value": "<integer>"
+                }
+              ]
             }
           },
           "response": [
             {
-              "id": "957bb121-934d-4c77-99a9-b90a880e9232",
+              "id": "3152a52e-7390-4faf-8d24-9fa8a95bc627",
               "name": "Config entry applied",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "config"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "cas",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "X-Consul-Token",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "PUT",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"Kind\": \"<string>\",\n  \"Name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "94bf8389-c385-421f-bdcf-fb864d07510e",
-          "name": "Get a config entry",
-          "request": {
-            "name": "Get a config entry",
-            "description": {},
-            "url": {
-              "path": [
-                "config",
-                ":kind",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "kind",
-                  "description": "(Required) "
                 },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "83c3940b-948f-4a7f-9f17-de4ddac7b9a8",
-              "name": "Config entry",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "config",
-                    ":kind",
-                    ":name"
-                  ],
+                  "raw": "{{baseUrl}}/config?dc=<string>&cas=<integer>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "kind",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2c1c29b9-f487-4092-bd1c-9122afdd81dd",
-          "name": "Delete a config entry",
-          "request": {
-            "name": "Delete a config entry",
-            "description": {},
-            "url": {
-              "path": [
-                "config",
-                ":kind",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                },
-                {
-                  "disabled": false,
-                  "key": "cas",
-                  "value": "<integer>"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "kind",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "19c2b0a6-65df-47ba-8326-26211f5cd5ba",
-              "name": "Config entry deleted",
-              "originalRequest": {
-                "url": {
                   "path": [
-                    "config",
-                    ":kind",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
+                    "config"
                   ],
                   "query": [
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     },
@@ -414,65 +440,30 @@
                       "key": "cas",
                       "value": "<integer>"
                     }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "kind",
-                      "description": "(Required) "
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) "
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
+                }
               },
               "status": "OK",
               "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:42:00.000Z",
+              "updatedAt": "2026-10-22T01:42:00.000Z",
+              "uid": "35240-3152a52e-7390-4faf-8d24-9fa8a95bc627"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:42:00.000Z",
+          "updatedAt": "2026-10-22T01:42:00.000Z",
+          "uid": "35240-3acc2418-0b1d-4049-91f0-dcf22287a818"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "22832beb-071d-44cb-9907-98b99323ab04",
+      "createdAt": "2026-10-22T01:42:00.000Z",
+      "updatedAt": "2026-10-22T01:42:00.000Z",
+      "uid": "35240-22832beb-071d-44cb-9907-98b99323ab04"
     }
   ],
   "auth": {
@@ -480,25 +471,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "21c4245d-08e5-4012-afa5-f024ef462285",
-    "name": "HashiCorp Consul HTTP ACL Config Entries API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

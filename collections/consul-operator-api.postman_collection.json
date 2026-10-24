@@ -1,114 +1,131 @@
 {
+  "info": {
+    "_postman_id": "e571ce33-975d-4e85-adf6-4bdfd273b67a",
+    "name": "HashiCorp Consul HTTP Operator API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:34.000Z",
+    "updatedAt": "2026-10-22T01:42:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e571ce33-975d-4e85-adf6-4bdfd273b67a"
+  },
   "item": [
     {
-      "id": "dacf52bb-6751-434c-af65-7cb77067d637",
-      "name": "Operator",
-      "description": {
-        "content": "Cluster operator endpoints",
-        "type": "text/plain"
-      },
+      "name": "operator",
       "item": [
         {
-          "id": "b7921ed3-d6a8-4c5e-b44f-0224dea60053",
-          "name": "Read Raft configuration",
-          "request": {
-            "name": "Read Raft configuration",
-            "description": {},
-            "url": {
-              "path": [
-                "operator",
-                "raft",
-                "configuration"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "raft",
+          "item": [
             {
-              "id": "f6a47bdb-c221-4d2a-8cb1-dbd9cc0839ac",
-              "name": "Raft configuration",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "operator",
-                    "raft",
-                    "configuration"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "configuration",
+              "item": [
+                {
+                  "name": "Read Raft configuration",
+                  "id": "522348c4-9710-4dba-8fd8-330adca0a6fe",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/operator/raft/configuration?dc=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "operator",
+                        "raft",
+                        "configuration"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
                     {
-                      "key": "dc",
-                      "value": "<string>"
+                      "id": "96224e5e-34ae-4450-8c64-d3787e89bf42",
+                      "name": "Raft configuration",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/operator/raft/configuration?dc=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "operator",
+                            "raft",
+                            "configuration"
+                          ],
+                          "query": [
+                            {
+                              "description": "Datacenter to query (defaults to agent's datacenter)",
+                              "key": "dc",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Servers\": [\n    {\n      \"ID\": \"<string>\",\n      \"Node\": \"<string>\",\n      \"Address\": \"<string>\",\n      \"Leader\": \"<boolean>\",\n      \"Voter\": \"<boolean>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Node\": \"<string>\",\n      \"Address\": \"<string>\",\n      \"Leader\": \"<boolean>\",\n      \"Voter\": \"<boolean>\"\n    }\n  ],\n  \"Index\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:42:35.000Z",
+                      "updatedAt": "2026-10-22T01:42:35.000Z",
+                      "uid": "35240-96224e5e-34ae-4450-8c64-d3787e89bf42"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-22T01:42:35.000Z",
+                  "updatedAt": "2026-10-22T01:42:35.000Z",
+                  "uid": "35240-522348c4-9710-4dba-8fd8-330adca0a6fe"
                 }
               ],
-              "body": "{\n  \"Servers\": [\n    {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Leader\": true,\n      \"Voter\": false\n    },\n    {\n      \"ID\": \"string\",\n      \"Node\": \"string\",\n      \"Address\": \"string\",\n      \"Leader\": true,\n      \"Voter\": false\n    }\n  ],\n  \"Index\": 8111\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "64b237c6-3e87-405a-a667-f01b1d1120d9",
+              "createdAt": "2026-10-22T01:42:35.000Z",
+              "updatedAt": "2026-10-22T01:42:35.000Z",
+              "uid": "35240-64b237c6-3e87-405a-a667-f01b1d1120d9"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "0d7903c3-8b60-484e-bad4-65bdaf615d17",
+          "createdAt": "2026-10-22T01:42:35.000Z",
+          "updatedAt": "2026-10-22T01:42:35.000Z",
+          "uid": "35240-0d7903c3-8b60-484e-bad4-65bdaf615d17"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "000232f5-ef10-447d-a446-f730aba74646",
+      "createdAt": "2026-10-22T01:42:35.000Z",
+      "updatedAt": "2026-10-22T01:42:35.000Z",
+      "uid": "35240-000232f5-ef10-447d-a446-f730aba74646"
     }
   ],
   "auth": {
@@ -116,25 +133,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "946bfe40-cfc9-4f49-b1d5-da75d6b6e42d",
-    "name": "HashiCorp Consul HTTP ACL Operator API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

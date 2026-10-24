@@ -1,464 +1,445 @@
 {
+  "info": {
+    "_postman_id": "3f78194b-d2fa-401d-b9f7-f7246bf674f1",
+    "name": "HashiCorp Consul HTTP ACL API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:41:37.000Z",
+    "updatedAt": "2026-10-22T01:41:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3f78194b-d2fa-401d-b9f7-f7246bf674f1"
+  },
   "item": [
     {
-      "id": "6c9ef611-4795-414f-9bcd-a1a141772a8c",
-      "name": "ACL",
-      "description": {
-        "content": "Access Control List management",
-        "type": "text/plain"
-      },
+      "name": "acl",
       "item": [
         {
-          "id": "eda3d8dd-ee2e-4daa-8566-564fc45389a0",
-          "name": "Create a token",
-          "request": {
-            "name": "Create a token",
-            "description": {
-              "content": "Creates a new ACL token.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "acl",
-                "token"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "token",
+          "item": [
             {
-              "id": "4d2e5cda-91db-4e05-b248-f6dd0a03269f",
-              "name": "Created token",
-              "originalRequest": {
+              "name": "{accessorID}",
+              "item": [
+                {
+                  "name": "Read a token",
+                  "id": "163d1b41-599d-40be-92aa-88cd3518b8b6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/token/:accessorID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "token",
+                        ":accessorID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8866bd06-cf8b-47f3-a890-76791b8100ca",
+                          "key": "accessorID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "65c781c9-4e32-4655-b9d6-a6d4282de2af",
+                      "name": "Token details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/token/:accessorID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "token",
+                            ":accessorID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessorID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"AccessorID\": \"<string>\",\n  \"SecretID\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"CreateTime\": \"<dateTime>\",\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-65c781c9-4e32-4655-b9d6-a6d4282de2af"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-163d1b41-599d-40be-92aa-88cd3518b8b6"
+                },
+                {
+                  "name": "Update a token",
+                  "id": "ddb99d94-8bd9-4c7b-ab5c-0be541fc8b19",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/token/:accessorID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "token",
+                        ":accessorID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "904203e2-a83f-4dcb-b688-83dfe67f6769",
+                          "key": "accessorID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "c60cb7b7-9940-4fc5-b01f-ef709ac47409",
+                      "name": "Updated token",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/token/:accessorID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "token",
+                            ":accessorID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessorID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"AccessorID\": \"<string>\",\n  \"SecretID\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"CreateTime\": \"<dateTime>\",\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-c60cb7b7-9940-4fc5-b01f-ef709ac47409"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-ddb99d94-8bd9-4c7b-ab5c-0be541fc8b19"
+                },
+                {
+                  "name": "Delete a token",
+                  "id": "c8343e3e-55e1-43d3-822a-9264d6dc3d31",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/token/:accessorID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "token",
+                        ":accessorID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2c8293c6-e0b7-45bf-be36-f6de7e3b778e",
+                          "key": "accessorID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "fe697869-fdd8-466d-9a24-9201be50fab8",
+                      "name": "Token deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/token/:accessorID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "token",
+                            ":accessorID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "accessorID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-fe697869-fdd8-466d-9a24-9201be50fab8"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-c8343e3e-55e1-43d3-822a-9264d6dc3d31"
+                }
+              ],
+              "id": "8ca4317b-af89-4b1a-92b7-196efa409ed7",
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-8ca4317b-af89-4b1a-92b7-196efa409ed7"
+            },
+            {
+              "name": "Create a token",
+              "id": "84b53e37-4e51-4ab4-8500-012a10a97b9c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/acl/token",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "acl",
                     "token"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"AccessorID\": \"string\",\n  \"SecretID\": \"string\",\n  \"Description\": \"string\",\n  \"Policies\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Local\": true,\n  \"CreateTime\": \"1976-07-11T06:25:05.349Z\",\n  \"Hash\": \"string\",\n  \"CreateIndex\": 7953,\n  \"ModifyIndex\": 2207\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "16c9f6ad-02cf-4fdc-8fcd-d82ba5570406",
-          "name": "Read a token",
-          "request": {
-            "name": "Read a token",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "token",
-                ":accessorID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accessorID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "7786e868-ded3-4dad-8325-1b9e470bf4f7",
-              "name": "Token details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "acl",
-                    "token",
-                    ":accessorID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accessorID",
-                      "description": "(Required) "
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                "description": "Creates a new ACL token."
+              },
+              "response": [
+                {
+                  "id": "0598f3fa-659e-4175-ba8e-f2f8db43bd7d",
+                  "name": "Created token",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/token",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "token"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"AccessorID\": \"<string>\",\n  \"SecretID\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"CreateTime\": \"<dateTime>\",\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-0598f3fa-659e-4175-ba8e-f2f8db43bd7d"
+                }
+              ],
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-84b53e37-4e51-4ab4-8500-012a10a97b9c"
+            }
+          ],
+          "id": "f12574f8-1722-4b76-b46f-0b25c2b4c0ee",
+          "createdAt": "2026-10-22T01:41:38.000Z",
+          "updatedAt": "2026-10-22T01:41:38.000Z",
+          "uid": "35240-f12574f8-1722-4b76-b46f-0b25c2b4c0ee"
+        },
+        {
+          "name": "tokens",
+          "item": [
+            {
+              "name": "List tokens",
+              "id": "426b9b7c-19bb-441a-9895-7cb2abaf6ff2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
                 "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"AccessorID\": \"string\",\n  \"SecretID\": \"string\",\n  \"Description\": \"string\",\n  \"Policies\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Local\": true,\n  \"CreateTime\": \"1976-07-11T06:25:05.349Z\",\n  \"Hash\": \"string\",\n  \"CreateIndex\": 7953,\n  \"ModifyIndex\": 2207\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1eac7030-6f32-4c6e-84a6-74d2bf018ed2",
-          "name": "Update a token",
-          "request": {
-            "name": "Update a token",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "token",
-                ":accessorID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accessorID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ad195dfd-bf7f-4cb4-8548-5914516d9874",
-              "name": "Updated token",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "acl",
-                    "token",
-                    ":accessorID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accessorID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"Description\": \"<string>\",\n  \"Policies\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    },\n    {\n      \"ID\": \"<string>\",\n      \"Name\": \"<string>\"\n    }\n  ],\n  \"ServiceIdentities\": [\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"ServiceName\": \"<string>\",\n      \"Datacenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"Local\": \"<boolean>\",\n  \"ExpirationTime\": \"<dateTime>\",\n  \"ExpirationTTL\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"AccessorID\": \"string\",\n  \"SecretID\": \"string\",\n  \"Description\": \"string\",\n  \"Policies\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Roles\": [\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    },\n    {\n      \"ID\": \"string\",\n      \"Name\": \"string\"\n    }\n  ],\n  \"Local\": true,\n  \"CreateTime\": \"1976-07-11T06:25:05.349Z\",\n  \"Hash\": \"string\",\n  \"CreateIndex\": 7953,\n  \"ModifyIndex\": 2207\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ab9edea5-e75c-4e34-8b25-4f910a059962",
-          "name": "Delete a token",
-          "request": {
-            "name": "Delete a token",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "token",
-                ":accessorID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "accessorID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "2419930e-f715-4146-a73c-f137883fe302",
-              "name": "Token deleted",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "acl",
-                    "token",
-                    ":accessorID"
-                  ],
+                  "raw": "{{baseUrl}}/acl/tokens?policy=<string>&role=<string>&authmethod=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "accessorID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a0edf5bf-0bb9-4084-81c3-d7ff5c14b35c",
-          "name": "List tokens",
-          "request": {
-            "name": "List tokens",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "tokens"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "policy",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "role",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "authmethod",
-                  "value": "<string>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "550b8162-616a-4bb6-908d-acf155aa32af",
-              "name": "List of tokens",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "acl",
                     "tokens"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -473,525 +454,567 @@
                       "key": "authmethod",
                       "value": "<string>"
                     }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "8faeaab0-e917-4a3a-9ff7-08c5129ff95b",
+                  "name": "List of tokens",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/tokens?policy=<string>&role=<string>&authmethod=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "tokens"
+                      ],
+                      "query": [
+                        {
+                          "key": "policy",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "role",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "authmethod",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"AccessorID\": \"<string>\",\n    \"SecretID\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Policies\": [\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      }\n    ],\n    \"Roles\": [\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      }\n    ],\n    \"Local\": \"<boolean>\",\n    \"CreateTime\": \"<dateTime>\",\n    \"Hash\": \"<string>\",\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\"\n  },\n  {\n    \"AccessorID\": \"<string>\",\n    \"SecretID\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Policies\": [\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      }\n    ],\n    \"Roles\": [\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      },\n      {\n        \"ID\": \"<string>\",\n        \"Name\": \"<string>\"\n      }\n    ],\n    \"Local\": \"<boolean>\",\n    \"CreateTime\": \"<dateTime>\",\n    \"Hash\": \"<string>\",\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-8faeaab0-e917-4a3a-9ff7-08c5129ff95b"
+                }
+              ],
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-426b9b7c-19bb-441a-9895-7cb2abaf6ff2"
+            }
+          ],
+          "id": "02bdd64c-be80-4537-8ad4-b71bb3546449",
+          "createdAt": "2026-10-22T01:41:38.000Z",
+          "updatedAt": "2026-10-22T01:41:38.000Z",
+          "uid": "35240-02bdd64c-be80-4537-8ad4-b71bb3546449"
+        },
+        {
+          "name": "policy",
+          "item": [
+            {
+              "name": "{policyID}",
+              "item": [
+                {
+                  "name": "Read a policy",
+                  "id": "344fccd7-b06d-492a-bba4-8dca110a2ba4",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/policy/:policyID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "policy",
+                        ":policyID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ad87748e-5a42-42c4-894b-604a652aac5f",
+                          "key": "policyID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "0e6528ad-b380-4bbc-8bfa-587a93d64c25",
+                      "name": "Policy details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/policy/:policyID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "policy",
+                            ":policyID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ID\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-0e6528ad-b380-4bbc-8bfa-587a93d64c25"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-344fccd7-b06d-492a-bba4-8dca110a2ba4"
                 },
+                {
+                  "name": "Update a policy",
+                  "id": "197a63e9-b2bd-46da-a8c9-2f3b36dcf381",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/policy/:policyID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "policy",
+                        ":policyID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1df67546-ee09-470d-96e1-cb75eb1b0cce",
+                          "key": "policyID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "8797cc79-6384-41c5-82b9-005d9b9f6cdd",
+                      "name": "Updated policy",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/policy/:policyID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "policy",
+                            ":policyID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ID\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-8797cc79-6384-41c5-82b9-005d9b9f6cdd"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-197a63e9-b2bd-46da-a8c9-2f3b36dcf381"
+                },
+                {
+                  "name": "Delete a policy",
+                  "id": "4f1d24b5-e7d0-42cc-afa4-a6b38428b9db",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/policy/:policyID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "policy",
+                        ":policyID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a725ff14-a33d-4d06-9a55-343c512dadfb",
+                          "key": "policyID",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "0e5c064b-a160-4369-9431-f4b826a34169",
+                      "name": "Policy deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/acl/policy/:policyID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "acl",
+                            "policy",
+                            ":policyID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "policyID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-22T01:41:38.000Z",
+                      "updatedAt": "2026-10-22T01:41:38.000Z",
+                      "uid": "35240-0e5c064b-a160-4369-9431-f4b826a34169"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-4f1d24b5-e7d0-42cc-afa4-a6b38428b9db"
+                }
+              ],
+              "id": "452b22f1-ea1e-4185-ad76-1b51479b38a1",
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-452b22f1-ea1e-4185-ad76-1b51479b38a1"
+            },
+            {
+              "name": "Create a policy",
+              "id": "5001f34e-9627-4ee8-83ee-8b396bb164ae",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"AccessorID\": \"string\",\n    \"SecretID\": \"string\",\n    \"Description\": \"string\",\n    \"Policies\": [\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      },\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      }\n    ],\n    \"Roles\": [\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      },\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      }\n    ],\n    \"Local\": false,\n    \"CreateTime\": \"1981-08-15T04:44:08.763Z\",\n    \"Hash\": \"string\",\n    \"CreateIndex\": 5638,\n    \"ModifyIndex\": 4134\n  },\n  {\n    \"AccessorID\": \"string\",\n    \"SecretID\": \"string\",\n    \"Description\": \"string\",\n    \"Policies\": [\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      },\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      }\n    ],\n    \"Roles\": [\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      },\n      {\n        \"ID\": \"string\",\n        \"Name\": \"string\"\n      }\n    ],\n    \"Local\": false,\n    \"CreateTime\": \"2003-04-20T17:35:04.282Z\",\n    \"Hash\": \"string\",\n    \"CreateIndex\": 201,\n    \"ModifyIndex\": 115\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "46fa81cc-681c-441f-af84-39c233a22422",
-          "name": "Create a policy",
-          "request": {
-            "name": "Create a policy",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "policy"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "5f6c1dd7-2011-4809-8618-90223d7c15a3",
-              "name": "Created policy",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/acl/policy",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "acl",
                     "policy"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "336a5eba-6042-4b9a-b188-40c611e3910a",
+                  "name": "Created policy",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/policy",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "policy"
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"ID\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Hash\": \"<string>\",\n  \"CreateIndex\": \"<integer>\",\n  \"ModifyIndex\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-336a5eba-6042-4b9a-b188-40c611e3910a"
+                }
+              ],
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-5001f34e-9627-4ee8-83ee-8b396bb164ae"
+            }
+          ],
+          "id": "ffc1d4d7-ba63-421a-8b51-6f4cad333c81",
+          "createdAt": "2026-10-22T01:41:38.000Z",
+          "updatedAt": "2026-10-22T01:41:38.000Z",
+          "uid": "35240-ffc1d4d7-ba63-421a-8b51-6f4cad333c81"
+        },
+        {
+          "name": "policies",
+          "item": [
+            {
+              "name": "List policies",
+              "id": "7c4f5292-032e-403a-8d97-d089e5043049",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ID\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Rules\": \"string\",\n  \"Datacenters\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Hash\": \"string\",\n  \"CreateIndex\": 8835,\n  \"ModifyIndex\": 247\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ed5123c9-26b4-4648-91bc-b40fbbe4b733",
-          "name": "List policies",
-          "request": {
-            "name": "List policies",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "policies"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "bb625cd7-cfd0-4923-a933-673cdbab2948",
-              "name": "List of policies",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/acl/policies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "acl",
                     "policies"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"ID\": \"string\",\n    \"Name\": \"string\",\n    \"Description\": \"string\",\n    \"Rules\": \"string\",\n    \"Datacenters\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Hash\": \"string\",\n    \"CreateIndex\": 5703,\n    \"ModifyIndex\": 1139\n  },\n  {\n    \"ID\": \"string\",\n    \"Name\": \"string\",\n    \"Description\": \"string\",\n    \"Rules\": \"string\",\n    \"Datacenters\": [\n      \"string\",\n      \"string\"\n    ],\n    \"Hash\": \"string\",\n    \"CreateIndex\": 1681,\n    \"ModifyIndex\": 3445\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0352c1c6-628d-4920-91af-3042828aff1b",
-          "name": "Read a policy",
-          "request": {
-            "name": "Read a policy",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "policy",
-                ":policyID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "policyID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "c7ec1ac7-7234-4778-9f72-e28958822f85",
-              "name": "Policy details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "acl",
-                    "policy",
-                    ":policyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "policyID",
-                      "description": "(Required) "
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                }
+              },
+              "response": [
+                {
+                  "id": "70395353-c1f8-4264-ab2b-f44d9114cb2a",
+                  "name": "List of policies",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/acl/policies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "acl",
+                        "policies"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ID\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Rules\": \"string\",\n  \"Datacenters\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Hash\": \"string\",\n  \"CreateIndex\": 8835,\n  \"ModifyIndex\": 247\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "e2a9b1fe-b534-4043-955b-3b3b39e39fe4",
-          "name": "Update a policy",
-          "request": {
-            "name": "Update a policy",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "policy",
-                ":policyID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "policyID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "8fbfe56f-9611-4696-b8aa-2adc60287ff1",
-              "name": "Updated policy",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "acl",
-                    "policy",
-                    ":policyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "policyID",
-                      "description": "(Required) "
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"Name\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Rules\": \"<string>\",\n  \"Datacenters\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"ID\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Rules\": \"<string>\",\n    \"Datacenters\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Hash\": \"<string>\",\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\"\n  },\n  {\n    \"ID\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Description\": \"<string>\",\n    \"Rules\": \"<string>\",\n    \"Datacenters\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Hash\": \"<string>\",\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:41:38.000Z",
+                  "updatedAt": "2026-10-22T01:41:38.000Z",
+                  "uid": "35240-70395353-c1f8-4264-ab2b-f44d9114cb2a"
                 }
               ],
-              "body": "{\n  \"ID\": \"string\",\n  \"Name\": \"string\",\n  \"Description\": \"string\",\n  \"Rules\": \"string\",\n  \"Datacenters\": [\n    \"string\",\n    \"string\"\n  ],\n  \"Hash\": \"string\",\n  \"CreateIndex\": 8835,\n  \"ModifyIndex\": 247\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:41:38.000Z",
+              "updatedAt": "2026-10-22T01:41:38.000Z",
+              "uid": "35240-7c4f5292-032e-403a-8d97-d089e5043049"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5f4b404e-7570-474b-9230-c84baa6fe861",
-          "name": "Delete a policy",
-          "request": {
-            "name": "Delete a policy",
-            "description": {},
-            "url": {
-              "path": [
-                "acl",
-                "policy",
-                ":policyID"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "policyID",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "679598ef-2ad2-4868-a3c2-7d8c0d898ac8",
-              "name": "Policy deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "acl",
-                    "policy",
-                    ":policyID"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "policyID",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "21a48bbb-92ef-4ab8-9800-bfc0b1e0dfe0",
+          "createdAt": "2026-10-22T01:41:38.000Z",
+          "updatedAt": "2026-10-22T01:41:38.000Z",
+          "uid": "35240-21a48bbb-92ef-4ab8-9800-bfc0b1e0dfe0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "9cc8d9c9-f81a-4aeb-b500-d600957c6d70",
+      "createdAt": "2026-10-22T01:41:38.000Z",
+      "updatedAt": "2026-10-22T01:41:38.000Z",
+      "uid": "35240-9cc8d9c9-f81a-4aeb-b500-d600957c6d70"
     }
   ],
   "auth": {
@@ -999,25 +1022,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "01135d3c-b315-428a-b4a8-c0433a50e43c",
-    "name": "HashiCorp Consul HTTP ACL API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

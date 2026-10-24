@@ -1,266 +1,289 @@
 {
+  "info": {
+    "_postman_id": "49fb855f-fa7c-46c1-86b0-b17aa5841bae",
+    "name": "HashiCorp Consul HTTP Events API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:17.000Z",
+    "updatedAt": "2026-10-22T01:42:18.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-49fb855f-fa7c-46c1-86b0-b17aa5841bae"
+  },
   "item": [
     {
-      "id": "cf272ade-8bdb-42d6-903b-eedb02b4a0d9",
-      "name": "Events",
-      "description": {
-        "content": "Fire and list custom user events",
-        "type": "text/plain"
-      },
+      "name": "event",
       "item": [
         {
-          "id": "8688886d-92ac-4436-995d-c32b15a51cac",
-          "name": "Fire a new event",
-          "request": {
-            "name": "Fire a new event",
-            "description": {},
-            "url": {
-              "path": [
-                "event",
-                "fire",
-                ":name"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                },
-                {
-                  "disabled": false,
-                  "key": "node",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "service",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "tag",
-                  "value": "<string>"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "name",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/octet-stream"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "<binary>"
-            }
-          },
-          "response": [
+          "name": "fire",
+          "item": [
             {
-              "id": "a444a11e-e6ba-4333-8bb4-bc9aaec8a1fe",
-              "name": "Event fired",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "event",
-                    "fire",
-                    ":name"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "node",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "service",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "tag",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "name",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+              "name": "{name}",
+              "item": [
+                {
+                  "name": "Fire a new event",
+                  "id": "6ea7c967-254e-4490-8046-28c8425e7fd5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/event/fire/:name?dc=<string>&node=<string>&service=<string>&tag=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event",
+                        "fire",
+                        ":name"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "node",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "service",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "tag",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "ec9d2bbf-b7a2-48be-b8ce-83d96be7bf91",
+                          "key": "name",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "75904396-0d94-4761-927d-b19103b1be7d",
+                      "name": "Event fired",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Consul-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/event/fire/:name?dc=<string>&node=<string>&service=<string>&tag=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "event",
+                            "fire",
+                            ":name"
+                          ],
+                          "query": [
+                            {
+                              "description": "Datacenter to query (defaults to agent's datacenter)",
+                              "key": "dc",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "node",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "service",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "tag",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"ID\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"Payload\": \"<string>\",\n  \"NodeFilter\": \"<string>\",\n  \"ServiceFilter\": \"<string>\",\n  \"TagFilter\": \"<string>\",\n  \"Version\": \"<integer>\",\n  \"LTime\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-22T01:42:18.000Z",
+                      "updatedAt": "2026-10-22T01:42:18.000Z",
+                      "uid": "35240-75904396-0d94-4761-927d-b19103b1be7d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:42:18.000Z",
+                  "updatedAt": "2026-10-22T01:42:18.000Z",
+                  "uid": "35240-6ea7c967-254e-4490-8046-28c8425e7fd5"
+                }
+              ],
+              "id": "31d13c31-f590-4ac6-9f71-95fa1bd84d1e",
+              "createdAt": "2026-10-22T01:42:18.000Z",
+              "updatedAt": "2026-10-22T01:42:18.000Z",
+              "uid": "35240-31d13c31-f590-4ac6-9f71-95fa1bd84d1e"
+            }
+          ],
+          "id": "24a6ad8d-26af-4afa-a9f0-66e134c0f33c",
+          "createdAt": "2026-10-22T01:42:18.000Z",
+          "updatedAt": "2026-10-22T01:42:18.000Z",
+          "uid": "35240-24a6ad8d-26af-4afa-a9f0-66e134c0f33c"
+        },
+        {
+          "name": "list",
+          "item": [
+            {
+              "name": "List events",
+              "id": "c7a38e36-ba0f-471c-be2e-e36fb1b0f8ee",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<binary>"
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"ID\": \"string\",\n  \"Name\": \"string\",\n  \"Payload\": \"string\",\n  \"NodeFilter\": \"string\",\n  \"ServiceFilter\": \"string\",\n  \"TagFilter\": \"string\",\n  \"Version\": 728,\n  \"LTime\": 7427\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1a750c48-16f6-4218-8d48-95021d0b9f4c",
-          "name": "List events",
-          "request": {
-            "name": "List events",
-            "description": {},
-            "url": {
-              "path": [
-                "event",
-                "list"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "6b9e6050-08b3-4816-9837-91f9c6b2cd2e",
-              "name": "List of events",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/event/list?name=<string>&dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "event",
                     "list"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
                       "key": "name",
                       "value": "<string>"
                     },
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                  ]
+                }
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "b93cd482-3afb-432a-89fb-9e6530d9f702",
+                  "name": "List of events",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/event/list?name=<string>&dc=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "event",
+                        "list"
+                      ],
+                      "query": [
+                        {
+                          "key": "name",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"ID\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Payload\": \"<string>\",\n    \"NodeFilter\": \"<string>\",\n    \"ServiceFilter\": \"<string>\",\n    \"TagFilter\": \"<string>\",\n    \"Version\": \"<integer>\",\n    \"LTime\": \"<integer>\"\n  },\n  {\n    \"ID\": \"<string>\",\n    \"Name\": \"<string>\",\n    \"Payload\": \"<string>\",\n    \"NodeFilter\": \"<string>\",\n    \"ServiceFilter\": \"<string>\",\n    \"TagFilter\": \"<string>\",\n    \"Version\": \"<integer>\",\n    \"LTime\": \"<integer>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:42:18.000Z",
+                  "updatedAt": "2026-10-22T01:42:18.000Z",
+                  "uid": "35240-b93cd482-3afb-432a-89fb-9e6530d9f702"
                 }
               ],
-              "body": "[\n  {\n    \"ID\": \"string\",\n    \"Name\": \"string\",\n    \"Payload\": \"string\",\n    \"NodeFilter\": \"string\",\n    \"ServiceFilter\": \"string\",\n    \"TagFilter\": \"string\",\n    \"Version\": 4277,\n    \"LTime\": 8465\n  },\n  {\n    \"ID\": \"string\",\n    \"Name\": \"string\",\n    \"Payload\": \"string\",\n    \"NodeFilter\": \"string\",\n    \"ServiceFilter\": \"string\",\n    \"TagFilter\": \"string\",\n    \"Version\": 604,\n    \"LTime\": 2179\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:42:18.000Z",
+              "updatedAt": "2026-10-22T01:42:18.000Z",
+              "uid": "35240-c7a38e36-ba0f-471c-be2e-e36fb1b0f8ee"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "c8eaae54-129c-4c52-967e-c0fcf21febfc",
+          "createdAt": "2026-10-22T01:42:18.000Z",
+          "updatedAt": "2026-10-22T01:42:18.000Z",
+          "uid": "35240-c8eaae54-129c-4c52-967e-c0fcf21febfc"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "d3a17812-d12f-4f3c-ad7b-1dd1438e044a",
+      "createdAt": "2026-10-22T01:42:18.000Z",
+      "updatedAt": "2026-10-22T01:42:18.000Z",
+      "uid": "35240-d3a17812-d12f-4f3c-ad7b-1dd1438e044a"
     }
   ],
   "auth": {
@@ -268,25 +291,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "432eb99c-5141-44d2-a983-afff412ad278",
-    "name": "HashiCorp Consul HTTP ACL Events API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }

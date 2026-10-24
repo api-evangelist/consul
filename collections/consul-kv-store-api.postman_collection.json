@@ -1,455 +1,409 @@
 {
+  "info": {
+    "_postman_id": "2467762d-c148-45a5-b6d7-49a273e94ce2",
+    "name": "HashiCorp Consul HTTP KV Store API",
+    "description": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:42:28.000Z",
+    "updatedAt": "2026-10-22T01:42:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2467762d-c148-45a5-b6d7-49a273e94ce2"
+  },
   "item": [
     {
-      "id": "c57fcb15-de82-4559-ac97-2fbf622dc7d4",
-      "name": "KV Store",
-      "description": {
-        "content": "Key/Value store operations",
-        "type": "text/plain"
-      },
+      "name": "kv",
       "item": [
         {
-          "id": "d0b2261b-2bf7-4747-9153-4ba0cfe1b00e",
-          "name": "Read a key",
-          "request": {
-            "name": "Read a key",
-            "description": {
-              "content": "Returns the specified key. If no key exists at the given path, a 404 is returned.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "kv",
-                ":key"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                },
-                {
-                  "disabled": false,
-                  "key": "recurse",
-                  "value": "<boolean>",
-                  "description": "Return all keys with the given prefix"
-                },
-                {
-                  "disabled": false,
-                  "key": "raw",
-                  "value": "<boolean>",
-                  "description": "Return raw value without JSON encoding"
-                },
-                {
-                  "disabled": false,
-                  "key": "keys",
-                  "value": "<boolean>",
-                  "description": "Return only keys (no values)"
-                },
-                {
-                  "disabled": false,
-                  "key": "separator",
-                  "value": "<string>",
-                  "description": "List keys up to a given separator"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{key}",
+          "item": [
             {
-              "id": "403d0206-b50e-4350-b835-3ed78f6827d6",
-              "name": "Key-value pair(s)",
-              "originalRequest": {
+              "name": "Read a key",
+              "id": "3c1c556e-d1bb-4714-817a-8d52ef91d8c1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/kv/:key?dc=<string>&recurse=<boolean>&raw=<boolean>&keys=<boolean>&separator=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "kv",
                     ":key"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     },
                     {
+                      "description": "Return all keys with the given prefix",
                       "key": "recurse",
                       "value": "<boolean>"
                     },
                     {
+                      "description": "Return raw value without JSON encoding",
                       "key": "raw",
                       "value": "<boolean>"
                     },
                     {
+                      "description": "Return only keys (no values)",
                       "key": "keys",
                       "value": "<boolean>"
                     },
                     {
+                      "description": "List keys up to a given separator",
                       "key": "separator",
                       "value": "<string>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "683de9d6-4bdb-450c-aef0-9a1b5bb8c6df",
                       "key": "key",
+                      "value": "<string>",
                       "description": "(Required) "
                     }
                   ]
                 },
+                "description": "Returns the specified key. If no key exists at the given path, a 404 is returned."
+              },
+              "response": [
+                {
+                  "id": "4a4dacc0-a0ca-4106-b423-413516bb4a64",
+                  "name": "Key-value pair(s)",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/kv/:key?dc=<string>&recurse=<boolean>&raw=<boolean>&keys=<boolean>&separator=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "kv",
+                        ":key"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return all keys with the given prefix",
+                          "key": "recurse",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Return raw value without JSON encoding",
+                          "key": "raw",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Return only keys (no values)",
+                          "key": "keys",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "List keys up to a given separator",
+                          "key": "separator",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\",\n    \"LockIndex\": \"<integer>\",\n    \"Key\": \"<string>\",\n    \"Flags\": \"<integer>\",\n    \"Value\": \"<string>\",\n    \"Session\": \"<string>\"\n  },\n  {\n    \"CreateIndex\": \"<integer>\",\n    \"ModifyIndex\": \"<integer>\",\n    \"LockIndex\": \"<integer>\",\n    \"Key\": \"<string>\",\n    \"Flags\": \"<integer>\",\n    \"Value\": \"<string>\",\n    \"Session\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-22T01:42:28.000Z",
+                  "updatedAt": "2026-10-22T01:42:28.000Z",
+                  "uid": "35240-4a4dacc0-a0ca-4106-b423-413516bb4a64"
+                },
+                {
+                  "id": "5d4f67c6-f04d-44e6-958a-46ae357c9f52",
+                  "name": "Key not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/kv/:key?dc=<string>&recurse=<boolean>&raw=<boolean>&keys=<boolean>&separator=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "kv",
+                        ":key"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return all keys with the given prefix",
+                          "key": "recurse",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Return raw value without JSON encoding",
+                          "key": "raw",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "Return only keys (no values)",
+                          "key": "keys",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "description": "List keys up to a given separator",
+                          "key": "separator",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:42:28.000Z",
+                  "updatedAt": "2026-10-22T01:42:28.000Z",
+                  "uid": "35240-5d4f67c6-f04d-44e6-958a-46ae357c9f52"
+                }
+              ],
+              "createdAt": "2026-10-22T01:42:28.000Z",
+              "updatedAt": "2026-10-22T01:42:28.000Z",
+              "uid": "35240-3c1c556e-d1bb-4714-817a-8d52ef91d8c1"
+            },
+            {
+              "name": "Create or update a key",
+              "id": "5ccb4fd3-31c2-4d76-bec7-18a2cd25e620",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "text/plain"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"CreateIndex\": 1307,\n    \"ModifyIndex\": 8815,\n    \"LockIndex\": 9437,\n    \"Key\": \"string\",\n    \"Flags\": 7624,\n    \"Value\": \"string\",\n    \"Session\": \"string\"\n  },\n  {\n    \"CreateIndex\": 327,\n    \"ModifyIndex\": 7994,\n    \"LockIndex\": 1220,\n    \"Key\": \"string\",\n    \"Flags\": 6993,\n    \"Value\": \"string\",\n    \"Session\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8d620ffb-f5bd-46fd-8803-aca085432419",
-              "name": "Key not found",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/kv/:key?dc=<string>&flags=<integer>&cas=<integer>&acquire=<string>&release=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "kv",
                     ":key"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     },
                     {
-                      "key": "recurse",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "raw",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "keys",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "key": "separator",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "key",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8cd198df-68ab-4e4f-804a-955135f1eff9",
-          "name": "Create or update a key",
-          "request": {
-            "name": "Create or update a key",
-            "description": {
-              "content": "Creates or updates a key with the given value.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "kv",
-                ":key"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                },
-                {
-                  "disabled": false,
-                  "key": "flags",
-                  "value": "<integer>",
-                  "description": "Unsigned value between 0 and 2^64-1"
-                },
-                {
-                  "disabled": false,
-                  "key": "cas",
-                  "value": "<integer>",
-                  "description": "Check-And-Set index for optimistic locking"
-                },
-                {
-                  "disabled": false,
-                  "key": "acquire",
-                  "value": "<string>",
-                  "description": "Session ID to acquire a lock"
-                },
-                {
-                  "disabled": false,
-                  "key": "release",
-                  "value": "<string>",
-                  "description": "Session ID to release a lock"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "text/plain"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "<string>"
-            }
-          },
-          "response": [
-            {
-              "id": "1f3f7109-ac3a-446d-92ce-b48294f04a2c",
-              "name": "Success (true) or failure (false)",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "kv",
-                    ":key"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "dc",
-                      "value": "<string>"
-                    },
-                    {
+                      "description": "Unsigned value between 0 and 2^64-1",
                       "key": "flags",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Check-And-Set index for optimistic locking",
                       "key": "cas",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Session ID to acquire a lock",
                       "key": "acquire",
                       "value": "<string>"
                     },
                     {
+                      "description": "Session ID to release a lock",
                       "key": "release",
                       "value": "<string>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "11123ac1-0dbe-497c-8a49-79bfed940f30",
                       "key": "key",
+                      "value": "<string>",
                       "description": "(Required) "
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
+                "description": "Creates or updates a key with the given value."
+              },
+              "response": [
+                {
+                  "id": "6d39216b-c2d1-435a-83bf-966b067fb8b3",
+                  "name": "Success (true) or failure (false)",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<string>"
                     },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
+                    "url": {
+                      "raw": "{{baseUrl}}/kv/:key?dc=<string>&flags=<integer>&cas=<integer>&acquire=<string>&release=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "kv",
+                        ":key"
+                      ],
+                      "query": [
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Unsigned value between 0 and 2^64-1",
+                          "key": "flags",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Check-And-Set index for optimistic locking",
+                          "key": "cas",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Session ID to acquire a lock",
+                          "key": "acquire",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Session ID to release a lock",
+                          "key": "release",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<boolean>",
+                  "createdAt": "2026-10-22T01:42:28.000Z",
+                  "updatedAt": "2026-10-22T01:42:28.000Z",
+                  "uid": "35240-6d39216b-c2d1-435a-83bf-966b067fb8b3"
+                }
+              ],
+              "createdAt": "2026-10-22T01:42:28.000Z",
+              "updatedAt": "2026-10-22T01:42:28.000Z",
+              "uid": "35240-5ccb4fd3-31c2-4d76-bec7-18a2cd25e620"
+            },
+            {
+              "name": "Delete a key",
+              "id": "59714688-1d98-4928-b8bb-dfcbac10aa06",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "<string>"
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "false",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "474de6fc-e268-402f-a436-706088103f9e",
-          "name": "Delete a key",
-          "request": {
-            "name": "Delete a key",
-            "description": {
-              "content": "Deletes a single key or all keys sharing a prefix.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "kv",
-                ":key"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "recurse",
-                  "value": "<boolean>"
-                },
-                {
-                  "disabled": false,
-                  "key": "cas",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "dc",
-                  "value": "<string>",
-                  "description": "Datacenter to query (defaults to agent's datacenter)"
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "key",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1698352a-6525-433d-9222-ffbfca20ee87",
-              "name": "Deletion result",
-              "originalRequest": {
                 "url": {
+                  "raw": "{{baseUrl}}/kv/:key?recurse=<boolean>&cas=<integer>&dc=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "kv",
                     ":key"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
                   ],
                   "query": [
                     {
@@ -461,65 +415,102 @@
                       "value": "<integer>"
                     },
                     {
+                      "description": "Datacenter to query (defaults to agent's datacenter)",
                       "key": "dc",
                       "value": "<string>"
                     }
                   ],
                   "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
+                      "id": "7f2a903e-c909-4cc5-985d-3dbe5cb6b4fb",
                       "key": "key",
+                      "value": "<string>",
                       "description": "(Required) "
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "X-Consul-Token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
+                "description": "Deletes a single key or all keys sharing a prefix."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "05ee8e0e-313a-448a-aa0e-99b720312f35",
+                  "name": "Deletion result",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Consul-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/kv/:key?recurse=<boolean>&cas=<integer>&dc=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "kv",
+                        ":key"
+                      ],
+                      "query": [
+                        {
+                          "key": "recurse",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "cas",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Datacenter to query (defaults to agent's datacenter)",
+                          "key": "dc",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "key"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<boolean>",
+                  "createdAt": "2026-10-22T01:42:28.000Z",
+                  "updatedAt": "2026-10-22T01:42:28.000Z",
+                  "uid": "35240-05ee8e0e-313a-448a-aa0e-99b720312f35"
                 }
               ],
-              "body": "true",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-22T01:42:28.000Z",
+              "updatedAt": "2026-10-22T01:42:28.000Z",
+              "uid": "35240-59714688-1d98-4928-b8bb-dfcbac10aa06"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6a0bdaaf-b3c9-4234-8fcc-1080b1876f87",
+          "createdAt": "2026-10-22T01:42:28.000Z",
+          "updatedAt": "2026-10-22T01:42:28.000Z",
+          "uid": "35240-6a0bdaaf-b3c9-4234-8fcc-1080b1876f87"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "http://localhost:8500/v1",
-      "key": "baseUrl"
+      "id": "3acc4dc3-cbc4-44a3-b8c9-2df36f36208e",
+      "createdAt": "2026-10-22T01:42:28.000Z",
+      "updatedAt": "2026-10-22T01:42:28.000Z",
+      "uid": "35240-3acc4dc3-cbc4-44a3-b8c9-2df36f36208e"
     }
   ],
   "auth": {
@@ -527,25 +518,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "X-Consul-Token"
+        "value": "X-Consul-Token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "ae309953-f0fa-46af-8f6e-c4f4c0b6be3b",
-    "name": "HashiCorp Consul HTTP ACL KV Store API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Consul HTTP API provides full access to Consul functionality including service discovery, health checking, key/value storage, ACL management, Connect service mesh, configuration entries, and multi-datacenter operations.\n\nContact Support:\n Name: HashiCorp",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8500/v1"
     }
-  }
+  ]
 }
